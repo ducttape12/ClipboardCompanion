@@ -57,6 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="Services\HotKeyBinding.cs" />
     <Compile Include="Services\HotKeyService.cs" />
+    <Compile Include="Services\IWindowsHotKeyApiService.cs" />
+    <Compile Include="Services\WindowsHotKeyApiService.cs" />
     <Compile Include="ViewModels\GuidCreatorViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
