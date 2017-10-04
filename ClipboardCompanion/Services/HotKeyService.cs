@@ -19,12 +19,12 @@ namespace ClipboardCompanion.Services
         {
             _source = source;
             _windowsHotKeyApiService = windowsHotKeyApiService;
-            _source?.AddHook(WndProc);
+            _source?.AddHook(OnWindowMessageReceived);
         }
 
         private const int HotKeyMessageTypeId = 0x0312;
 
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private IntPtr OnWindowMessageReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             var messageTypeId = msg;
             var hotKeyId = wParam;
