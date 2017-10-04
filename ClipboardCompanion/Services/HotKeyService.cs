@@ -10,7 +10,7 @@ namespace ClipboardCompanion.Services
     public class HotKeyService : IDisposable
     {
         private readonly HwndSource _source;
-        private readonly IDictionary<int, Action> _hotKeyIdActionMapping = new Dictionary<int, Action>();
+        private readonly IDictionary<int, HotKeyBinding> _hotKeyIdActionMapping = new Dictionary<int, HotKeyBinding>();
 
         private int _nextUpHotKeyId;
         private int NextUpHotKeyId => _nextUpHotKeyId++;
@@ -21,23 +21,21 @@ namespace ClipboardCompanion.Services
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
-        /// <summary>
-        /// Construct a new HotKeyService
-        /// </summary>
-        /// <param name="source">The source that will be associated with WinAPI calls</param>
         public HotKeyService(HwndSource source)
         {
             _source = source;
             _source?.AddHook(WndProc);
         }
 
-        private const int WmHotkey = 0x0312;
+        private const int HotKeyMessageTypeId = 0x0312;
 
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (msg == WmHotkey && _hotKeyIdActionMapping.ContainsKey((int)wParam))
+            var messageTypeId = msg;
+            var hotKeyId = wParam;
+            if (messageTypeId == HotKeyMessageTypeId && _hotKeyIdActionMapping.ContainsKey((int)hotKeyId))
             {
-                _hotKeyIdActionMapping[(int) wParam]();
+                _hotKeyIdActionMapping[(int)hotKeyId].OnHotKeyPressed();
             }
             
             return IntPtr.Zero;
@@ -53,62 +51,47 @@ namespace ClipboardCompanion.Services
             }
         }
 
-        /// <summary>
-        /// Registers a new hot key, returning the ID associated with this hot key
-        /// </summary>
-        /// <param name="modifiers">Any modifiers associated with this hot key combination</param>
-        /// <param name="key">The key associated with this hot key combination</param>
-        /// <param name="callback">The action that will be performed if this hot key combination is performed</param>
-        /// <param name="previousHotKeyIdToUnregister">The previous hot key ID associated with this action that should be unregistered</param>
-        /// <returns>The ID associated with this hot key combination</returns>
-        public int RegisterHotKeyToHotKeyId(IList<ModifierKeys> modifiers, Key key, Action callback, int? previousHotKeyIdToUnregister = null)
+        public HotKeyBinding RegisterHotKey(IList<ModifierKeys> modifierKeys, Key key)
         {
-            if (modifiers.Distinct().Count() != modifiers.Count)
+            if (modifierKeys.Distinct().Count() != modifierKeys.Count)
             {
-                throw new ArgumentException($"{nameof(modifiers)} must contain unique entries");
+                throw new ArgumentException($"{nameof(modifierKeys)} must contain unique entries");
             }
-            if (modifiers.Contains(ModifierKeys.Windows))
+            if (modifierKeys.Contains(ModifierKeys.Windows))
             {
                 throw new ArgumentException("Windows modifier key is not supported for hot keys");
             }
 
             var id = NextUpHotKeyId;
-
-            if (previousHotKeyIdToUnregister.HasValue)
+            var binding = new HotKeyBinding
             {
-                if (!UnregisterHotKey(previousHotKeyIdToUnregister.Value))
-                {
-                    throw new ApplicationException("Unable to unregister previous hot key.");
-                }
+                Id = id,
+                OnHotKeyPressed = () => { }
+            };
+            _hotKeyIdActionMapping[id] = binding;
+
+            var modifierKeyFlags = (uint)modifierKeys.Sum(modifier => (int)modifier);
+            if (!RegisterHotKey(_source.Handle, id, modifierKeyFlags, (uint)KeyInterop.VirtualKeyFromKey(key)))
+            {
+                throw new ApplicationException($"Unable to register hot key combination of {string.Join("+", modifierKeys.Select(modifier => modifier.ToString()))}+{key}.");
             }
 
-            if (!RegisterHotKey(_source.Handle, id, (uint) modifiers.Sum(modifier => (int) modifier),
-                (uint) KeyInterop.VirtualKeyFromKey(key)))
-            {
-                throw new ApplicationException("Unable to register hot key combination of " +
-                    $"{string.Join("+",modifiers.Select(modifier => modifier.ToString()))}+{key}.");
-            }
-
-            _hotKeyIdActionMapping.Add(id, callback);
-
-            return id;
+            return binding;
         }
 
-        /// <summary>
-        /// Unregister the hot key with the given ID
-        /// </summary>
-        /// <param name="previousHotKeyIdToUnregister"></param>
-        /// <returns></returns>
-        private bool UnregisterHotKey(int previousHotKeyIdToUnregister)
+        public void UnregisterHotKey(int id)
         {
-            if (UnregisterHotKey(_source.Handle, previousHotKeyIdToUnregister))
+            if (!_hotKeyIdActionMapping.ContainsKey(id))
+                throw new InvalidOperationException();
+
+            if (UnregisterHotKey(_source.Handle, id))
             {
-                _hotKeyIdActionMapping.Remove(previousHotKeyIdToUnregister);
-                return true;
+                _hotKeyIdActionMapping.Remove(id);
             }
-
-            return false;
-
+            else
+            {
+                throw new ApplicationException("Unable to unregister previous hot key. Sorry!");
+            }
         }
     }
 }
