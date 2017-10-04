@@ -9,8 +9,8 @@ namespace ClipboardCompanion.Services
 {
     public class HotKeyService : IDisposable
     {
-        private HwndSource _source;
-        private IDictionary<int, Action> _hotKeyIdActionMapping = new Dictionary<int, Action>();
+        private readonly HwndSource _source;
+        private readonly IDictionary<int, Action> _hotKeyIdActionMapping = new Dictionary<int, Action>();
 
         private int _nextUpHotKeyId;
         private int NextUpHotKeyId => _nextUpHotKeyId++;
