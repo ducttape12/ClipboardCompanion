@@ -61,18 +61,18 @@ namespace ClipboardCompanion.Services
             return binding;
         }
 
-        public void UnregisterHotKey(int id)
+        public void UnregisterHotKey(HotKeyBinding hotKeyBinding)
         {
-            if (!_hotKeyBindingsById.ContainsKey(id))
+            if (!_hotKeyBindingsById.ContainsKey(hotKeyBinding.Id))
                 throw new InvalidOperationException();
 
-            if (_windowsHotKeyApiService.UnregisterHotKey(_handle, id))
+            if (_windowsHotKeyApiService.UnregisterHotKey(_handle, hotKeyBinding.Id))
             {
-                _hotKeyBindingsById.Remove(id);
+                _hotKeyBindingsById.Remove(hotKeyBinding.Id);
             }
             else
             {
-                throw new ApplicationException("Unable to unregister previous hot key. Sorry!");
+                throw new ApplicationException("Unable to unregister previous hot key.");
             }
         }
     }
