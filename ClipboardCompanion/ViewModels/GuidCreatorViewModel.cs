@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using ClipboardCompanion.Services;
 
@@ -106,6 +108,11 @@ namespace ClipboardCompanion.ViewModels
             if (ShiftModifier) modifiers.Add(ModifierKeys.Shift);
 
             _hotKey = _hotKeyService.RegisterHotKey(modifiers, Key);
+
+            _hotKey.OnHotKeyPressed = () =>
+            {
+                Clipboard.SetText(Guid.NewGuid().ToString());
+            };
         }
     }
 }
