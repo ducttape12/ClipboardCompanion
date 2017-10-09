@@ -22,6 +22,16 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _isEnabled = value;
+
+                if (_isEnabled)
+                {
+                    RegisterHotKey();
+                }
+                else
+                {
+                    UnregisterHotKey();
+                }
+
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabled)));
             }
         }
@@ -68,11 +78,6 @@ namespace ClipboardCompanion.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public GuidCreatorViewModel(IHotKeyService hotKeyService)
         {
             _hotKeyService = hotKeyService;
@@ -94,11 +99,11 @@ namespace ClipboardCompanion.ViewModels
         private void RegisterHotKey()
         {
             UnregisterHotKey();
-            
+
             var modifiers = new List<ModifierKeys>();
-            if(ControlModifier) modifiers.Add(ModifierKeys.Control);
-            if(AltModifier) modifiers.Add(ModifierKeys.Alt);
-            if(ShiftModifier) modifiers.Add(ModifierKeys.Shift);
+            if (ControlModifier) modifiers.Add(ModifierKeys.Control);
+            if (AltModifier) modifiers.Add(ModifierKeys.Alt);
+            if (ShiftModifier) modifiers.Add(ModifierKeys.Shift);
 
             _hotKey = _hotKeyService.RegisterHotKey(modifiers, Key);
         }
