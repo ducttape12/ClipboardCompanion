@@ -33,7 +33,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ClipboardCompanion.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SimpleInjector, Version=4.0.11.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.11\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -55,14 +61,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Program.cs" />
     <Compile Include="Services\HotKeyBinding.cs" />
     <Compile Include="Services\HotKeyService.cs" />
     <Compile Include="Services\IHotKeyService.cs" />
+    <Compile Include="Services\IWindowHandleService.cs" />
     <Compile Include="Services\IWindowsHotKeyApiService.cs" />
+    <Compile Include="Services\WindowHandleService.cs" />
     <Compile Include="Services\WindowsHotKeyApiService.cs" />
-    <Compile Include="ViewModels\GuidCreatorViewModel.cs" />
-    <Compile Include="Views\GuidCreator.xaml.cs">
-      <DependentUpon>GuidCreator.xaml</DependentUpon>
+    <Compile Include="ViewModels\CompanionViewModelBase.cs" />
+    <Compile Include="ViewModels\GuidCreatorCompanionViewModel.cs" />
+    <Compile Include="Views\GuidCreatorControl.xaml.cs">
+      <DependentUpon>GuidCreatorControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -76,7 +86,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\GuidCreator.xaml">
+    <Page Include="Views\GuidCreatorControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,6 +109,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -2,25 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Interop;
 
 namespace ClipboardCompanion.Services
 {
     public class HotKeyService : IHotKeyService
     {
         private readonly IWindowsHotKeyApiService _windowsHotKeyApiService;
+        private readonly IWindowHandleService _windowHandleService;
         private readonly IDictionary<int, HotKeyBinding> _hotKeyBindingsById = new Dictionary<int, HotKeyBinding>();
 
         private int _nextUpHotKeyId;
-        private readonly IntPtr _handle;
+
+        private bool _hookAdded;
+        private IntPtr Handle
+        {
+            get
+            {
+                if (!_hookAdded)
+                {
+                    _windowHandleService.AddHookToRegisteredHandle(OnWindowMessageReceived);
+                    _hookAdded = true;
+                }
+
+                return _windowHandleService.Handle;
+            }
+        }
         private int NextUpHotKeyId => _nextUpHotKeyId++;
 
-        public HotKeyService(HwndSource source, IWindowsHotKeyApiService windowsHotKeyApiService)
+        public HotKeyService(IWindowsHotKeyApiService windowsHotKeyApiService, IWindowHandleService windowHandleService)
         {
-            _handle = source.Handle;
             _windowsHotKeyApiService = windowsHotKeyApiService;
-
-            source.AddHook(OnWindowMessageReceived);
+            _windowHandleService = windowHandleService;
         }
 
         private const int HotKeyMessageTypeId = 0x0312;
@@ -53,7 +65,7 @@ namespace ClipboardCompanion.Services
             _hotKeyBindingsById[id] = binding;
 
             var modifierKeyFlags = (uint)modifierKeys.Sum(modifier => (int)modifier);
-            if (!_windowsHotKeyApiService.RegisterHotKey(_handle, id, modifierKeyFlags, (uint)KeyInterop.VirtualKeyFromKey(key)))
+            if (!_windowsHotKeyApiService.RegisterHotKey(Handle, id, modifierKeyFlags, (uint)KeyInterop.VirtualKeyFromKey(key)))
             {
                 throw new ApplicationException($"Unable to register hot key combination of {string.Join("+", modifierKeys.Select(modifier => modifier.ToString()))}+{key}.");
             }
@@ -66,7 +78,7 @@ namespace ClipboardCompanion.Services
             if (!_hotKeyBindingsById.ContainsKey(hotKeyBinding.Id))
                 throw new InvalidOperationException();
 
-            if (_windowsHotKeyApiService.UnregisterHotKey(_handle, hotKeyBinding.Id))
+            if (_windowsHotKeyApiService.UnregisterHotKey(Handle, hotKeyBinding.Id))
             {
                 _hotKeyBindingsById.Remove(hotKeyBinding.Id);
             }

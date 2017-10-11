@@ -1,22 +1,26 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
 using ClipboardCompanion.Services;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class GuidCreatorViewModel : INotifyPropertyChanged
+    public abstract class CompanionViewModelBase : INotifyPropertyChanged
     {
         private readonly IHotKeyService _hotKeyService;
-
         private bool _isEnabled;
         private bool _controlModifier;
         private bool _altModifier;
         private bool _shiftModifier;
         private Key _key;
         private HotKeyBinding _hotKey;
+        private bool _isInitiailized;
+
+        protected CompanionViewModelBase(IHotKeyService hotKeyService)
+        {
+            _hotKeyService = hotKeyService;
+        }
 
         public bool IsEnabled
         {
@@ -24,16 +28,7 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _isEnabled = value;
-
-                if (_isEnabled)
-                {
-                    RegisterHotKey();
-                }
-                else
-                {
-                    UnregisterHotKey();
-                }
-
+                UpdateRegistrationStatus();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabled)));
             }
         }
@@ -44,6 +39,7 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _controlModifier = value;
+                UpdateRegistrationStatus();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ControlModifier)));
             }
         }
@@ -54,6 +50,7 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _altModifier = value;
+                UpdateRegistrationStatus();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AltModifier)));
             }
         }
@@ -64,6 +61,7 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _shiftModifier = value;
+                UpdateRegistrationStatus();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShiftModifier)));
             }
         }
@@ -74,24 +72,29 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _key = value;
+                UpdateRegistrationStatus();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Key)));
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public virtual event PropertyChangedEventHandler PropertyChanged;
 
-        public GuidCreatorViewModel(IHotKeyService hotKeyService)
+        private void UpdateRegistrationStatus()
         {
-            _hotKeyService = hotKeyService;
-
-            IsEnabled = true;
-            ControlModifier = true;
-            ShiftModifier = true;
-            Key = Key.G;
+            if (IsEnabled)
+            {
+                RegisterHotKey();
+            }
+            else
+            {
+                UnregisterHotKey();
+            }
         }
 
         private void UnregisterHotKey()
         {
+            if (!_isInitiailized) return;
+
             if (_hotKey != null)
             {
                 _hotKeyService.UnregisterHotKey(_hotKey);
@@ -100,6 +103,8 @@ namespace ClipboardCompanion.ViewModels
 
         private void RegisterHotKey()
         {
+            if (!_isInitiailized) return;
+
             UnregisterHotKey();
 
             var modifiers = new List<ModifierKeys>();
@@ -109,10 +114,14 @@ namespace ClipboardCompanion.ViewModels
 
             _hotKey = _hotKeyService.RegisterHotKey(modifiers, Key);
 
-            _hotKey.OnHotKeyPressed = () =>
-            {
-                Clipboard.SetText(Guid.NewGuid().ToString());
-            };
+            _hotKey.OnHotKeyPressed = HotKeyPressedAction;
+        }
+
+        public abstract Action HotKeyPressedAction { get; }
+
+        public virtual void Initialize()
+        {
+            _isInitiailized = true;
         }
     }
 }
