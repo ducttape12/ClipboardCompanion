@@ -1,4 +1,5 @@
 ﻿using System;
+using ClipboardCompanion.Converters;
 using ClipboardCompanion.Services;
 using ClipboardCompanion.ViewModels;
 using ClipboardCompanion.Views;
@@ -19,14 +20,14 @@ namespace ClipboardCompanion
         private static Container Bootstrap()
         {
             var container = new Container();
-            
-            container.Register<IHotKeyService, HotKeyService>();
-            container.Register<IWindowsHotKeyApiService, WindowsHotKeyApiService>();
-            container.RegisterSingleton<IWindowHandleService, WindowHandleService>();
-            
+
             container.Register<MainWindow>();
             container.Register<GuidCreatorCompanionViewModel>();
             container.Register<GuidCreatorControl>();
+
+            container.Register<IHotKeyService, HotKeyService>();
+            container.Register<IWindowsHotKeyApiService, WindowsHotKeyApiService>();
+            container.RegisterSingleton<IWindowHandleService, WindowHandleService>();
 
             container.Verify();
 

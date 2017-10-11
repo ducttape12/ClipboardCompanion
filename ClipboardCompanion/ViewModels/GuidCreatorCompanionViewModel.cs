@@ -1,26 +1,32 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using ClipboardCompanion.Services;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public enum GuidCasing
-    {
-        LowerCase,
-        UpperCase
-    }
-
-    public enum GuidStyle
-    {
-        Plain,
-        Hyphens,
-        HyphensBraces,
-        HyhpensParentheses
-    }
 
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
+        public enum GuidCasing
+        {
+            [Description("Lower Case")]
+            LowerCase,
+            [Description("Upper Case")]
+            UpperCase
+        }
+
+        public enum GuidStyle
+        {
+            Plain,
+            Hyphens,
+            HyphensBraces,
+            HyhpensParentheses
+        }
+
         //public GuidCreatorCompanionViewModel() : base() { }
 
         public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService) : base(hotKeyService)
@@ -40,6 +46,9 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
+        public ObservableCollection<GuidCasing> GuidCasingOptions { get; } =
+            new ObservableCollection<GuidCasing>(Enum.GetValues(typeof(GuidCasing)).Cast<GuidCasing>());
+
         private GuidStyle _style;
 
         public GuidStyle Style
@@ -52,6 +61,8 @@ namespace ClipboardCompanion.ViewModels
                 RaisePropertyChanged(nameof(Style));
             }
         }
+        public ObservableCollection<GuidStyle> GuidStyleOptions { get; } =
+            new ObservableCollection<GuidStyle>(Enum.GetValues(typeof(GuidStyle)).Cast<GuidStyle>());
 
         public override Action HotKeyPressedAction
         {
@@ -107,7 +118,7 @@ namespace ClipboardCompanion.ViewModels
 
             Style = GuidStyle.HyhpensParentheses;
             Casing = GuidCasing.UpperCase;
-            
+
             base.Initialize();
         }
     }

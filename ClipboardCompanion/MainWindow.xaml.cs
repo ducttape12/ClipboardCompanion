@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Interop;
 using ClipboardCompanion.Services;
+using ClipboardCompanion.ViewModels;
 using ClipboardCompanion.Views;
 
 namespace ClipboardCompanion
@@ -11,11 +12,17 @@ namespace ClipboardCompanion
         private readonly IWindowHandleService _windowHandleService;
         private readonly GuidCreatorControl _guidCreatorControl;
 
+        //public MainWindow()
+        //{
+        //    InitializeComponent();
+        //    this.Content = new GuidCreatorControl(new GuidCreatorCompanionViewModel());
+        //}
+
         public MainWindow(IWindowHandleService windowHandleService, GuidCreatorControl guidCreatorControl)
         {
             InitializeComponent();
             _windowHandleService = windowHandleService;
-            this._guidCreatorControl = guidCreatorControl;
+            _guidCreatorControl = guidCreatorControl;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -23,7 +30,7 @@ namespace ClipboardCompanion
             var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
             _windowHandleService.RegisterWindowHandle(hwndSource);
 
-            this.Content = _guidCreatorControl;
+            Content = _guidCreatorControl;
         }
     }
 }

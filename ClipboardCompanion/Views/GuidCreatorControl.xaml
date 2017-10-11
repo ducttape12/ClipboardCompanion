@@ -4,13 +4,34 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ClipboardCompanion.Views"
-             xmlns:ViewModels="clr-namespace:ClipboardCompanion.ViewModels" x:Class="ClipboardCompanion.Views.GuidCreatorControl"
+             xmlns:ViewModels="clr-namespace:ClipboardCompanion.ViewModels"
+             xmlns:converters="clr-namespace:ClipboardCompanion.Converters"
+             x:Class="ClipboardCompanion.Views.GuidCreatorControl"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <!--<UserControl.DataContext>
         <ViewModels:GuidCreatorCompanionViewModel/>
     </UserControl.DataContext>-->
+    <UserControl.Resources>
+        <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
+    </UserControl.Resources>
     <Grid>
-        <local:SharedCompanionControl DataContext="{Binding}" />
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="GUID _Casing" />
+        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding GuidCasingOptions, Converter={StaticResource EnumDescriptionConverter}}" SelectedItem="{Binding Casing}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="GUID _Style" />
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GuidStyleOptions}" SelectedItem="{Binding Style}" />
+        
+        <local:SharedCompanionControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding}" />
     </Grid>
 </UserControl>

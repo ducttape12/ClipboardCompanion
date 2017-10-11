@@ -61,6 +61,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\HotKeyBinding.cs" />
     <Compile Include="Services\HotKeyService.cs" />
