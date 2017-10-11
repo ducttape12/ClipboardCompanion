@@ -74,6 +74,9 @@
     <Compile Include="Views\GuidCreatorControl.xaml.cs">
       <DependentUpon>GuidCreatorControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SharedCompanionControl.xaml.cs">
+      <DependentUpon>SharedCompanionControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,6 +90,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\GuidCreatorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SharedCompanionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

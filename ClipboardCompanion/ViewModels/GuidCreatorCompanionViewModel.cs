@@ -21,6 +21,8 @@ namespace ClipboardCompanion.ViewModels
 
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
+        //public GuidCreatorCompanionViewModel() : base() { }
+
         public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService) : base(hotKeyService)
         {
         }
