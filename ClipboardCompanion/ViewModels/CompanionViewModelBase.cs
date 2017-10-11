@@ -28,8 +28,8 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _isEnabled = value;
-                UpdateRegistrationStatus();
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabled)));
+                UpdateHotKeyHandling();
+                RaisePropertyChanged(nameof(IsEnabled));
             }
         }
 
@@ -39,8 +39,8 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _controlModifier = value;
-                UpdateRegistrationStatus();
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ControlModifier)));
+                UpdateHotKeyHandling();
+                RaisePropertyChanged(nameof(ControlModifier));
             }
         }
 
@@ -50,8 +50,8 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _altModifier = value;
-                UpdateRegistrationStatus();
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AltModifier)));
+                UpdateHotKeyHandling();
+                RaisePropertyChanged(nameof(AltModifier));
             }
         }
 
@@ -61,8 +61,8 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _shiftModifier = value;
-                UpdateRegistrationStatus();
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShiftModifier)));
+                UpdateHotKeyHandling();
+                RaisePropertyChanged(nameof(ShiftModifier));
             }
         }
 
@@ -72,14 +72,12 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _key = value;
-                UpdateRegistrationStatus();
+                UpdateHotKeyHandling();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Key)));
             }
         }
 
-        public virtual event PropertyChangedEventHandler PropertyChanged;
-
-        private void UpdateRegistrationStatus()
+        protected void UpdateHotKeyHandling()
         {
             if (IsEnabled)
             {
@@ -113,7 +111,6 @@ namespace ClipboardCompanion.ViewModels
             if (ShiftModifier) modifiers.Add(ModifierKeys.Shift);
 
             _hotKey = _hotKeyService.RegisterHotKey(modifiers, Key);
-
             _hotKey.OnHotKeyPressed = HotKeyPressedAction;
         }
 
@@ -122,6 +119,15 @@ namespace ClipboardCompanion.ViewModels
         public virtual void Initialize()
         {
             _isInitiailized = true;
+
+            UpdateHotKeyHandling();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
