@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Interop;
 using ClipboardCompanion.Services;
 using ClipboardCompanion.ViewModels;
-using ClipboardCompanion.Views;
 
 namespace ClipboardCompanion
 {
@@ -25,7 +23,6 @@ namespace ClipboardCompanion
             _windowHandleService.RegisterWindowHandle(hwndSource);
 
             DataContext = _viewModel;
-            //Content = _guidCreatorControl;
         }
     }
 }

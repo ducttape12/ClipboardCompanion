@@ -213,8 +213,8 @@ namespace ClipboardCompanion.ViewModels
             if (AltModifier) modifiers.Add(ModifierKeys.Alt);
             if (ShiftModifier) modifiers.Add(ModifierKeys.Shift);
 
-            //_hotKey = _hotKeyService.RegisterHotKey(modifiers, Key);
-            //_hotKey.OnHotKeyPressed = HotKeyPressedAction;
+            _hotKey = _hotKeyService.RegisterHotKey(modifiers, Key);
+            _hotKey.OnHotKeyPressed = HotKeyPressedAction;
         }
 
         public abstract Action HotKeyPressedAction { get; }

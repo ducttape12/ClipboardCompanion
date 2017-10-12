@@ -23,8 +23,8 @@ namespace ClipboardCompanion
             container.Register<MainWindow>();
             container.Register<GuidCreatorCompanionViewModel>();
             container.Register<GuidCreatorControl>();
-            //container.Register<TextCleanerCompanionViewModel>();
-            //container.Register<TextCleanerCompanionControl>();
+            container.Register<TextCleanerCompanionViewModel>();
+            container.Register<TextCleanerCompanionControl>();
             container.Register<MainWindowViewModel>();
 
             container.Register<IHotKeyService, HotKeyService>();

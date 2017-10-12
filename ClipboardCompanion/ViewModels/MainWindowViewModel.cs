@@ -16,11 +16,11 @@ namespace ClipboardCompanion.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MainWindowViewModel(GuidCreatorControl guidCreatorControl)//,
-            //TextCleanerCompanionControl textCleanerCompanionControl)
+        public MainWindowViewModel(GuidCreatorControl guidCreatorControl,
+            TextCleanerCompanionControl textCleanerCompanionControl)
         {
             AddCompanionTabItem(guidCreatorControl, "GUID Creator");
-            //AddCompanionTabItem(textCleanerCompanionControl, "Text Cleaner");
+            AddCompanionTabItem(textCleanerCompanionControl, "Text Cleaner");
 
             SelectedTabItem = CompanionTabItems.First();
         }

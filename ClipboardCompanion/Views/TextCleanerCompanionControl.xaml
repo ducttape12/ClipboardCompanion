@@ -7,9 +7,9 @@
              xmlns:ViewModels="clr-namespace:ClipboardCompanion.ViewModels" x:Class="ClipboardCompanion.Views.TextCleanerCompanionControl"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <ViewModels:TextCleanerCompanionViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
