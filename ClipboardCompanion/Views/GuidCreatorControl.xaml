@@ -27,10 +27,10 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="GUID _Casing" />
-        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding GuidCasingOptions, Converter={StaticResource EnumDescriptionConverter}}" SelectedItem="{Binding Casing}" />
+        <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding GuidCasingOptions, Converter={StaticResource EnumDescriptionConverter}}" SelectedItem="{Binding Casing, Converter={StaticResource EnumDescriptionConverter}}" />
 
         <Label Grid.Row="1" Grid.Column="0" Content="GUID _Style" />
-        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GuidStyleOptions}" SelectedItem="{Binding Style}" />
+        <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GuidStyleOptions, Converter={StaticResource EnumDescriptionConverter}}" SelectedItem="{Binding Style, Converter={StaticResource EnumDescriptionConverter}}" />
         
         <local:SharedCompanionControl Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" DataContext="{Binding}" />
     </Grid>
