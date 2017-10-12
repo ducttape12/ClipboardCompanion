@@ -27,8 +27,8 @@ namespace ClipboardCompanion
             container.Register<TextCleanerCompanionControl>();
             container.Register<MainWindowViewModel>();
 
-            container.Register<IHotKeyService, HotKeyService>();
-            container.Register<IWindowsHotKeyApiService, WindowsHotKeyApiService>();
+            container.RegisterSingleton<IHotKeyService, HotKeyService>();
+            container.RegisterSingleton<IWindowsHotKeyApiService, WindowsHotKeyApiService>();
             container.RegisterSingleton<IWindowHandleService, WindowHandleService>();
 
             container.Verify();
