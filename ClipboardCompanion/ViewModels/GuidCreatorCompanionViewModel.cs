@@ -68,11 +68,8 @@ namespace ClipboardCompanion.ViewModels
         public ObservableCollection<GuidStyle> GuidStyleOptions { get; } =
             new ObservableCollection<GuidStyle>(Enum.GetValues(typeof(GuidStyle)).Cast<GuidStyle>());
 
-        public override Action HotKeyPressedAction
-        {
-            get
-            {
-                return () =>
+        public override Action HotKeyPressedAction =>
+            () =>
                 {
                     var guidFormat = DetermineGuidFormatter(Style);
                     var guid = Guid.NewGuid().ToString(guidFormat);
@@ -80,8 +77,6 @@ namespace ClipboardCompanion.ViewModels
 
                     Clipboard.SetText(casedGuid);
                 };
-            }
-        }
 
         private static string CaseGuid(string guid, GuidCasing casing)
         {

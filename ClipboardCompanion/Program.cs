@@ -1,5 +1,4 @@
 ﻿using System;
-using ClipboardCompanion.Converters;
 using ClipboardCompanion.Services;
 using ClipboardCompanion.ViewModels;
 using ClipboardCompanion.Views;
@@ -24,6 +23,9 @@ namespace ClipboardCompanion
             container.Register<MainWindow>();
             container.Register<GuidCreatorCompanionViewModel>();
             container.Register<GuidCreatorControl>();
+            //container.Register<TextCleanerCompanionViewModel>();
+            //container.Register<TextCleanerCompanionControl>();
+            container.Register<MainWindowViewModel>();
 
             container.Register<IHotKeyService, HotKeyService>();
             container.Register<IWindowsHotKeyApiService, WindowsHotKeyApiService>();

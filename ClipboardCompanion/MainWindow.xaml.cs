@@ -10,19 +10,13 @@ namespace ClipboardCompanion
     public partial class MainWindow : Window
     {
         private readonly IWindowHandleService _windowHandleService;
-        private readonly GuidCreatorControl _guidCreatorControl;
+        private readonly MainWindowViewModel _viewModel;
 
-        //public MainWindow()
-        //{
-        //    InitializeComponent();
-        //    this.Content = new GuidCreatorControl(new GuidCreatorCompanionViewModel());
-        //}
-
-        public MainWindow(IWindowHandleService windowHandleService, GuidCreatorControl guidCreatorControl)
+        public MainWindow(IWindowHandleService windowHandleService, MainWindowViewModel viewModel)
         {
             InitializeComponent();
             _windowHandleService = windowHandleService;
-            _guidCreatorControl = guidCreatorControl;
+            _viewModel = viewModel;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -30,7 +24,8 @@ namespace ClipboardCompanion
             var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
             _windowHandleService.RegisterWindowHandle(hwndSource);
 
-            Content = _guidCreatorControl;
+            DataContext = _viewModel;
+            //Content = _guidCreatorControl;
         }
     }
 }
