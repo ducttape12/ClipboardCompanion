@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,8 +67,10 @@
     <Compile Include="Services\HotKeyBinding.cs" />
     <Compile Include="Services\HotKeyService.cs" />
     <Compile Include="Services\IHotKeyService.cs" />
+    <Compile Include="Services\INotificationService.cs" />
     <Compile Include="Services\IWindowHandleService.cs" />
     <Compile Include="Services\IWindowsHotKeyApiService.cs" />
+    <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\WindowHandleService.cs" />
     <Compile Include="Services\WindowsHotKeyApiService.cs" />
     <Compile Include="ViewModels\CompanionViewModelBase.cs" />

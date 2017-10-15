@@ -11,6 +11,8 @@ namespace ClipboardCompanion.ViewModels
 
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
+        private readonly INotificationService _notificationService;
+
         public enum GuidCasing
         {
             [Description("Lower Case")]
@@ -33,8 +35,9 @@ namespace ClipboardCompanion.ViewModels
 
         //public GuidCreatorCompanionViewModel() : base() { }
 
-        public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService) : base(hotKeyService)
+        public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService, INotificationService notificationService) : base(hotKeyService)
         {
+            _notificationService = notificationService;
         }
 
         private GuidCasing _casing;
@@ -76,6 +79,8 @@ namespace ClipboardCompanion.ViewModels
                     var casedGuid = CaseGuid(guid, Casing);
 
                     Clipboard.SetText(casedGuid);
+
+                    _notificationService.ShowNotification("A new GUID has been placed on the clipboard.");
                 };
 
         private static string CaseGuid(string guid, GuidCasing casing)

@@ -1,4 +1,5 @@
 ﻿using System;
+using ClipboardCompanion.Properties;
 using ClipboardCompanion.Services;
 using ClipboardCompanion.ViewModels;
 using ClipboardCompanion.Views;
@@ -30,6 +31,7 @@ namespace ClipboardCompanion
             container.RegisterSingleton<IHotKeyService, HotKeyService>();
             container.RegisterSingleton<IWindowsHotKeyApiService, WindowsHotKeyApiService>();
             container.RegisterSingleton<IWindowHandleService, WindowHandleService>();
+            container.Register<INotificationService>(() => new NotificationService(Resources.ApplicationTitle));
 
             container.Verify();
 
