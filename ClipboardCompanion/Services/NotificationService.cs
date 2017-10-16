@@ -27,7 +27,7 @@ namespace ClipboardCompanion.Services
 
         public void ShowNotification(string message)
         {
-            var timeSinceLastBalloonTip = DateTime.Now - _lastBalloonTipShownUtc;
+            var timeSinceLastBalloonTip = DateTime.UtcNow - _lastBalloonTipShownUtc;
             
             // If too many balloons are shown in a short amount of time, Windows Explorer crashes
             if (timeSinceLastBalloonTip > _timeBetweenBalloonTips)
