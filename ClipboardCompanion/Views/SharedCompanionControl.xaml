@@ -10,28 +10,34 @@
     <!--<UserControl.DataContext>
         <ViewModels:GuidCreatorCompanionViewModel/>
     </UserControl.DataContext>-->
-    <GroupBox Header="Configuration">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-            <CheckBox Grid.ColumnSpan="3" Content="_Enabled" IsChecked="{Binding IsEnabled}" />
+        <CheckBox Grid.Row="0" Content="_Enabled" IsChecked="{Binding IsEnabled}" />
+        
+        <GroupBox Header="Hot Key" Grid.Row="1" IsEnabled="{Binding IsEnabled}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-            <CheckBox Grid.Row="1" Grid.Column="0" Content="Control" IsChecked="{Binding ControlModifier}" IsEnabled="{Binding IsEnabled}"/>
-            <CheckBox Grid.Row="1" Grid.Column="1" Content="Alt" IsChecked="{Binding AltModifier}" IsEnabled="{Binding IsEnabled}" />
-            <CheckBox Grid.Row="1" Grid.Column="2" Content="Shift" IsChecked="{Binding ShiftModifier}" IsEnabled="{Binding IsEnabled}" />
+                <CheckBox Grid.Row="0" Grid.Column="0" Content="Control" IsChecked="{Binding ControlModifier}" />
+                <CheckBox Grid.Row="0" Grid.Column="1" Content="Alt" IsChecked="{Binding AltModifier}" />
+                <CheckBox Grid.Row="0" Grid.Column="2" Content="Shift" IsChecked="{Binding ShiftModifier}" />
 
-            <ComboBox Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" ItemsSource="{Binding ValidKeys}" SelectedItem="{Binding Key, Mode=TwoWay}" IsEnabled="{Binding IsEnabled}" />
-
-        </Grid>
-    </GroupBox>
+                <ComboBox Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ValidKeys}" SelectedItem="{Binding Key, Mode=TwoWay}"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+    
     
 </UserControl>

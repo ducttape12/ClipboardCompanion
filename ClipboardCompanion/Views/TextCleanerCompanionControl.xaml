@@ -16,8 +16,10 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <CheckBox Content="_Trim Text" IsChecked="{Binding Trim}" />
+        <local:SharedCompanionControl Grid.Row="0" DataContext="{Binding}" />
 
-        <local:SharedCompanionControl Grid.Row="1" DataContext="{Binding}" />
+        <GroupBox Header="Configuration" Grid.Row="1" IsEnabled="{Binding IsEnabled}">
+            <CheckBox Content="_Trim Text" IsChecked="{Binding Trim}" />
+        </GroupBox>
     </Grid>
 </UserControl>
