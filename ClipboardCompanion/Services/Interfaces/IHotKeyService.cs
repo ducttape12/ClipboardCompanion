@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
 
-namespace ClipboardCompanion.Services
+namespace ClipboardCompanion.Services.Interfaces
 {
     public interface IHotKeyService
     {

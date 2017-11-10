@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.Services
 {

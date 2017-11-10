@@ -1,4 +1,4 @@
-﻿namespace ClipboardCompanion.Services
+﻿namespace ClipboardCompanion.Services.Interfaces
 {
     public interface INotificationService
     {

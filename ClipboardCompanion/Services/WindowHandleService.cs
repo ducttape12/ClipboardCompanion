@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Interop;
+using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.Services
 {

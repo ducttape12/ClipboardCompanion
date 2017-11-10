@@ -66,10 +66,10 @@
     <Compile Include="Program.cs" />
     <Compile Include="Services\HotKeyBinding.cs" />
     <Compile Include="Services\HotKeyService.cs" />
-    <Compile Include="Services\IHotKeyService.cs" />
-    <Compile Include="Services\INotificationService.cs" />
-    <Compile Include="Services\IWindowHandleService.cs" />
-    <Compile Include="Services\IWindowsHotKeyApiService.cs" />
+    <Compile Include="Services\Interfaces\IHotKeyService.cs" />
+    <Compile Include="Services\Interfaces\INotificationService.cs" />
+    <Compile Include="Services\Interfaces\IWindowHandleService.cs" />
+    <Compile Include="Services\Interfaces\IWindowsHotKeyApiService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\WindowHandleService.cs" />
     <Compile Include="Services\WindowsHotKeyApiService.cs" />

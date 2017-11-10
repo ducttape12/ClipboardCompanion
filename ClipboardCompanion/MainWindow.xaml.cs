@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Interop;
 using ClipboardCompanion.Services;
+using ClipboardCompanion.Services.Interfaces;
 using ClipboardCompanion.ViewModels;
 
 namespace ClipboardCompanion

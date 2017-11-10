@@ -1,6 +1,7 @@
 ﻿using System;
 using ClipboardCompanion.Properties;
 using ClipboardCompanion.Services;
+using ClipboardCompanion.Services.Interfaces;
 using ClipboardCompanion.ViewModels;
 using ClipboardCompanion.Views;
 using SimpleInjector;

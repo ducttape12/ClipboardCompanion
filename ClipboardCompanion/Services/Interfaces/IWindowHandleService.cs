@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Interop;
 
-namespace ClipboardCompanion.Services
+namespace ClipboardCompanion.Services.Interfaces
 {
     public interface IWindowHandleService
     {
