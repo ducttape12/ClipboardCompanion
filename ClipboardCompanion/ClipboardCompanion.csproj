@@ -63,6 +63,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Persistance\CompanionPersistance.cs" />
+    <Compile Include="Persistance\Interfaces\ICompanionPersistance.cs" />
+    <Compile Include="Persistance\Models\BaseCompanionModel.cs" />
+    <Compile Include="Persistance\Models\CompanionModelCollection.cs" />
+    <Compile Include="Persistance\Models\TextCleanerCompanionModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\HotKeyBinding.cs" />
     <Compile Include="Services\HotKeyService.cs" />
