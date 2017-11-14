@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Input;
+using ClipboardCompanion.Persistance.Interfaces;
+using ClipboardCompanion.Persistance.Models;
 using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
     public class TextCleanerCompanionViewModel : CompanionViewModelBase
     {
+        private readonly ICompanionPersistance _companionPersistance;
         private bool _trim;
 
         public bool Trim
@@ -22,8 +24,9 @@ namespace ClipboardCompanion.ViewModels
 
         //public TextCleanerCompanionViewModel() { }
 
-        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService) : base(hotKeyService)
+        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, ICompanionPersistance companionPersistance) : base(hotKeyService)
         {
+            _companionPersistance = companionPersistance;
         }
 
         public override Action HotKeyPressedAction =>
@@ -42,14 +45,28 @@ namespace ClipboardCompanion.ViewModels
                     }
                 };
 
+        protected override void SaveConfiguration()
+        {
+            _companionPersistance.Save(new TextCleanerCompanionModel
+            {
+                IsEnabled = IsEnabled,
+                ShiftModifier = ShiftModifier,
+                ControlModifier = ControlModifier,
+                Key = Key,
+                Trim = Trim
+            });
+        }
+
         public override void Initialize()
         {
-            IsEnabled = true;
-            ShiftModifier = true;
-            ControlModifier = true;
-            Key = Key.C;
+            var model = _companionPersistance.TextCleanerCompanionModel;
 
-            Trim = true;
+            IsEnabled = model.IsEnabled;
+            ShiftModifier = model.ShiftModifier;
+            ControlModifier = model.ControlModifier;
+            Key = model.Key;
+
+            Trim = model.Trim;
 
             base.Initialize();
         }

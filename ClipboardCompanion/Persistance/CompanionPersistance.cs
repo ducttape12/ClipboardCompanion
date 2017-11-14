@@ -10,6 +10,7 @@ namespace ClipboardCompanion.Persistance
     {
         private bool _loaded;
 
+        private const string ParentDirectory = "KeithOtt.com";
         private const string SaveDirectory = "ClipboardCompanion";
         private const string SaveFileName = "configuration.xml";
 
@@ -18,6 +19,12 @@ namespace ClipboardCompanion.Persistance
         public void Save(TextCleanerCompanionModel model)
         {
             _companionModelCollection.TextCleanerCompanionModel = model;
+            Save();
+        }
+
+        public void Save(GuidCreatorCompanionModel model)
+        {
+            _companionModelCollection.GuidCreatorCompanionModel = model;
             Save();
         }
 
@@ -35,7 +42,7 @@ namespace ClipboardCompanion.Persistance
         private static string FullSavePath => Path.Combine(FullSaveDirectory, SaveFileName);
 
         private static string FullSaveDirectory =>
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), SaveDirectory);
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ParentDirectory, SaveDirectory);
 
         public TextCleanerCompanionModel TextCleanerCompanionModel
         {
@@ -59,11 +66,18 @@ namespace ClipboardCompanion.Persistance
         {
             if (!_loaded && File.Exists(FullSavePath))
             {
-                var serializer = new XmlSerializer(typeof(CompanionPersistance));
+                var serializer = new XmlSerializer(typeof(CompanionModelCollection));
 
-                using (var reader = new FileStream(FullSavePath, FileMode.Open))
+                try
                 {
-                    _companionModelCollection = (CompanionModelCollection)serializer.Deserialize(reader);
+                    using (var reader = new FileStream(FullSavePath, FileMode.Open))
+                    {
+                        _companionModelCollection = (CompanionModelCollection) serializer.Deserialize(reader);
+                    }
+                }
+                catch
+                {
+                   _companionModelCollection = new CompanionModelCollection(); 
                 }
             }
             _loaded = true;

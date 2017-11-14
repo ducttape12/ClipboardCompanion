@@ -190,6 +190,8 @@ namespace ClipboardCompanion.ViewModels
             {
                 UnregisterHotKey();
             }
+
+            SaveConfiguration();
         }
 
         private void UnregisterHotKey()
@@ -219,6 +221,8 @@ namespace ClipboardCompanion.ViewModels
         }
 
         public abstract Action HotKeyPressedAction { get; }
+
+        protected abstract void SaveConfiguration();
 
         public virtual void Initialize()
         {

@@ -2,8 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using ClipboardCompanion.Enums;
+using ClipboardCompanion.Persistance.Interfaces;
+using ClipboardCompanion.Persistance.Models;
 using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
@@ -12,12 +13,15 @@ namespace ClipboardCompanion.ViewModels
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
         private readonly INotificationService _notificationService;
+        private readonly ICompanionPersistance _companionPersistance;
 
         //public GuidCreatorCompanionViewModel() : base() { }
 
-        public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService, INotificationService notificationService) : base(hotKeyService)
+        public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService, INotificationService notificationService,
+            ICompanionPersistance companionPersistance) : base(hotKeyService)
         {
             _notificationService = notificationService;
+            _companionPersistance = companionPersistance;
         }
 
         private GuidCasing _casing;
@@ -30,6 +34,7 @@ namespace ClipboardCompanion.ViewModels
                 _casing = value;
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(Casing));
+                SaveConfiguration();
             }
         }
 
@@ -46,6 +51,7 @@ namespace ClipboardCompanion.ViewModels
                 _style = value;
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(Style));
+                SaveConfiguration();
             }
         }
         public ObservableCollection<GuidStyle> GuidStyleOptions { get; } =
@@ -93,15 +99,30 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
+        protected override void SaveConfiguration()
+        {
+            _companionPersistance.Save(new GuidCreatorCompanionModel
+            {
+                IsEnabled = IsEnabled,
+                ShiftModifier = ShiftModifier,
+                ControlModifier = ControlModifier,
+                Key = Key,
+                Style = Style,
+                Casing = Casing
+            });
+        }
+
         public override void Initialize()
         {
-            IsEnabled = true;
-            ShiftModifier = true;
-            ControlModifier = true;
-            Key = Key.G;
+            var model = _companionPersistance.GuidCreatorCompanionModel;
 
-            Style = GuidStyle.HyhpensParentheses;
-            Casing = GuidCasing.UpperCase;
+            IsEnabled = model.IsEnabled;
+            ShiftModifier = model.ShiftModifier;
+            ControlModifier = model.ControlModifier;
+            Key = model.Key;
+
+            Style = model.Style;
+            Casing = model.Casing;
 
             base.Initialize();
         }
