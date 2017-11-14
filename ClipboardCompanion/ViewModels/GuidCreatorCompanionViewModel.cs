@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using ClipboardCompanion.Services;
+using ClipboardCompanion.Enums;
 using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
@@ -13,26 +12,6 @@ namespace ClipboardCompanion.ViewModels
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
         private readonly INotificationService _notificationService;
-
-        public enum GuidCasing
-        {
-            [Description("Lower Case")]
-            LowerCase,
-            [Description("Upper Case")]
-            UpperCase
-        }
-
-        public enum GuidStyle
-        {
-            [Description("32 digits")]
-            Plain,
-            [Description("32 digits separated by hyphens")]
-            Hyphens,
-            [Description("32 digits separated by hyphens, enclosed in braces")]
-            HyphensBraces,
-            [Description("32 digits separated by hyphens, enclosed in parentheses")]
-            HyhpensParentheses
-        }
 
         //public GuidCreatorCompanionViewModel() : base() { }
 

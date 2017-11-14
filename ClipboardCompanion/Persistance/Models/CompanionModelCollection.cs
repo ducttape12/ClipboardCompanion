@@ -3,5 +3,6 @@
     public class CompanionModelCollection
     {
         public TextCleanerCompanionModel TextCleanerCompanionModel { get; set; } = new TextCleanerCompanionModel();
+        public GuidCreatorCompanionModel GuidCreatorCompanionModel { get; set; } = new GuidCreatorCompanionModel();
     }
 }

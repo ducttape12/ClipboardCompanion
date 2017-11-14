@@ -6,6 +6,6 @@ namespace ClipboardCompanion.Persistance.Interfaces
     {
         void Save(TextCleanerCompanionModel model);
         TextCleanerCompanionModel TextCleanerCompanionModel { get; }
-    }
+        GuidCreatorCompanionModel GuidCreatorCompanionModel { get; }
     }
 }

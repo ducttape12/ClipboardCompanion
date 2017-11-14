@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using ClipboardCompanion.Persistance.Interfaces;
 using ClipboardCompanion.Persistance.Models;
@@ -12,7 +8,7 @@ namespace ClipboardCompanion.Persistance
 {
     public class CompanionPersistance : ICompanionPersistance
     {
-        private bool _loaded = false;
+        private bool _loaded;
 
         private const string SaveDirectory = "ClipboardCompanion";
         private const string SaveFileName = "configuration.xml";
@@ -47,6 +43,15 @@ namespace ClipboardCompanion.Persistance
             {
                 LoadCompanionModelCollection();
                 return _companionModelCollection.TextCleanerCompanionModel;
+            }
+        }
+
+        public GuidCreatorCompanionModel GuidCreatorCompanionModel
+        {
+            get
+            {
+                LoadCompanionModelCollection();
+                return _companionModelCollection.GuidCreatorCompanionModel;
             }
         }
 
