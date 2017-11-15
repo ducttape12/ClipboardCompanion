@@ -6,7 +6,7 @@ using ClipboardCompanion.Persistance.Models;
 
 namespace ClipboardCompanion.Persistance
 {
-    public class CompanionPersistance : ICompanionPersistance
+    public class CompanionPersistence : ICompanionPersistence
     {
         private bool _loaded;
 
@@ -26,6 +26,11 @@ namespace ClipboardCompanion.Persistance
         {
             _companionModelCollection.GuidCreatorCompanionModel = model;
             Save();
+        }
+
+        public void Save(OptionsModel model)
+        {
+            _companionModelCollection.OptionsModel = model;
         }
 
         private void Save()
@@ -59,6 +64,15 @@ namespace ClipboardCompanion.Persistance
             {
                 LoadCompanionModelCollection();
                 return _companionModelCollection.GuidCreatorCompanionModel;
+            }
+        }
+
+        public OptionsModel OptionsModel
+        {
+            get
+            {
+                LoadCompanionModelCollection();
+                return _companionModelCollection.OptionsModel;
             }
         }
 

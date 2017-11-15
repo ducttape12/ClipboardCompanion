@@ -27,6 +27,7 @@ namespace ClipboardCompanion
             container.Register<MainWindow>();
             container.Register<GuidCreatorCompanionViewModel>();
             container.Register<GuidCreatorControl>();
+            container.Register<OptionsControl>();
             container.Register<TextCleanerCompanionViewModel>();
             container.Register<TextCleanerCompanionControl>();
             container.Register<MainWindowViewModel>();
@@ -35,7 +36,7 @@ namespace ClipboardCompanion
             container.RegisterSingleton<IWindowsHotKeyApiService, WindowsHotKeyApiService>();
             container.RegisterSingleton<IWindowHandleService, WindowHandleService>();
             container.Register<INotificationService>(() => new NotificationService(Resources.ApplicationTitle));
-            container.RegisterSingleton<ICompanionPersistance, CompanionPersistance>();
+            container.RegisterSingleton<ICompanionPersistence, CompanionPersistence>();
 
             container.Verify();
 

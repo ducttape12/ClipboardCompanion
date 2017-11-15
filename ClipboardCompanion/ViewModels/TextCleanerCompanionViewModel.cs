@@ -8,7 +8,7 @@ namespace ClipboardCompanion.ViewModels
 {
     public class TextCleanerCompanionViewModel : CompanionViewModelBase
     {
-        private readonly ICompanionPersistance _companionPersistance;
+        private readonly ICompanionPersistence _companionPersistance;
         private bool _trim;
 
         public bool Trim
@@ -24,7 +24,7 @@ namespace ClipboardCompanion.ViewModels
 
         //public TextCleanerCompanionViewModel() { }
 
-        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, ICompanionPersistance companionPersistance) : base(hotKeyService)
+        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, ICompanionPersistence companionPersistance) : base(hotKeyService)
         {
             _companionPersistance = companionPersistance;
         }

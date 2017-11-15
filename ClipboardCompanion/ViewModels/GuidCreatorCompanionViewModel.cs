@@ -13,12 +13,12 @@ namespace ClipboardCompanion.ViewModels
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
         private readonly INotificationService _notificationService;
-        private readonly ICompanionPersistance _companionPersistance;
+        private readonly ICompanionPersistence _companionPersistance;
 
         //public GuidCreatorCompanionViewModel() : base() { }
 
         public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService, INotificationService notificationService,
-            ICompanionPersistance companionPersistance) : base(hotKeyService)
+            ICompanionPersistence companionPersistance) : base(hotKeyService)
         {
             _notificationService = notificationService;
             _companionPersistance = companionPersistance;
