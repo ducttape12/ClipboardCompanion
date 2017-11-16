@@ -1,8 +1,8 @@
-﻿using ClipboardCompanion.Persistance.Models;
+﻿using ClipboardCompanion.Persistence.Models;
 
-namespace ClipboardCompanion.Persistance.Interfaces
+namespace ClipboardCompanion.Persistence.Interfaces
 {
-    public interface ICompanionPersistence
+    public interface IPersistence
     {
         void Save(TextCleanerCompanionModel model);
         void Save(GuidCreatorCompanionModel model);
