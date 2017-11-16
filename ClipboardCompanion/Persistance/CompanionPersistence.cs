@@ -31,6 +31,7 @@ namespace ClipboardCompanion.Persistance
         public void Save(OptionsModel model)
         {
             _companionModelCollection.OptionsModel = model;
+            Save();
         }
 
         private void Save()

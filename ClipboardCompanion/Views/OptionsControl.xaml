@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ClipboardCompanion.Views"
              xmlns:ViewModels="clr-namespace:ClipboardCompanion.ViewModels" x:Class="ClipboardCompanion.Views.OptionsControl"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <!--<UserControl.DataContext>
         <ViewModels:OptionsViewModel/>
     </UserControl.DataContext>-->
@@ -14,9 +14,11 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <CheckBox Grid.Row="0" Content="Minimize to Tray" IsChecked="{Binding MinimizeToTray}" />
         <CheckBox Grid.Row="1" Content="Always Show Tray Icon" IsChecked="{Binding AlwaysShowTrayIcon}" />
+        <CheckBox Grid.Row="2" Content="Start Minimized" IsChecked="{Binding StartMinimized}" />
     </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClipboardCompanion.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,18 @@ namespace ClipboardCompanion.Views
     /// </summary>
     public partial class OptionsControl : UserControl
     {
-        public OptionsControl()
+        private OptionsViewModel _optionsViewModel;
+
+        public OptionsControl(OptionsViewModel optionsViewModel)
         {
             InitializeComponent();
+            _optionsViewModel = optionsViewModel;
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            _optionsViewModel.Initialize();
+            DataContext = _optionsViewModel;
         }
     }
 }
