@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel;
-using ClipboardCompanion.Persistance.Interfaces;
-using ClipboardCompanion.Persistance.Models;
+using ClipboardCompanion.Persistence.Interfaces;
+using ClipboardCompanion.Persistence.Models;
+using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
     public class OptionsViewModel : INotifyPropertyChanged
     {
-        private readonly ICompanionPersistence _companionPersistence;
+        private readonly IPersistence _persistence;
+        private readonly ITrayIconService _trayIconService;
         public event PropertyChangedEventHandler PropertyChanged;
 
         private bool _minimizeToTray;
@@ -16,6 +18,7 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _minimizeToTray = value;
+                _trayIconService.MinimizeToTray = value;
                 SaveConfiguration();
                 RaisePropertyChanged(nameof(MinimizeToTray));
             }
@@ -29,6 +32,7 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _alwaysShowTrayIcon = value;
+                _trayIconService.AlwaysShowTrayIcon = value;
                 SaveConfiguration();
                 RaisePropertyChanged(nameof(AlwaysShowTrayIcon));
             }
@@ -42,19 +46,21 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _startMinimized = value;
+                // TODO: What to do about this?
                 SaveConfiguration();
                 RaisePropertyChanged(nameof(StartMinimized));
             }
         }
 
-        public OptionsViewModel(ICompanionPersistence companionPersistence)
+        public OptionsViewModel(IPersistence persistence, ITrayIconService trayIconService)
         {
-            _companionPersistence = companionPersistence;
+            _persistence = persistence;
+            _trayIconService = trayIconService;
         }
 
         private void SaveConfiguration()
         {
-            _companionPersistence.Save(new OptionsModel
+            _persistence.Save(new OptionsModel
             {
                 AlwaysShowTrayIcon = AlwaysShowTrayIcon,
                 MinimizeToTray = MinimizeToTray,
@@ -69,7 +75,7 @@ namespace ClipboardCompanion.ViewModels
 
         public void Initialize()
         {
-            var model = _companionPersistence.OptionsModel;
+            var model = _persistence.OptionsModel;
 
             AlwaysShowTrayIcon = model.AlwaysShowTrayIcon;
             MinimizeToTray = model.MinimizeToTray;

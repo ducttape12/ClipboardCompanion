@@ -3,8 +3,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using ClipboardCompanion.Enums;
-using ClipboardCompanion.Persistance.Interfaces;
-using ClipboardCompanion.Persistance.Models;
+using ClipboardCompanion.Persistence.Interfaces;
+using ClipboardCompanion.Persistence.Models;
 using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
@@ -13,15 +13,15 @@ namespace ClipboardCompanion.ViewModels
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
         private readonly INotificationService _notificationService;
-        private readonly ICompanionPersistence _companionPersistance;
+        private readonly IPersistence _persistance;
 
         //public GuidCreatorCompanionViewModel() : base() { }
 
         public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService, INotificationService notificationService,
-            ICompanionPersistence companionPersistance) : base(hotKeyService)
+            IPersistence persistance) : base(hotKeyService)
         {
             _notificationService = notificationService;
-            _companionPersistance = companionPersistance;
+            _persistance = persistance;
         }
 
         private GuidCasing _casing;
@@ -101,7 +101,7 @@ namespace ClipboardCompanion.ViewModels
 
         protected override void SaveConfiguration()
         {
-            _companionPersistance.Save(new GuidCreatorCompanionModel
+            _persistance.Save(new GuidCreatorCompanionModel
             {
                 IsEnabled = IsEnabled,
                 ShiftModifier = ShiftModifier,
@@ -114,7 +114,7 @@ namespace ClipboardCompanion.ViewModels
 
         public override void Initialize()
         {
-            var model = _companionPersistance.GuidCreatorCompanionModel;
+            var model = _persistance.GuidCreatorCompanionModel;
 
             IsEnabled = model.IsEnabled;
             ShiftModifier = model.ShiftModifier;

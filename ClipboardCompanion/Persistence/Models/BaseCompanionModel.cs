@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace ClipboardCompanion.Persistance.Models
+namespace ClipboardCompanion.Persistence.Models
 {
     public class BaseCompanionModel
     {

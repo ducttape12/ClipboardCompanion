@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
-using ClipboardCompanion.Persistance.Interfaces;
-using ClipboardCompanion.Persistance.Models;
+using ClipboardCompanion.Persistence.Interfaces;
+using ClipboardCompanion.Persistence.Models;
 
-namespace ClipboardCompanion.Persistance
+namespace ClipboardCompanion.Persistence
 {
-    public class CompanionPersistence : ICompanionPersistence
+    public class Persistence : IPersistence
     {
         private bool _loaded;
 

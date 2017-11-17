@@ -1,6 +1,4 @@
-﻿using ClipboardCompanion.Persistance.Models;
-
-namespace ClipboardCompanion.Persistence.Models
+﻿namespace ClipboardCompanion.Persistence.Models
 {
     public class CompanionModelCollection
     {

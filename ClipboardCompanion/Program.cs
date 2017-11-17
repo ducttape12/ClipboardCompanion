@@ -1,6 +1,5 @@
 ﻿using System;
-using ClipboardCompanion.Persistance;
-using ClipboardCompanion.Persistance.Interfaces;
+using ClipboardCompanion.Persistence.Interfaces;
 using ClipboardCompanion.Properties;
 using ClipboardCompanion.Services;
 using ClipboardCompanion.Services.Interfaces;
@@ -36,7 +35,8 @@ namespace ClipboardCompanion
             container.RegisterSingleton<IWindowsHotKeyApiService, WindowsHotKeyApiService>();
             container.RegisterSingleton<IWindowHandleService, WindowHandleService>();
             container.Register<INotificationService>(() => new NotificationService(Resources.ApplicationTitle));
-            container.RegisterSingleton<ICompanionPersistence, CompanionPersistence>();
+            container.RegisterSingleton<IPersistence, Persistence.Persistence>();
+            container.RegisterSingleton<ITrayIconService, TrayIconService>();
 
             container.Verify();
 
