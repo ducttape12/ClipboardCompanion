@@ -9,6 +9,7 @@ namespace ClipboardCompanion.Services
     {
         private Window _window;
         private readonly NotifyIcon _trayIcon;
+        private WindowState _previousWindowState;
 
         public TrayIconService()
         {
@@ -21,17 +22,28 @@ namespace ClipboardCompanion.Services
 
         private void TrayIcon_Click(object sender, EventArgs e)
         {
+            _window.Show();
+            _window.WindowState = _previousWindowState;
         }
 
         public void Register(Window window)
         {
             _window = window;
+            _previousWindowState = _window.WindowState;
             _window.StateChanged += WindowOnStateChanged;
         }
 
         private void WindowOnStateChanged(object sender, EventArgs eventArgs)
         {
-            
+            if (_window.WindowState == WindowState.Minimized && MinimizeToTray)
+            {
+                _window.Hide();
+                _trayIcon.Visible = true;
+            }
+            else
+            {
+                _previousWindowState = _window.WindowState;
+            }
         }
 
         private bool _alwaysShowTrayIcon;
