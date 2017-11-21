@@ -22,9 +22,8 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
-        //public TextCleanerCompanionViewModel() { }
-
-        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistance) : base(hotKeyService)
+        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistance) :
+            base(hotKeyService, persistance.TextCleanerCompanionModel)
         {
             _persistance = persistance;
 
@@ -49,24 +48,22 @@ namespace ClipboardCompanion.ViewModels
 
         protected override void SaveConfiguration()
         {
-            _persistance.Save(new TextCleanerCompanionModel
+            if (IsInitialized)
             {
-                IsEnabled = IsEnabled,
-                ShiftModifier = ShiftModifier,
-                ControlModifier = ControlModifier,
-                Key = Key,
-                Trim = Trim
-            });
+                _persistance.Save(new TextCleanerCompanionModel
+                {
+                    IsEnabled = IsEnabled,
+                    ShiftModifier = ShiftModifier,
+                    ControlModifier = ControlModifier,
+                    Key = Key,
+                    Trim = Trim
+                });
+            }
         }
 
         private void InitializeCompanionConfiguration()
         {
             var model = _persistance.TextCleanerCompanionModel;
-
-            IsEnabled = model.IsEnabled;
-            ShiftModifier = model.ShiftModifier;
-            ControlModifier = model.ControlModifier;
-            Key = model.Key;
 
             Trim = model.Trim;
         }

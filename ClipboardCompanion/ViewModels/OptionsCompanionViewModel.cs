@@ -2,10 +2,11 @@
 using ClipboardCompanion.Persistence.Interfaces;
 using ClipboardCompanion.Persistence.Models;
 using ClipboardCompanion.Services.Interfaces;
+using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class OptionsCompanionViewModel : INotifyPropertyChanged
+    public class OptionsCompanionViewModel : INotifyPropertyChanged, IInitializeViewModel
     {
         private readonly IPersistence _persistence;
         private readonly ITrayIconService _trayIconService;
@@ -71,12 +72,15 @@ namespace ClipboardCompanion.ViewModels
 
         private void SaveConfiguration()
         {
-            _persistence.Save(new OptionsCompanionModel
+            if (IsInitialized)
             {
-                AlwaysShowTrayIcon = AlwaysShowTrayIcon,
-                MinimizeToTray = MinimizeToTray,
-                StartMinimized = StartMinimized
-            });
+                _persistence.Save(new OptionsCompanionModel
+                {
+                    AlwaysShowTrayIcon = AlwaysShowTrayIcon,
+                    MinimizeToTray = MinimizeToTray,
+                    StartMinimized = StartMinimized
+                });
+            }
         }
 
         protected void RaisePropertyChanged(string propertyName)
@@ -84,9 +88,12 @@ namespace ClipboardCompanion.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public bool IsInitialized { get; private set; }
+
         public void Initialize()
         {
             _trayIconService.Initialize();
+            IsInitialized = true;
         }
     }
 }

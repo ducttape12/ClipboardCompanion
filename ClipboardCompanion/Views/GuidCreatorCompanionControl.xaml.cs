@@ -3,21 +3,11 @@ using ClipboardCompanion.ViewModels;
 
 namespace ClipboardCompanion.Views
 {
-    public partial class GuidCreatorControl : UserControl
+    public partial class GuidCreatorControl : BaseCompanionControl
     {
-        private readonly GuidCreatorCompanionViewModel _companionViewModel;
-
-        public GuidCreatorControl(GuidCreatorCompanionViewModel companionViewModel)
+        public GuidCreatorControl(GuidCreatorCompanionViewModel companionViewModel) : base(companionViewModel)
         {
             InitializeComponent();
-
-            _companionViewModel = companionViewModel;
-        }
-
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            _companionViewModel.Initialize();
-            DataContext = _companionViewModel;
         }
     }
 }

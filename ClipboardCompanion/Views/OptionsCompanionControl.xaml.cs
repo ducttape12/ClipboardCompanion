@@ -19,26 +19,11 @@ namespace ClipboardCompanion.Views
     /// <summary>
     /// Interaction logic for OptionsCompanionControl.xaml
     /// </summary>
-    public partial class OptionsCompanionControl : UserControl
+    public partial class OptionsCompanionControl : BaseCompanionControl
     {
-        private readonly OptionsCompanionViewModel _optionsCompanionViewModel;
-
-        private bool _initialized;
-
-        public OptionsCompanionControl(OptionsCompanionViewModel optionsCompanionViewModel)
+        public OptionsCompanionControl(OptionsCompanionViewModel optionsCompanionViewModel) : base(optionsCompanionViewModel)
         {
             InitializeComponent();
-            _optionsCompanionViewModel = optionsCompanionViewModel;
-        }
-
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (!_initialized)
-            {
-                _optionsCompanionViewModel.Initialize();
-                DataContext = _optionsCompanionViewModel;
-                _initialized = true;
-            }
         }
     }
 }

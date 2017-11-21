@@ -9,16 +9,13 @@ using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
         private readonly INotificationService _notificationService;
         private readonly IPersistence _persistance;
 
-        //public GuidCreatorCompanionViewModel() : base() { }
-
         public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService, INotificationService notificationService,
-            IPersistence persistance) : base(hotKeyService)
+            IPersistence persistance) : base(hotKeyService, persistance.GuidCreatorCompanionModel)
         {
             _notificationService = notificationService;
             _persistance = persistance;
@@ -29,11 +26,6 @@ namespace ClipboardCompanion.ViewModels
         private void InitializeCompanionConfiguration()
         {
             var model = _persistance.GuidCreatorCompanionModel;
-
-            IsEnabled = model.IsEnabled;
-            ShiftModifier = model.ShiftModifier;
-            ControlModifier = model.ControlModifier;
-            Key = model.Key;
 
             Style = model.Style;
             Casing = model.Casing;
@@ -116,15 +108,18 @@ namespace ClipboardCompanion.ViewModels
 
         protected override void SaveConfiguration()
         {
-            _persistance.Save(new GuidCreatorCompanionModel
+            if (IsInitialized)
             {
-                IsEnabled = IsEnabled,
-                ShiftModifier = ShiftModifier,
-                ControlModifier = ControlModifier,
-                Key = Key,
-                Style = Style,
-                Casing = Casing
-            });
+                _persistance.Save(new GuidCreatorCompanionModel
+                {
+                    IsEnabled = IsEnabled,
+                    ShiftModifier = ShiftModifier,
+                    ControlModifier = ControlModifier,
+                    Key = Key,
+                    Style = Style,
+                    Casing = Casing
+                });
+            }
         }
     }
 }

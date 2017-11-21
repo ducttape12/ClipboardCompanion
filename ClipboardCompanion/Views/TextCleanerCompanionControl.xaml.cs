@@ -3,21 +3,11 @@ using ClipboardCompanion.ViewModels;
 
 namespace ClipboardCompanion.Views
 {
-    public partial class TextCleanerCompanionControl : UserControl
+    public partial class TextCleanerCompanionControl : BaseCompanionControl
     {
-        private readonly TextCleanerCompanionViewModel _companionViewModel;
-
-        public TextCleanerCompanionControl(TextCleanerCompanionViewModel companionViewModel)
+        public TextCleanerCompanionControl(TextCleanerCompanionViewModel companionViewModel) : base(companionViewModel)
         {
             InitializeComponent();
-
-            _companionViewModel = companionViewModel;
-        }
-
-        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            _companionViewModel.Initialize();
-            DataContext = _companionViewModel;
         }
     }
 }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using ClipboardCompanion.Persistence.Models;
 using ClipboardCompanion.Services;
 using ClipboardCompanion.Services.Interfaces;
+using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public abstract class CompanionViewModelBase : INotifyPropertyChanged
+    public abstract class CompanionViewModelBase : INotifyPropertyChanged, IInitializeViewModel
     {
         private readonly IHotKeyService _hotKeyService;
         private bool _isEnabled;
@@ -18,13 +20,23 @@ namespace ClipboardCompanion.ViewModels
         private Key _key;
         private HotKeyBinding _hotKey;
 
-        protected bool IsInitialized { get; private set; }
+        public bool IsInitialized { get; private set; }
 
         //protected CompanionViewModelBase() { }
 
-        protected CompanionViewModelBase(IHotKeyService hotKeyService)
+        protected CompanionViewModelBase(IHotKeyService hotKeyService, BaseCompanionModel companionModel)
         {
             _hotKeyService = hotKeyService;
+
+            InitializeCompanionConfiguration(companionModel);
+        }
+
+        private void InitializeCompanionConfiguration(BaseCompanionModel companionModel)
+        {
+            IsEnabled = companionModel.IsEnabled;
+            ShiftModifier = companionModel.ShiftModifier;
+            ControlModifier = companionModel.ControlModifier;
+            Key = companionModel.Key;
         }
 
         public ObservableCollection<Key> ValidKeys { get; } = new ObservableCollection<Key>
@@ -224,6 +236,7 @@ namespace ClipboardCompanion.ViewModels
         public abstract Action HotKeyPressedAction { get; }
 
         protected abstract void SaveConfiguration();
+
 
         public virtual void Initialize()
         {
