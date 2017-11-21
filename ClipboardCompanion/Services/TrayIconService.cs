@@ -22,8 +22,16 @@ namespace ClipboardCompanion.Services
 
         private void TrayIcon_Click(object sender, EventArgs e)
         {
-            _window.Show();
-            _window.WindowState = _previousWindowState;
+            if (_window.WindowState == WindowState.Minimized)
+            {
+                _window.Show();
+                _window.WindowState = _previousWindowState;
+            }
+            else
+            {
+                _window.WindowState = WindowState.Minimized;
+            }
+
         }
 
         public void Register(Window window)
