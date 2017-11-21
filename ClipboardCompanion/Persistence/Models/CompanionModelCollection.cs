@@ -4,6 +4,6 @@
     {
         public TextCleanerCompanionModel TextCleanerCompanionModel { get; set; } = new TextCleanerCompanionModel();
         public GuidCreatorCompanionModel GuidCreatorCompanionModel { get; set; } = new GuidCreatorCompanionModel();
-        public OptionsModel OptionsModel { get; set; } = new OptionsModel();
+        public OptionsCompanionModel OptionsCompanionModel { get; set; } = new OptionsCompanionModel();
     }
 }

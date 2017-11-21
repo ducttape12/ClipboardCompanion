@@ -73,7 +73,7 @@
     <Compile Include="Persistence\Models\BaseCompanionModel.cs" />
     <Compile Include="Persistence\Models\CompanionModelCollection.cs" />
     <Compile Include="Persistence\Models\GuidCreatorCompanionModel.cs" />
-    <Compile Include="Persistence\Models\OptionsModel.cs" />
+    <Compile Include="Persistence\Models\OptionsCompanionModel.cs" />
     <Compile Include="Persistence\Models\TextCleanerCompanionModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\HotKeyBinding.cs" />
@@ -90,13 +90,13 @@
     <Compile Include="ViewModels\CompanionViewModelBase.cs" />
     <Compile Include="ViewModels\GuidCreatorCompanionViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\OptionsViewModel.cs" />
+    <Compile Include="ViewModels\OptionsCompanionViewModel.cs" />
     <Compile Include="ViewModels\TextCleanerCompanionViewModel.cs" />
     <Compile Include="Views\GuidCreatorCompanionControl.xaml.cs">
       <DependentUpon>GuidCreatorCompanionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OptionsControl.xaml.cs">
-      <DependentUpon>OptionsControl.xaml</DependentUpon>
+    <Compile Include="Views\OptionsCompanionControl.xaml.cs">
+      <DependentUpon>OptionsCompanionControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SharedCompanionControl.xaml.cs">
       <DependentUpon>SharedCompanionControl.xaml</DependentUpon>
@@ -120,7 +120,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OptionsControl.xaml">
+    <Page Include="Views\OptionsCompanionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

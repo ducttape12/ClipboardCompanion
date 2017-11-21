@@ -18,11 +18,11 @@ namespace ClipboardCompanion.ViewModels
 
         public MainWindowViewModel(GuidCreatorControl guidCreatorControl,
             TextCleanerCompanionControl textCleanerCompanionControl,
-            OptionsControl optionsControl)
+            OptionsCompanionControl optionsCompanionControl)
         {
             AddTabItem(guidCreatorControl, "GUID Creator");
             AddTabItem(textCleanerCompanionControl, "Text Cleaner");
-            AddTabItem(optionsControl, "Options");
+            AddTabItem(optionsCompanionControl, "Options");
 
             SelectedTabItem = CompanionTabItems.First();
         }

@@ -28,9 +28,9 @@ namespace ClipboardCompanion.Persistence
             Save();
         }
 
-        public void Save(OptionsModel model)
+        public void Save(OptionsCompanionModel companionModel)
         {
-            _companionModelCollection.OptionsModel = model;
+            _companionModelCollection.OptionsCompanionModel = companionModel;
             Save();
         }
 
@@ -68,12 +68,12 @@ namespace ClipboardCompanion.Persistence
             }
         }
 
-        public OptionsModel OptionsModel
+        public OptionsCompanionModel OptionsCompanionModel
         {
             get
             {
                 LoadCompanionModelCollection();
-                return _companionModelCollection.OptionsModel;
+                return _companionModelCollection.OptionsCompanionModel;
             }
         }
 

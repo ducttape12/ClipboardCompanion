@@ -17,26 +17,26 @@ using System.Windows.Shapes;
 namespace ClipboardCompanion.Views
 {
     /// <summary>
-    /// Interaction logic for OptionsControl.xaml
+    /// Interaction logic for OptionsCompanionControl.xaml
     /// </summary>
-    public partial class OptionsControl : UserControl
+    public partial class OptionsCompanionControl : UserControl
     {
-        private readonly OptionsViewModel _optionsViewModel;
+        private readonly OptionsCompanionViewModel _optionsCompanionViewModel;
 
         private bool _initialized;
 
-        public OptionsControl(OptionsViewModel optionsViewModel)
+        public OptionsCompanionControl(OptionsCompanionViewModel optionsCompanionViewModel)
         {
             InitializeComponent();
-            _optionsViewModel = optionsViewModel;
+            _optionsCompanionViewModel = optionsCompanionViewModel;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             if (!_initialized)
             {
-                _optionsViewModel.Initialize();
-                DataContext = _optionsViewModel;
+                _optionsCompanionViewModel.Initialize();
+                DataContext = _optionsCompanionViewModel;
                 _initialized = true;
             }
         }

@@ -5,7 +5,7 @@ using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class OptionsViewModel : INotifyPropertyChanged
+    public class OptionsCompanionViewModel : INotifyPropertyChanged
     {
         private readonly IPersistence _persistence;
         private readonly ITrayIconService _trayIconService;
@@ -52,7 +52,7 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
-        public OptionsViewModel(IPersistence persistence, ITrayIconService trayIconService)
+        public OptionsCompanionViewModel(IPersistence persistence, ITrayIconService trayIconService)
         {
             _persistence = persistence;
             _trayIconService = trayIconService;
@@ -62,7 +62,7 @@ namespace ClipboardCompanion.ViewModels
 
         private void InitializeCompanionConfiguration()
         {
-            var model = _persistence.OptionsModel;
+            var model = _persistence.OptionsCompanionModel;
 
             AlwaysShowTrayIcon = model.AlwaysShowTrayIcon;
             MinimizeToTray = model.MinimizeToTray;
@@ -71,7 +71,7 @@ namespace ClipboardCompanion.ViewModels
 
         private void SaveConfiguration()
         {
-            _persistence.Save(new OptionsModel
+            _persistence.Save(new OptionsCompanionModel
             {
                 AlwaysShowTrayIcon = AlwaysShowTrayIcon,
                 MinimizeToTray = MinimizeToTray,
