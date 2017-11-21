@@ -68,5 +68,15 @@ namespace ClipboardCompanion.Properties {
                 return ResourceManager.GetString("ApplicationTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon ClipboardCompanion {
+            get {
+                object obj = ResourceManager.GetObject("ClipboardCompanion", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

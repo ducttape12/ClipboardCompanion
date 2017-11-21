@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using ClipboardCompanion.Services.Interfaces;
@@ -16,7 +12,10 @@ namespace ClipboardCompanion.Services
 
         public TrayIconService()
         {
-            _trayIcon = new NotifyIcon {Visible = true};
+            _trayIcon = new NotifyIcon
+            {
+                Icon = Properties.Resources.ClipboardCompanion
+            };
             _trayIcon.Click += TrayIcon_Click;
         }
 
