@@ -183,11 +183,6 @@ namespace ClipboardCompanion.ViewModels
 
         protected void UpdateHotKeyHandling()
         {
-            if (!IsInitialized)
-            {
-                return;
-            }   
-
             if (IsEnabled)
             {
                 RegisterHotKey();
