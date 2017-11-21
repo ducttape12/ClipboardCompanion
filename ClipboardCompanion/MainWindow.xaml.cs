@@ -23,9 +23,14 @@ namespace ClipboardCompanion
         {
             var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
             _windowHandleService.RegisterWindowHandle(hwndSource);
+            _trayIconService.RegisterWindow(this);
 
-            _trayIconService.Register(this);
             DataContext = _viewModel;
+        }
+
+        private void Window_Closed(object sender, System.EventArgs e)
+        {
+            _trayIconService.Dispose();
         }
     }
 }

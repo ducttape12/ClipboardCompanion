@@ -37,7 +37,7 @@ namespace ClipboardCompanion.Services
             }
         }
 
-        public void Register(Window window)
+        public void RegisterWindow(Window window)
         {
             _window = window;
             _previousWindowState = _window.WindowState;
@@ -68,5 +68,20 @@ namespace ClipboardCompanion.Services
             }
         }
         public bool MinimizeToTray { get; set; }
+
+        public bool StartMinimized { get; set; }
+
+        public void Initialize()
+        {
+            if (StartMinimized)
+            {
+                _window.WindowState = WindowState.Minimized;
+            }
+        }
+
+        public void Dispose()
+        {
+            _trayIcon?.Dispose();
+        }
     }
 }

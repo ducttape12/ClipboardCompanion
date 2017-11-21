@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ClipboardCompanion"
         xmlns:ViewModels="clr-namespace:ClipboardCompanion.ViewModels" x:Class="ClipboardCompanion.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded" Closed="Window_Closed">
     <!--<Window.DataContext>
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>-->

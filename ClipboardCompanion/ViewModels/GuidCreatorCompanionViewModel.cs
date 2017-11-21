@@ -22,6 +22,21 @@ namespace ClipboardCompanion.ViewModels
         {
             _notificationService = notificationService;
             _persistance = persistance;
+
+            InitializeCompanionConfiguration();
+        }
+
+        private void InitializeCompanionConfiguration()
+        {
+            var model = _persistance.GuidCreatorCompanionModel;
+
+            IsEnabled = model.IsEnabled;
+            ShiftModifier = model.ShiftModifier;
+            ControlModifier = model.ControlModifier;
+            Key = model.Key;
+
+            Style = model.Style;
+            Casing = model.Casing;
         }
 
         private GuidCasing _casing;
@@ -110,21 +125,6 @@ namespace ClipboardCompanion.ViewModels
                 Style = Style,
                 Casing = Casing
             });
-        }
-
-        public override void Initialize()
-        {
-            var model = _persistance.GuidCreatorCompanionModel;
-
-            IsEnabled = model.IsEnabled;
-            ShiftModifier = model.ShiftModifier;
-            ControlModifier = model.ControlModifier;
-            Key = model.Key;
-
-            Style = model.Style;
-            Casing = model.Casing;
-
-            base.Initialize();
         }
     }
 }

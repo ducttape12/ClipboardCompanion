@@ -46,6 +46,7 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _startMinimized = value;
+                _trayIconService.StartMinimized = value;
                 SaveConfiguration();
                 RaisePropertyChanged(nameof(StartMinimized));
             }
@@ -55,6 +56,17 @@ namespace ClipboardCompanion.ViewModels
         {
             _persistence = persistence;
             _trayIconService = trayIconService;
+
+            InitializeCompanionConfiguration();
+        }
+
+        private void InitializeCompanionConfiguration()
+        {
+            var model = _persistence.OptionsModel;
+
+            AlwaysShowTrayIcon = model.AlwaysShowTrayIcon;
+            MinimizeToTray = model.MinimizeToTray;
+            StartMinimized = model.StartMinimized;
         }
 
         private void SaveConfiguration()
@@ -74,11 +86,7 @@ namespace ClipboardCompanion.ViewModels
 
         public void Initialize()
         {
-            var model = _persistence.OptionsModel;
-
-            AlwaysShowTrayIcon = model.AlwaysShowTrayIcon;
-            MinimizeToTray = model.MinimizeToTray;
-            StartMinimized = model.StartMinimized;
+            _trayIconService.Initialize();
         }
     }
 }

@@ -17,7 +17,8 @@ namespace ClipboardCompanion.ViewModels
         private bool _shiftModifier;
         private Key _key;
         private HotKeyBinding _hotKey;
-        private bool _isInitiailized;
+
+        protected bool IsInitialized { get; private set; }
 
         //protected CompanionViewModelBase() { }
 
@@ -182,6 +183,11 @@ namespace ClipboardCompanion.ViewModels
 
         protected void UpdateHotKeyHandling()
         {
+            if (!IsInitialized)
+            {
+                return;
+            }   
+
             if (IsEnabled)
             {
                 RegisterHotKey();
@@ -196,7 +202,7 @@ namespace ClipboardCompanion.ViewModels
 
         private void UnregisterHotKey()
         {
-            if (!_isInitiailized) return;
+            if (!IsInitialized) return;
 
             if (_hotKey != null)
             {
@@ -207,7 +213,7 @@ namespace ClipboardCompanion.ViewModels
 
         private void RegisterHotKey()
         {
-            if (!_isInitiailized) return;
+            if (!IsInitialized) return;
 
             UnregisterHotKey();
 
@@ -226,7 +232,7 @@ namespace ClipboardCompanion.ViewModels
 
         public virtual void Initialize()
         {
-            _isInitiailized = true;
+            IsInitialized = true;
 
             UpdateHotKeyHandling();
         }

@@ -27,6 +27,8 @@ namespace ClipboardCompanion.ViewModels
         public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistance) : base(hotKeyService)
         {
             _persistance = persistance;
+
+            InitializeCompanionConfiguration();
         }
 
         public override Action HotKeyPressedAction =>
@@ -57,7 +59,7 @@ namespace ClipboardCompanion.ViewModels
             });
         }
 
-        public override void Initialize()
+        private void InitializeCompanionConfiguration()
         {
             var model = _persistance.TextCleanerCompanionModel;
 
@@ -67,8 +69,6 @@ namespace ClipboardCompanion.ViewModels
             Key = model.Key;
 
             Trim = model.Trim;
-
-            base.Initialize();
         }
     }
 }

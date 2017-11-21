@@ -21,7 +21,9 @@ namespace ClipboardCompanion.Views
     /// </summary>
     public partial class OptionsControl : UserControl
     {
-        private OptionsViewModel _optionsViewModel;
+        private readonly OptionsViewModel _optionsViewModel;
+
+        private bool _initialized;
 
         public OptionsControl(OptionsViewModel optionsViewModel)
         {
@@ -31,8 +33,12 @@ namespace ClipboardCompanion.Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            _optionsViewModel.Initialize();
-            DataContext = _optionsViewModel;
+            if (!_initialized)
+            {
+                _optionsViewModel.Initialize();
+                DataContext = _optionsViewModel;
+                _initialized = true;
+            }
         }
     }
 }
