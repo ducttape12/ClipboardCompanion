@@ -17,21 +17,24 @@ namespace ClipboardCompanion.Services
             {
                 Icon = Properties.Resources.ClipboardCompanion
             };
-            _trayIcon.Click += TrayIcon_Click;
+            _trayIcon.MouseClick += TrayIconOnMouseClick;
         }
 
-        private void TrayIcon_Click(object sender, EventArgs e)
+        private void TrayIconOnMouseClick(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (_window.WindowState == WindowState.Minimized)
+            if (mouseEventArgs.Button == MouseButtons.Left)
             {
-                _window.Show();
-                _window.WindowState = _previousWindowState;
+                if (_window.WindowState == WindowState.Minimized)
+                {
+                    _window.Show();
+                    _window.WindowState = _previousWindowState;
+                    _trayIcon.Visible = AlwaysShowTrayIcon;
+                }
+                else
+                {
+                    _window.WindowState = WindowState.Minimized;
+                }
             }
-            else
-            {
-                _window.WindowState = WindowState.Minimized;
-            }
-
         }
 
         public void Register(Window window)

@@ -46,7 +46,6 @@ namespace ClipboardCompanion.ViewModels
             set
             {
                 _startMinimized = value;
-                // TODO: What to do about this?
                 SaveConfiguration();
                 RaisePropertyChanged(nameof(StartMinimized));
             }
