@@ -51,7 +51,7 @@ namespace ClipboardCompanion.Services
                 _window.Hide();
                 _trayIcon.Visible = true;
             }
-            else
+            else if(_window.WindowState != WindowState.Minimized)
             {
                 _previousWindowState = _window.WindowState;
             }
