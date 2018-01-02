@@ -1,18 +1,5 @@
 ﻿using ClipboardCompanion.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.Views
 {
@@ -21,8 +8,12 @@ namespace ClipboardCompanion.Views
     /// </summary>
     public partial class OptionsCompanionControl : BaseCompanionControl
     {
-        public OptionsCompanionControl(OptionsCompanionViewModel optionsCompanionViewModel) : base(optionsCompanionViewModel)
+        private readonly OptionsCompanionViewModel _optionsCompanionViewModel;
+        protected override IInitializeViewModel ViewModel => _optionsCompanionViewModel;
+
+        public OptionsCompanionControl(OptionsCompanionViewModel optionsCompanionViewModel)
         {
+            _optionsCompanionViewModel = optionsCompanionViewModel;
             InitializeComponent();
         }
     }
