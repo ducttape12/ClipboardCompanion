@@ -23,22 +23,22 @@
 
         <local:SharedCompanionControl DataContext="{Binding}" Grid.Row="0" />
 
-        <GroupBox Header="Configuration" Grid.Row="1" IsEnabled="{Binding IsEnabled}">
+        <GroupBox Header="Configuration" Grid.Row="1" IsEnabled="{Binding IsEnabled}" Margin="25 0 15 15" >
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="30" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
+                    <ColumnDefinition Width="90"/>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0"  Content="GUID _Casing" />
-                <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding GuidCasingOptions, Converter={StaticResource EnumDescriptionConverter}}" SelectedItem="{Binding Casing, Converter={StaticResource EnumDescriptionConverter}}" />
+                <Label Grid.Row="0" Grid.Column="0"  Content="GUID _Casing" Grid.ColumnSpan="2" Padding="3" />
+                <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding GuidCasingOptions, Converter={StaticResource EnumDescriptionConverter}}" SelectedItem="{Binding Casing, Converter={StaticResource EnumDescriptionConverter}}"  Margin="3" />
 
-                <Label Grid.Row="1" Grid.Column="0" Content="GUID _Style" />
-                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GuidStyleOptions, Converter={StaticResource EnumDescriptionConverter}}" SelectedItem="{Binding Style, Converter={StaticResource EnumDescriptionConverter}}"/>
+                <Label Grid.Row="1" Grid.Column="0" Content="GUID _Style" Grid.ColumnSpan="2" Padding="3"  />
+                <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding GuidStyleOptions, Converter={StaticResource EnumDescriptionConverter}}" SelectedItem="{Binding Style, Converter={StaticResource EnumDescriptionConverter}}" Margin="3" />
             </Grid>
         </GroupBox>
     </Grid>
