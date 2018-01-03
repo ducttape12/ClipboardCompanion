@@ -1,20 +1,19 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.Views
 {
-    public abstract class BaseCompanionControl : UserControl
+    public class BaseCompanionControl : UserControl
     {
-        protected abstract IInitializeViewModel ViewModel { get; }
+        protected IInitializeViewModel ViewModel { get; }
 
         private bool _initialized;
-
-        [SuppressMessage("ReSharper", "PublicConstructorInAbstractClass", Justification = "Must be public for XAML designer to function.")]
-        public BaseCompanionControl()
+        
+        protected BaseCompanionControl(IInitializeViewModel viewModel)
         {
             Loaded += OnLoaded;
+            ViewModel = viewModel;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
