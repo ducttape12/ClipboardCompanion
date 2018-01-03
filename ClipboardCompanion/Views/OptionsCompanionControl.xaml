@@ -10,15 +10,15 @@
     <!--<UserControl.DataContext>
         <ViewModels:OptionsViewModel/>
     </UserControl.DataContext>-->
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
         </Grid.RowDefinitions>
 
-        <CheckBox Grid.Row="0" Content="Minimize to Tray" IsChecked="{Binding MinimizeToTray}" />
-        <CheckBox Grid.Row="1" Content="Always Show Tray Icon" IsChecked="{Binding AlwaysShowTrayIcon}" />
-        <CheckBox Grid.Row="2" Content="Start Minimized" IsChecked="{Binding StartMinimized}" />
+        <CheckBox Grid.Row="0" Content="Minimize to Tray" IsChecked="{Binding MinimizeToTray}" VerticalAlignment="Center" />
+        <CheckBox Grid.Row="1" Content="Always Show Tray Icon" IsChecked="{Binding AlwaysShowTrayIcon}" VerticalAlignment="Center" />
+        <CheckBox Grid.Row="2" Content="Start Minimized" IsChecked="{Binding StartMinimized}" VerticalAlignment="Center" />
     </Grid>
 </local:BaseCompanionControl>
