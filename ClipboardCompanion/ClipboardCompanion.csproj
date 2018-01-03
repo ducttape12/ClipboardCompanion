@@ -87,6 +87,7 @@
     <Compile Include="Services\TrayIconService.cs" />
     <Compile Include="Services\WindowHandleService.cs" />
     <Compile Include="Services\WindowsHotKeyApiService.cs" />
+    <Compile Include="ViewModels\CompanionSelectorViewModel.cs" />
     <Compile Include="ViewModels\CompanionViewModelBase.cs" />
     <Compile Include="ViewModels\GuidCreatorCompanionViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IInitializeViewModel.cs" />
@@ -94,6 +95,9 @@
     <Compile Include="ViewModels\OptionsCompanionViewModel.cs" />
     <Compile Include="ViewModels\TextCleanerCompanionViewModel.cs" />
     <Compile Include="Views\BaseCompanionControl.cs" />
+    <Compile Include="Views\CompanionSelector.xaml.cs">
+      <DependentUpon>CompanionSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GuidCreatorCompanionControl.xaml.cs">
       <DependentUpon>GuidCreatorCompanionControl.xaml</DependentUpon>
     </Compile>
@@ -118,6 +122,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CompanionSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GuidCreatorCompanionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
