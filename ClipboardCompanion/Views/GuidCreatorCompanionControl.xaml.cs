@@ -8,5 +8,7 @@ namespace ClipboardCompanion.Views
         {
             InitializeComponent();
         }
+
+        public override string Description => "GUID Creator";
     }
 }

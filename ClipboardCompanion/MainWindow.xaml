@@ -10,6 +10,5 @@
     <!--<Window.DataContext>
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>-->
-    <TabControl ItemsSource="{Binding CompanionTabItems}" SelectedItem="{Binding SelectedTabItem}">
-    </TabControl>
+
 </Window>

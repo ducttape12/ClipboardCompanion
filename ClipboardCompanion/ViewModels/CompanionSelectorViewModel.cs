@@ -1,43 +1,50 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using ClipboardCompanion.Services;
+using ClipboardCompanion.ViewModels.Interfaces;
 using ClipboardCompanion.Views;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class CompanionSelectorViewModel : INotifyPropertyChanged
+    public class CompanionSelectorViewModel : INotifyPropertyChanged, IInitializeViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         public ObservableCollection<BaseCompanionControl> Companions { get; } = new ObservableCollection<BaseCompanionControl>();
 
-        private BaseCompanionControl _selectedCompanionControl;
+        private BaseUserControl _selectedUserControl;
 
-        public BaseCompanionControl SelectedCompanionControl
+        public BaseUserControl SelectedUserControl
         {
-            get => _selectedCompanionControl;
+            get => _selectedUserControl;
             set
             {
-                _selectedCompanionControl = value;
-                OnPropertyChanged(nameof(SelectedCompanionControl));
+                _selectedUserControl = value;
+                OnPropertyChanged(nameof(SelectedUserControl));
             }
         }
 
-        public CompanionSelectorViewModel()
+        public CompanionSelectorViewModel(GuidCreatorControl guidCreatorControl,
+            TextCleanerUserControl textCleanerUserControl)
         {
-            Companions.Add(new GuidCreatorControl(new GuidCreatorCompanionViewModel(null, null, null)));
-        }
+            Companions.Add(guidCreatorControl);
+            Companions.Add(textCleanerUserControl);
 
-        //public CompanionSelectorViewModel(GuidCreatorControl guidCreatorControl,
-        //    TextCleanerCompanionControl textCleanerCompanionControl)
-        //{
-        //    Companions.Add(guidCreatorControl);
-        //    Companions.Add(textCleanerCompanionControl);
-        //}
+            SelectedUserControl = Companions.First();
+        }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsInitialized { get; private set; }
+
+        public void Initialize()
+        {
+            IsInitialized = true;
         }
     }
 }

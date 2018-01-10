@@ -2,21 +2,22 @@
 using System.Windows.Interop;
 using ClipboardCompanion.Services.Interfaces;
 using ClipboardCompanion.ViewModels;
+using ClipboardCompanion.Views;
 
 namespace ClipboardCompanion
 {
     public partial class MainWindow : Window
     {
         private readonly IWindowHandleService _windowHandleService;
-        private readonly MainWindowViewModel _viewModel;
         private readonly ITrayIconService _trayIconService;
+        private readonly CompanionSelector _companionSelector;
 
-        public MainWindow(IWindowHandleService windowHandleService, MainWindowViewModel viewModel, ITrayIconService trayIconService)
+        public MainWindow(IWindowHandleService windowHandleService, ITrayIconService trayIconService, CompanionSelector companionSelector)
         {
             InitializeComponent();
             _windowHandleService = windowHandleService;
-            _viewModel = viewModel;
             _trayIconService = trayIconService;
+            _companionSelector = companionSelector;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -25,7 +26,7 @@ namespace ClipboardCompanion
             _windowHandleService.RegisterWindowHandle(hwndSource);
             _trayIconService.RegisterWindow(this);
 
-            DataContext = _viewModel;
+            Content = _companionSelector;
         }
 
         private void Window_Closed(object sender, System.EventArgs e)

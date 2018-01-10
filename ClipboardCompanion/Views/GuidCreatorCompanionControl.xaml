@@ -12,9 +12,9 @@
     <!--<UserControl.DataContext>
         <ViewModels:GuidCreatorCompanionViewModel/>
     </UserControl.DataContext>-->
-    <local:BaseCompanionControl.Resources>
+    <local:BaseUserControl.Resources>
         <converters:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
-    </local:BaseCompanionControl.Resources>
+    </local:BaseUserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="140" />
@@ -43,4 +43,6 @@
         </GroupBox>
     </Grid>
 </local:BaseCompanionControl>
+
+
 

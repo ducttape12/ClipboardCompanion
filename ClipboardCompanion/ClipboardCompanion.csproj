@@ -95,20 +95,21 @@
     <Compile Include="ViewModels\OptionsCompanionViewModel.cs" />
     <Compile Include="ViewModels\TextCleanerCompanionViewModel.cs" />
     <Compile Include="Views\BaseCompanionControl.cs" />
+    <Compile Include="Views\BaseUserControl.cs" />
     <Compile Include="Views\CompanionSelector.xaml.cs">
       <DependentUpon>CompanionSelector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GuidCreatorCompanionControl.xaml.cs">
       <DependentUpon>GuidCreatorCompanionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OptionsCompanionControl.xaml.cs">
-      <DependentUpon>OptionsCompanionControl.xaml</DependentUpon>
+    <Compile Include="Views\OptionsUserControl.xaml.cs">
+      <DependentUpon>OptionsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SharedCompanionControl.xaml.cs">
       <DependentUpon>SharedCompanionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TextCleanerCompanionControl.xaml.cs">
-      <DependentUpon>TextCleanerCompanionControl.xaml</DependentUpon>
+    <Compile Include="Views\TextCleanerUserControl.xaml.cs">
+      <DependentUpon>TextCleanerUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -130,7 +131,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OptionsCompanionControl.xaml">
+    <Page Include="Views\OptionsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,7 +139,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TextCleanerCompanionControl.xaml">
+    <Page Include="Views\TextCleanerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
