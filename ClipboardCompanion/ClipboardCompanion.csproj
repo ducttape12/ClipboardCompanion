@@ -66,6 +66,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Converters\FalseToVisibleConverter.cs" />
+    <Compile Include="Converters\TrueToVisibleConverter.cs" />
     <Compile Include="Enums\GuidCasing.cs" />
     <Compile Include="Enums\GuidStyle.cs" />
     <Compile Include="Persistence\Persistence.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="ViewModels\CompanionSelectorViewModel.cs" />
     <Compile Include="ViewModels\CompanionViewModelBase.cs" />
     <Compile Include="ViewModels\GuidCreatorCompanionViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ICompanionViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IInitializeViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\OptionsCompanionViewModel.cs" />

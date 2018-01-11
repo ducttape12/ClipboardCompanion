@@ -9,7 +9,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate x:Key="CompanionElement">
-            <TextBlock Text="{Binding Description}" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Description}" />
+                <TextBlock Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">(Enabled)</TextBlock>
+            </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
     <!--<UserControl.DataContext>

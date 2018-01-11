@@ -26,6 +26,8 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
+        //public CompanionSelectorViewModel() { }
+
         public CompanionSelectorViewModel(GuidCreatorControl guidCreatorControl,
             TextCleanerUserControl textCleanerUserControl)
         {

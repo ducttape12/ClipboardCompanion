@@ -10,7 +10,7 @@ using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public abstract class CompanionViewModelBase : INotifyPropertyChanged, IInitializeViewModel
+    public abstract class CompanionViewModelBase : INotifyPropertyChanged, ICompanionViewModel
     {
         private readonly IHotKeyService _hotKeyService;
         private bool _isEnabled;

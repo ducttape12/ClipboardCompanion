@@ -1,4 +1,5 @@
 ﻿using System;
+using ClipboardCompanion.Converters;
 using ClipboardCompanion.Persistence.Interfaces;
 using ClipboardCompanion.Properties;
 using ClipboardCompanion.Services;
@@ -50,6 +51,8 @@ namespace ClipboardCompanion
             try
             {
                 var app = new App();
+                app.Resources.Add("FalseToVisibleConverter", new FalseToVisibleConverter());
+                app.Resources.Add("TrueToVisibleConverter", new TrueToVisibleConverter());
                 var mainWindow = container.GetInstance<MainWindow>();
                 app.Run(mainWindow);
             }

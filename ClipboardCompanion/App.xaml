@@ -1,5 +1,10 @@
 ﻿<Application x:Class="ClipboardCompanion.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ClipboardCompanion">
+             xmlns:local="clr-namespace:ClipboardCompanion"
+             xmlns:converters="clr-namespace:ClipboardCompanion.Converters">
+    <Application.Resources>
+        <!--<converters:FalseToVisibleConverter x:Key="FalseToVisibleConverter"></converters:FalseToVisibleConverter>
+        <converters:TrueToVisibleConverter x:Key="TrueToVisibleConverter"></converters:TrueToVisibleConverter>-->
+    </Application.Resources>
 </Application>
