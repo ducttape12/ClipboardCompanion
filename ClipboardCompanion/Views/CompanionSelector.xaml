@@ -18,9 +18,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Row="0" ItemsSource="{Binding Companions}" SelectedItem="{Binding SelectedCompanionControl}" ItemTemplate="{DynamicResource CompanionElement}"/>
-
+        <GroupBox Grid.Row="0" Header="_Available Companions" Margin="5 5 5 0" Padding="5">
+            <ListBox ItemsSource="{Binding Companions}" SelectedItem="{Binding SelectedUserControl}" ItemTemplate="{DynamicResource CompanionElement}"/>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="_Selected Companion" Margin="5" Padding="5">
+            <ContentControl Content="{Binding SelectedUserControl}" />
+        </GroupBox>
     </Grid>
 </local:BaseUserControl>
