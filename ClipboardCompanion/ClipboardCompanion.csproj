@@ -95,7 +95,6 @@
     <Compile Include="ViewModels\Interfaces\ICompanionViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IInitializeViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\OptionsCompanionViewModel.cs" />
     <Compile Include="ViewModels\TextCleanerCompanionViewModel.cs" />
     <Compile Include="Views\BaseCompanionControl.cs" />
     <Compile Include="Views\BaseUserControl.cs" />

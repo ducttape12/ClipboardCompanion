@@ -4,9 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClipboardCompanion"
-        xmlns:ViewModels="clr-namespace:ClipboardCompanion.ViewModels" x:Class="ClipboardCompanion.MainWindow"
+        x:Class="ClipboardCompanion.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded" Closed="Window_Closed">
+        Title="MainWindow" Height="550" Width="525" Loaded="Window_Loaded" Closed="Window_Closed"
+        ResizeMode="CanMinimize">
+    <DockPanel x:Name="MenuAndContent">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem x:Name="ExitMenuItem" Header="E_xit" Click="ExitMenuItem_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Options">
+                <MenuItem Header="_Always Show Tray Icon" IsCheckable="True" IsChecked="{Binding AlwaysShowTrayIcon}"></MenuItem>
+                <MenuItem Header="_Start Minimized" IsCheckable="True" IsChecked="{Binding StartMinimized}"></MenuItem>
+                <MenuItem Header="_Minimize to Tray" IsCheckable="True" IsChecked="{Binding MinimizeToTray}"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem x:Name="About" Header="_About" Click="About_Click"></MenuItem>
+            </MenuItem>
+        </Menu>
+    </DockPanel>
     <!--<Window.DataContext>
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>-->

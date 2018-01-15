@@ -1,53 +1,99 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows.Controls;
-using ClipboardCompanion.Views;
+﻿using System.ComponentModel;
+using ClipboardCompanion.Persistence.Interfaces;
+using ClipboardCompanion.Persistence.Models;
+using ClipboardCompanion.Services.Interfaces;
+using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : INotifyPropertyChanged, IInitializeViewModel
     {
-        public ObservableCollection<TabItem> CompanionTabItems { get; } = new ObservableCollection<TabItem>();
-
-        //public MainWindowViewModel()
-        //{
-        //}
-
+        private readonly IPersistence _persistence;
+        private readonly ITrayIconService _trayIconService;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public MainWindowViewModel(GuidCreatorControl guidCreatorControl,
-            TextCleanerUserControl textCleanerUserControl,
-            OptionsUserControl optionsUserControl)
+        private bool _minimizeToTray;
+        public bool MinimizeToTray
         {
-            AddTabItem(guidCreatorControl, "GUID Creator");
-            AddTabItem(textCleanerUserControl, "Text Cleaner");
-            AddTabItem(optionsUserControl, "Options");
-
-            SelectedTabItem = CompanionTabItems.First();
-        }
-
-        private void AddTabItem(UserControl userControl, string tabHeader)
-        {
-            var tabItem = new TabItem
-            {
-                Header = tabHeader,
-                Content = userControl
-            };
-
-            CompanionTabItems.Add(tabItem);
-        }
-
-        private TabItem _selectedTabItem;
-        public TabItem SelectedTabItem
-        {
-            get => _selectedTabItem;
+            get => _minimizeToTray;
             set
             {
-                _selectedTabItem = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedTabItem)));
+                _minimizeToTray = value;
+                _trayIconService.MinimizeToTray = value;
+                SaveConfiguration();
+                RaisePropertyChanged(nameof(MinimizeToTray));
             }
         }
 
+        private bool _alwaysShowTrayIcon;
+
+        public bool AlwaysShowTrayIcon
+        {
+            get => _alwaysShowTrayIcon;
+            set
+            {
+                _alwaysShowTrayIcon = value;
+                _trayIconService.AlwaysShowTrayIcon = value;
+                SaveConfiguration();
+                RaisePropertyChanged(nameof(AlwaysShowTrayIcon));
+            }
+        }
+
+        private bool _startMinimized;
+
+        public bool StartMinimized
+        {
+            get => _startMinimized;
+            set
+            {
+                _startMinimized = value;
+                _trayIconService.StartMinimized = value;
+                SaveConfiguration();
+                RaisePropertyChanged(nameof(StartMinimized));
+            }
+        }
+
+        public MainWindowViewModel(IPersistence persistence, ITrayIconService trayIconService)
+        {
+            _persistence = persistence;
+            _trayIconService = trayIconService;
+
+            InitializeCompanionConfiguration();
+        }
+
+        private void InitializeCompanionConfiguration()
+        {
+            var model = _persistence.OptionsCompanionModel;
+
+            AlwaysShowTrayIcon = model.AlwaysShowTrayIcon;
+            MinimizeToTray = model.MinimizeToTray;
+            StartMinimized = model.StartMinimized;
+        }
+
+        private void SaveConfiguration()
+        {
+            if (IsInitialized)
+            {
+                _persistence.Save(new OptionsCompanionModel
+                {
+                    AlwaysShowTrayIcon = AlwaysShowTrayIcon,
+                    MinimizeToTray = MinimizeToTray,
+                    StartMinimized = StartMinimized
+                });
+            }
+        }
+
+        protected void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public bool IsInitialized { get; private set; }
+
+        public void Initialize()
+        {
+            _trayIconService.Initialize();
+            IsInitialized = true;
+        }
     }
 }

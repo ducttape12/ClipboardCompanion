@@ -27,7 +27,6 @@ namespace ClipboardCompanion
             container.Register<MainWindow>();
             container.Register<GuidCreatorCompanionViewModel>();
             container.Register<GuidCreatorControl>();
-            container.Register<OptionsUserControl>();
             container.Register<TextCleanerCompanionViewModel>();
             container.Register<TextCleanerUserControl>();
             container.Register<MainWindowViewModel>();

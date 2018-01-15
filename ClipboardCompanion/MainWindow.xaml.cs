@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using ClipboardCompanion.Services.Interfaces;
 using ClipboardCompanion.ViewModels;
@@ -11,13 +13,16 @@ namespace ClipboardCompanion
         private readonly IWindowHandleService _windowHandleService;
         private readonly ITrayIconService _trayIconService;
         private readonly CompanionSelector _companionSelector;
+        private readonly MainWindowViewModel _mainWindowViewModel;
 
-        public MainWindow(IWindowHandleService windowHandleService, ITrayIconService trayIconService, CompanionSelector companionSelector)
+        public MainWindow(IWindowHandleService windowHandleService, ITrayIconService trayIconService,
+            CompanionSelector companionSelector, MainWindowViewModel mainWindowViewModel)
         {
             InitializeComponent();
             _windowHandleService = windowHandleService;
             _trayIconService = trayIconService;
             _companionSelector = companionSelector;
+            _mainWindowViewModel = mainWindowViewModel;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -26,12 +31,25 @@ namespace ClipboardCompanion
             _windowHandleService.RegisterWindowHandle(hwndSource);
             _trayIconService.RegisterWindow(this);
 
-            Content = _companionSelector;
+            DockPanel.SetDock(_companionSelector, Dock.Bottom);
+            MenuAndContent.Children.Add(_companionSelector);
+
+            DataContext = _mainWindowViewModel;
         }
 
         private void Window_Closed(object sender, System.EventArgs e)
         {
             _trayIconService.Dispose();
+        }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException("About dialog missing...");
         }
     }
 }
