@@ -104,9 +104,6 @@
     <Compile Include="Views\GuidCreatorCompanionControl.xaml.cs">
       <DependentUpon>GuidCreatorCompanionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OptionsUserControl.xaml.cs">
-      <DependentUpon>OptionsUserControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SharedCompanionControl.xaml.cs">
       <DependentUpon>SharedCompanionControl.xaml</DependentUpon>
     </Compile>
@@ -130,10 +127,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GuidCreatorCompanionControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\OptionsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
