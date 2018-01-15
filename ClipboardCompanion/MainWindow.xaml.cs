@@ -49,7 +49,7 @@ namespace ClipboardCompanion
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException("About dialog missing...");
+            new About().ShowDialog();
         }
     }
 }

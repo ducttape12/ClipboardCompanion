@@ -22,7 +22,7 @@ namespace ClipboardCompanion.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ClipboardCompanion.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClipboardCompanion.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace ClipboardCompanion.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,19 +63,65 @@ namespace ClipboardCompanion.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Clipboard Companion.
         /// </summary>
-        internal static string ApplicationTitle {
+        public static string ApplicationName {
             get {
-                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version 1.0.
+        /// </summary>
+        public static string ApplicationVersion {
+            get {
+                return ResourceManager.GetString("ApplicationVersion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Icon ClipboardCompanion {
+        public static System.Drawing.Icon ClipboardCompanion {
             get {
                 object obj = ResourceManager.GetObject("ClipboardCompanion", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright (C) 2018  Keith Ott
+        ///
+        ///This program is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        ///GNU General Public License for more detai [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string License {
+            get {
+                return ResourceManager.GetString("License", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visit KeithOtt.com for more free utilities, games, and more!.
+        /// </summary>
+        public static string WebsiteDescription {
+            get {
+                return ResourceManager.GetString("WebsiteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to http://www.keithott.com/.
+        /// </summary>
+        public static string WebsiteLink {
+            get {
+                return ResourceManager.GetString("WebsiteLink", resourceCulture);
             }
         }
     }
