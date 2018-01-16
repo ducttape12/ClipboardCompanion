@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ClipboardCompanion"
         xmlns:props="clr-namespace:ClipboardCompanion.Properties"
         mc:Ignorable="d"
-        Title="About" Height="345.763" Width="404.873" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
-    <StackPanel>
+        Title="About" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <StackPanel Margin="5">
         <TextBlock>
             <TextBlock.Text>
                 <Binding Mode="OneTime" Source="{x:Static props:Resources.ApplicationName}" />
@@ -18,14 +18,12 @@
                 <Binding Mode="OneTime" Source="{x:Static props:Resources.ApplicationVersion}" />
             </TextBlock.Text>
         </TextBlock>
-        <TextBlock>
+        <TextBlock TextWrapping="WrapWithOverflow">
             <TextBlock.Text>
                 <Binding Mode="OneTime" Source="{x:Static props:Resources.License}" />
             </TextBlock.Text>
         </TextBlock>
-        <Button x:Name="VisitWebsite" Content="{x:Static props:Resources.WebsiteDescription}" Click="VisitWebsite_Click" />
-        <StackPanel Orientation="Horizontal">
-            <Button x:Name="Ok" Click="Ok_Click" >_OK</Button>
-        </StackPanel>
+        <Button x:Name="VisitWebsite" Content="{x:Static props:Resources.WebsiteDescription}" Click="VisitWebsite_Click" Height="32" Margin="10" />
+        <Button x:Name="Ok" Click="Ok_Click" Height="25" Width="100" HorizontalAlignment="Right" Margin="5">_OK</Button>
     </StackPanel>
 </Window>
