@@ -6,24 +6,28 @@
         xmlns:local="clr-namespace:ClipboardCompanion"
         xmlns:props="clr-namespace:ClipboardCompanion.Properties"
         mc:Ignorable="d"
-        Title="About" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
-    <StackPanel Margin="5">
-        <TextBlock>
-            <TextBlock.Text>
-                <Binding Mode="OneTime" Source="{x:Static props:Resources.ApplicationName}" />
-            </TextBlock.Text>
-        </TextBlock>
-        <TextBlock>
-            <TextBlock.Text>
-                <Binding Mode="OneTime" Source="{x:Static props:Resources.ApplicationVersion}" />
-            </TextBlock.Text>
-        </TextBlock>
-        <TextBlock TextWrapping="WrapWithOverflow">
-            <TextBlock.Text>
-                <Binding Mode="OneTime" Source="{x:Static props:Resources.License}" />
-            </TextBlock.Text>
-        </TextBlock>
-        <Button x:Name="VisitWebsite" Content="{x:Static props:Resources.WebsiteDescription}" Click="VisitWebsite_Click" Height="32" Margin="10" />
-        <Button x:Name="Ok" Click="Ok_Click" Height="25" Width="100" HorizontalAlignment="Right" Margin="5">_OK</Button>
-    </StackPanel>
+        Title="About" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Height="400" Width="750">
+    <DockPanel Margin="10">
+        <Button DockPanel.Dock="Bottom" x:Name="Ok" Click="Ok_Click" Height="25" Width="100" HorizontalAlignment="Right" Margin="5">_OK</Button>
+
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock FontWeight="Bold" FontSize="24" HorizontalAlignment="Center">
+                <TextBlock.Text>
+                    <Binding Mode="OneTime" Source="{x:Static props:Resources.ApplicationName}" />
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center">
+                <TextBlock.Text>
+                    <Binding Mode="OneTime" Source="{x:Static props:Resources.ApplicationVersion}" />
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock TextWrapping="Wrap">
+                <TextBlock.Text>
+                    <Binding Mode="OneTime" Source="{x:Static props:Resources.License}" />
+                </TextBlock.Text>
+            </TextBlock>
+
+            <Button x:Name="VisitWebsite" Content="{x:Static props:Resources.WebsiteDescription}" Click="VisitWebsite_Click" Height="40" Margin="20" FontSize="18" />
+        </StackPanel>
+    </DockPanel>
 </Window>
