@@ -1,6 +1,8 @@
-﻿namespace ClipboardCompanion.ViewModels.Interfaces
+﻿using System.ComponentModel;
+
+namespace ClipboardCompanion.ViewModels.Interfaces
 {
-    public interface ICompanionViewModel : IInitializeViewModel
+    public interface ICompanionViewModel : IInitializeViewModel, INotifyPropertyChanged
     {
         bool IsEnabled { get; }
     }
