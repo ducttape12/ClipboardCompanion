@@ -9,10 +9,11 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate x:Key="CompanionElement">
-            <DockPanel>
-                <TextBlock Text="{Binding Description}" DockPanel.Dock="Left"/>
-                <TextBlock Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" Margin="5,0" HorizontalAlignment="Right" DockPanel.Dock="Right">(Enabled)</TextBlock>
-            </DockPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding Description}" />
+                <TextBlock Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">(Enabled)</TextBlock>
+                <TextBlock Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">(Disabled)</TextBlock>
+            </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
     <!--<UserControl.DataContext>
