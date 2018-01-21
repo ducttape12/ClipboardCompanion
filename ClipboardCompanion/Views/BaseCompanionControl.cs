@@ -14,6 +14,7 @@ namespace ClipboardCompanion.Views
         public abstract string Description { get; }
         public bool CompanionIsEnabled => _viewModel.IsEnabled;
         public event PropertyChangedEventHandler PropertyChanged;
+        public string HotKeyDescription => _viewModel.HotKeyDescription;
 
         protected BaseCompanionControl(ICompanionViewModel viewModel) : base(viewModel)
         {

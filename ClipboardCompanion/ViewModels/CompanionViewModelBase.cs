@@ -149,6 +149,19 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
+        public string HotKeyDescription
+        {
+            get
+            {
+                var control = ControlModifier ? "Ctrl+" : string.Empty;
+                var alt = AltModifier ? "Alt+" : string.Empty;
+                var shift = ShiftModifier ? "Shift+" : string.Empty;
+                var key = Key.ToString();
+
+                return IsEnabled ? $"{control}{alt}{shift}{key}" : string.Empty;
+            }
+        }
+
         public bool ControlModifier
         {
             get => _controlModifier;
