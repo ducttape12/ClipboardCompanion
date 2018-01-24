@@ -9,14 +9,13 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate x:Key="CompanionElement">
-            <StackPanel>
-                <TextBlock Text="{Binding Description}" />
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">(Enabled)</TextBlock>
-                    <TextBlock Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">(Disabled)</TextBlock>
-                    <TextBlock Text="{Binding HotKeyDescription, Mode=OneWay}" Margin="5 0 0 0"/>
-                </StackPanel>
-            </StackPanel>
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Right" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0" Text="{Binding HotKeyDescription, Mode=OneWay}" />
+                <TextBlock DockPanel.Dock="Right" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">disabled</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" >✔️</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}">🚫</TextBlock>
+                <TextBlock DockPanel.Dock="Left" Text="{Binding Description}" />
+            </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
     <!--<UserControl.DataContext>
@@ -28,7 +27,7 @@
             <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Header="_Available Companions" Margin="5 5 5 0" Padding="5">
-            <ListBox ItemsSource="{Binding Companions}" SelectedItem="{Binding SelectedUserControl}" ItemTemplate="{DynamicResource CompanionElement}"/>
+            <ListBox ItemsSource="{Binding Companions}" SelectedItem="{Binding SelectedUserControl}" ItemTemplate="{DynamicResource CompanionElement}" HorizontalContentAlignment="Stretch"/>
         </GroupBox>
         <GroupBox Grid.Row="1" Header="_Selected Companion" Margin="5" Padding="5">
             <ContentControl Content="{Binding SelectedUserControl}" />
