@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Security.Policy;
 using System.Windows.Input;
 using ClipboardCompanion.Persistence.Models;
 using ClipboardCompanion.Services;
@@ -146,6 +147,28 @@ namespace ClipboardCompanion.ViewModels
                 _isEnabled = value;
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(IsEnabled));
+            }
+        }
+
+        public bool Bound
+        {
+            get => _isEnabled;
+            set
+            {
+                IsEnabled = value;
+                RaisePropertyChanged(nameof(Bound));
+                RaisePropertyChanged(nameof(Unbound));
+            }
+        }
+
+        public bool Unbound
+        {
+            get => !_isEnabled;
+            set
+            {
+                IsEnabled = !value;
+                RaisePropertyChanged(nameof(Bound));
+                RaisePropertyChanged(nameof(Unbound));
             }
         }
 

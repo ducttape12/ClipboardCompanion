@@ -11,7 +11,7 @@
         <DataTemplate x:Key="CompanionElement">
             <DockPanel>
                 <TextBlock DockPanel.Dock="Right" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0" Text="{Binding HotKeyDescription, Mode=OneWay}" />
-                <TextBlock DockPanel.Dock="Right" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">disabled</TextBlock>
+                <TextBlock DockPanel.Dock="Right" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">unbound</TextBlock>
                 <TextBlock DockPanel.Dock="Left" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" >✔️</TextBlock>
                 <TextBlock DockPanel.Dock="Left" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}">🚫</TextBlock>
                 <TextBlock DockPanel.Dock="Left" Text="{Binding Description}" />

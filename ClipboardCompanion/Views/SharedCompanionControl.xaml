@@ -4,34 +4,33 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              x:Class="ClipboardCompanion.Views.SharedCompanionControl"
-             mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="140">
-    <Grid Margin="5">
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="140">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="100" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <CheckBox Grid.Row="0" Content="_Enabled" IsChecked="{Binding IsEnabled}" VerticalAlignment="Center" />
+        <RadioButton Grid.Row="0" IsChecked="{Binding Unbound}" VerticalAlignment="Center" Margin="0 5 0 0">Unbound</RadioButton>
+        <RadioButton Grid.Row="1" IsChecked="{Binding Bound}" VerticalAlignment="Center" Margin="0 5 0 0">Bound</RadioButton>
 
-        <GroupBox Header="Hot Key" Grid.Row="1" IsEnabled="{Binding IsEnabled}" Margin="20 0 20 10" Padding="5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="25"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
 
-                <CheckBox Grid.Row="0" Grid.Column="0" Content="Control" IsChecked="{Binding ControlModifier}" VerticalAlignment="Center" />
-                <CheckBox Grid.Row="0" Grid.Column="1" Content="Alt" IsChecked="{Binding AltModifier}" VerticalAlignment="Center"/>
-                <CheckBox Grid.Row="0" Grid.Column="2" Content="Shift" IsChecked="{Binding ShiftModifier}" VerticalAlignment="Center" />
+        <Grid Grid.Row="2" Margin="20 0 10 0" IsEnabled="{Binding Bound}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding ValidKeys}" SelectedItem="{Binding Key, Mode=TwoWay}"/>
-            </Grid>
-        </GroupBox>
+            <Label Grid.Column="0" VerticalAlignment="Center">_Hot Key:</Label>
+            <CheckBox Grid.Column="1" Content="Control" Margin="0 0 20 0" IsChecked="{Binding ControlModifier}" VerticalAlignment="Center" />
+            <CheckBox Grid.Column="2" Content="Alt" Margin="0 0 20 0" IsChecked="{Binding AltModifier}" VerticalAlignment="Center"/>
+            <CheckBox Grid.Column="3" Content="Shift" Margin="0 0 20 0" IsChecked="{Binding ShiftModifier}" VerticalAlignment="Center" />
+            <ComboBox Grid.Column="4" ItemsSource="{Binding ValidKeys}" SelectedItem="{Binding Key, Mode=TwoWay}" Margin="3 4 3 4" />
+        </Grid>
     </Grid>
 
 
