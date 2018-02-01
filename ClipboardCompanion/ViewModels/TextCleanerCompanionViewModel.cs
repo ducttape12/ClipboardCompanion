@@ -9,6 +9,7 @@ namespace ClipboardCompanion.ViewModels
     public class TextCleanerCompanionViewModel : CompanionViewModelBase
     {
         private readonly IPersistence _persistance;
+        private readonly INotificationService _notificationService;
         private bool _trim;
 
         public bool Trim
@@ -22,10 +23,11 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
-        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistance) :
+        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistance, INotificationService notificationService) :
             base(hotKeyService, persistance.TextCleanerCompanionModel)
         {
             _persistance = persistance;
+            _notificationService = notificationService;
 
             InitializeCompanionConfiguration();
         }
@@ -43,6 +45,8 @@ namespace ClipboardCompanion.ViewModels
                         }   
 
                         Clipboard.SetText(text);
+
+                        _notificationService.ShowNotification("Cleared clipboard text's formatting.");
                     }
                 };
 

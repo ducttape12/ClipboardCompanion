@@ -73,7 +73,7 @@ namespace ClipboardCompanion.ViewModels
 
                     Clipboard.SetText(casedGuid);
 
-                    _notificationService.ShowNotification("A new GUID has been placed on the clipboard.");
+                    _notificationService.ShowNotification($"GUID {casedGuid} has been placed on the clipboard.");
                 };
 
         private static string CaseGuid(string guid, GuidCasing casing)
