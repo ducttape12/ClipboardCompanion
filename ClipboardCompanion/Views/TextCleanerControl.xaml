@@ -12,14 +12,12 @@
     </UserControl.DataContext>-->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="140" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <local:SharedCompanionControl Grid.Row="0" DataContext="{Binding}" />
 
-        <GroupBox Header="Configuration" Grid.Row="1" IsEnabled="{Binding IsEnabled}" Margin="25 0 25 15" Padding="5" >
-            <CheckBox Content="_Trim Text" IsChecked="{Binding Trim}"/>
-        </GroupBox>
+        <CheckBox Grid.Row="1" Content="_Trim Text" IsEnabled="{Binding Bound}" Margin="25 8 10 0" VerticalAlignment="Top" HorizontalAlignment="Left" IsChecked="{Binding Trim}"/>
     </Grid>
 </local:BaseCompanionControl>

@@ -6,5 +6,11 @@
              xmlns:local="clr-namespace:ClipboardCompanion.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <local:SharedCompanionControl DataContext="{Binding}" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+    </Grid>
 </local:BaseCompanionControl>

@@ -12,8 +12,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <RadioButton Grid.Row="0" IsChecked="{Binding Unbound}" VerticalAlignment="Center" Margin="0 5 0 0">Unbound</RadioButton>
-        <RadioButton Grid.Row="1" IsChecked="{Binding Bound}" VerticalAlignment="Center" Margin="0 5 0 0">Bound</RadioButton>
+        <RadioButton Grid.Row="0" IsChecked="{Binding Unbound}" VerticalAlignment="Center" Margin="0 5 0 0">_Unbound</RadioButton>
+        <RadioButton Grid.Row="1" IsChecked="{Binding Bound}" VerticalAlignment="Center" Margin="0 5 0 0">_Bound</RadioButton>
 
 
         <Grid Grid.Row="2" Margin="20 0 10 0" IsEnabled="{Binding Bound}">
