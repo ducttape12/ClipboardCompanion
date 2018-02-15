@@ -21,7 +21,6 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-
         <local:SharedCompanionControl DataContext="{Binding}" Grid.Row="0" />
 
         <Grid Grid.Row="1" IsEnabled="{Binding Bound}" Margin="20 0 10 0">

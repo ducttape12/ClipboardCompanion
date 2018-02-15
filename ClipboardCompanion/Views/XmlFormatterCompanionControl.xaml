@@ -6,11 +6,19 @@
              xmlns:local="clr-namespace:ClipboardCompanion.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="140" />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+
+        <local:SharedCompanionControl DataContext="{Binding}" Grid.Row="0" />
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" IsEnabled="{Binding Bound}" Margin="25 6 10 0">
+            <CheckBox Content="_XML Declaration" VerticalAlignment="Top" HorizontalAlignment="Left" IsChecked="{Binding XmlDeclaration}" Margin="0 0 0 10"/>
+            <CheckBox Content="_Attributes On Separate Lines" VerticalAlignment="Top" HorizontalAlignment="Left" IsChecked="{Binding AttributesOnSeparateLines}"/>
+        </StackPanel>
 
     </Grid>
 </local:BaseCompanionControl>

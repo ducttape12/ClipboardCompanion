@@ -14,14 +14,14 @@ namespace ClipboardCompanion.ViewModels
         private readonly IPersistence _persistance;
         private readonly INotificationService _notificationService;
 
-        private bool _forceXmlDeclaration;
-        public bool ForceXmlDeclaration
+        private bool _xmlDeclaration;
+        public bool XmlDeclaration
         {
-            get => _forceXmlDeclaration;
+            get => _xmlDeclaration;
             set
             {
-                _forceXmlDeclaration = value;
-                RaisePropertyChanged(nameof(ForceXmlDeclaration));
+                _xmlDeclaration = value;
+                RaisePropertyChanged(nameof(XmlDeclaration));
             }
         }
 
@@ -66,7 +66,7 @@ namespace ClipboardCompanion.ViewModels
 
                 var settings = new XmlWriterSettings
                 {
-                    OmitXmlDeclaration = !ForceXmlDeclaration,
+                    OmitXmlDeclaration = !XmlDeclaration,
                     Indent = true,
                     NewLineOnAttributes = AttributesOnSeparateLines
                 };
@@ -109,7 +109,7 @@ namespace ClipboardCompanion.ViewModels
                     IsEnabled = IsEnabled,
                     ShiftModifier = ShiftModifier,
                     ControlModifier = ControlModifier,
-                    ForceXmlDeclaration = ForceXmlDeclaration,
+                    XmlDeclaration = XmlDeclaration,
                     AttributesOnSeparateLines = AttributesOnSeparateLines
                 });
             }
