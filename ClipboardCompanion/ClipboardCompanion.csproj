@@ -46,6 +46,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -73,6 +76,7 @@
     <Compile Include="Converters\TrueToVisibleConverter.cs" />
     <Compile Include="Enums\GuidCasing.cs" />
     <Compile Include="Enums\GuidStyle.cs" />
+    <Compile Include="Persistence\Models\XmlFormatterCompanionModel.cs" />
     <Compile Include="Persistence\Persistence.cs" />
     <Compile Include="Persistence\Interfaces\IPersistence.cs" />
     <Compile Include="Persistence\Models\BaseCompanionModel.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="ViewModels\Interfaces\IInitializeViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\TextCleanerCompanionViewModel.cs" />
+    <Compile Include="ViewModels\XmlFormatterCompanionViewModel.cs" />
     <Compile Include="Views\BaseCompanionControl.cs" />
     <Compile Include="Views\BaseUserControl.cs" />
     <Compile Include="Views\CompanionSelector.xaml.cs">
@@ -110,8 +115,11 @@
     <Compile Include="Views\SharedCompanionControl.xaml.cs">
       <DependentUpon>SharedCompanionControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TextCleanerUserControl.xaml.cs">
-      <DependentUpon>TextCleanerUserControl.xaml</DependentUpon>
+    <Compile Include="Views\TextCleanerControl.xaml.cs">
+      <DependentUpon>TextCleanerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XmlFormatterCompanionControl.xaml.cs">
+      <DependentUpon>XmlFormatterCompanionControl.xaml</DependentUpon>
     </Compile>
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
@@ -141,7 +149,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TextCleanerUserControl.xaml">
+    <Page Include="Views\TextCleanerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XmlFormatterCompanionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

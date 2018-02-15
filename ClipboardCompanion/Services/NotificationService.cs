@@ -26,15 +26,30 @@ namespace ClipboardCompanion.Services
             _notifyIcon.BalloonTipClosed += (sender, e) => _notifyIcon.Visible = false;
         }
 
-        public void ShowNotification(string message)
+        public void ShowMessage(string message)
+        {
+            ShowNotification(message, ToolTipIcon.Info);
+        }
+
+        public void ShowWarning(string message)
+        {
+            ShowNotification(message, ToolTipIcon.Warning);
+        }
+
+        public void ShowError(string message)
+        {
+            ShowNotification(message, ToolTipIcon.Error);
+        }
+
+        private void ShowNotification(string message, ToolTipIcon icon)
         {
             var timeSinceLastBalloonTip = DateTime.UtcNow - _lastBalloonTipShownUtc;
-            
+
             // If too many balloons are shown in a short amount of time, Windows Explorer crashes
             if (timeSinceLastBalloonTip > _timeBetweenBalloonTips)
             {
                 _notifyIcon.Visible = true;
-                _notifyIcon.ShowBalloonTip(BalloonTipTimeoutMillisecondsPreVista, _applicationTitle, message, ToolTipIcon.Info);
+                _notifyIcon.ShowBalloonTip(BalloonTipTimeoutMillisecondsPreVista, _applicationTitle, message, icon);
                 _lastBalloonTipShownUtc = DateTime.UtcNow;
             }
         }

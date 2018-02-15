@@ -2,9 +2,9 @@
 
 namespace ClipboardCompanion.Views
 {
-    public partial class TextCleanerUserControl : BaseCompanionControl
+    public partial class TextCleanerControl : BaseCompanionControl
     {
-        public TextCleanerUserControl(TextCleanerCompanionViewModel companionViewModel) : base(companionViewModel)
+        public TextCleanerControl(TextCleanerCompanionViewModel companionViewModel) : base(companionViewModel)
         {
             InitializeComponent();
         }

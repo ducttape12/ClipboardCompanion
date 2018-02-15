@@ -16,15 +16,15 @@ namespace ClipboardCompanion.Persistence
 
         private CompanionModelCollection _companionModelCollection = new CompanionModelCollection();
 
-        public void Save(TextCleanerCompanionModel model)
+        public void Save(TextCleanerCompanionModel companionModel)
         {
-            _companionModelCollection.TextCleanerCompanionModel = model;
+            _companionModelCollection.TextCleanerCompanionModel = companionModel;
             Save();
         }
 
-        public void Save(GuidCreatorCompanionModel model)
+        public void Save(GuidCreatorCompanionModel companionModel)
         {
-            _companionModelCollection.GuidCreatorCompanionModel = model;
+            _companionModelCollection.GuidCreatorCompanionModel = companionModel;
             Save();
         }
 
@@ -34,15 +34,10 @@ namespace ClipboardCompanion.Persistence
             Save();
         }
 
-        private void Save()
+        public void Save(XmlFormatterCompanionModel companionModel)
         {
-            Directory.CreateDirectory(FullSaveDirectory);
-
-            var serializer = new XmlSerializer(typeof(CompanionModelCollection));
-            using (var writer = new StreamWriter(FullSavePath))
-            {
-                serializer.Serialize(writer, _companionModelCollection);
-            }
+            _companionModelCollection.XmlFormatterCompanionModel = companionModel;
+            Save();
         }
 
         private static string FullSavePath => Path.Combine(FullSaveDirectory, SaveFileName);
@@ -74,6 +69,26 @@ namespace ClipboardCompanion.Persistence
             {
                 LoadCompanionModelCollection();
                 return _companionModelCollection.OptionsCompanionModel;
+            }
+        }
+
+        public XmlFormatterCompanionModel XmlFormatterCompanionModel
+        {
+            get
+            {
+                LoadCompanionModelCollection();
+                return _companionModelCollection.XmlFormatterCompanionModel;
+            }
+        }
+
+        private void Save()
+        {
+            Directory.CreateDirectory(FullSaveDirectory);
+
+            var serializer = new XmlSerializer(typeof(CompanionModelCollection));
+            using (var writer = new StreamWriter(FullSavePath))
+            {
+                serializer.Serialize(writer, _companionModelCollection);
             }
         }
 

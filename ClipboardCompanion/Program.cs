@@ -28,10 +28,12 @@ namespace ClipboardCompanion
             container.Register<GuidCreatorCompanionViewModel>();
             container.Register<GuidCreatorControl>();
             container.Register<TextCleanerCompanionViewModel>();
-            container.Register<TextCleanerUserControl>();
+            container.Register<TextCleanerControl>();
             container.Register<MainWindowViewModel>();
             container.Register<CompanionSelector>();
             container.Register<CompanionSelectorViewModel>();
+            container.Register<XmlFormatterCompanionViewModel>();
+            container.Register<XmlFormatterCompanionControl>();
 
             container.RegisterSingleton<IHotKeyService, HotKeyService>();
             container.RegisterSingleton<IWindowsHotKeyApiService, WindowsHotKeyApiService>();

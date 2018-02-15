@@ -19,16 +19,9 @@ namespace ClipboardCompanion.ViewModels
         {
             _notificationService = notificationService;
             _persistance = persistance;
-
-            InitializeCompanionConfiguration();
-        }
-
-        private void InitializeCompanionConfiguration()
-        {
-            var model = _persistance.GuidCreatorCompanionModel;
-
-            Style = model.Style;
-            Casing = model.Casing;
+            
+            Style = _persistance.GuidCreatorCompanionModel.Style;
+            Casing = _persistance.GuidCreatorCompanionModel.Casing;
         }
 
         private GuidCasing _casing;
@@ -73,7 +66,7 @@ namespace ClipboardCompanion.ViewModels
 
                     Clipboard.SetText(casedGuid);
 
-                    _notificationService.ShowNotification($"GUID {casedGuid} has been placed on the clipboard.");
+                    _notificationService.ShowMessage($"GUID {casedGuid} has been placed on the clipboard.");
                 };
 
         private static string CaseGuid(string guid, GuidCasing casing)

@@ -28,8 +28,8 @@ namespace ClipboardCompanion.ViewModels
         {
             _persistance = persistance;
             _notificationService = notificationService;
-
-            InitializeCompanionConfiguration();
+            
+            Trim = _persistance.TextCleanerCompanionModel.Trim;
         }
 
         public override Action HotKeyPressedAction =>
@@ -46,7 +46,7 @@ namespace ClipboardCompanion.ViewModels
 
                         Clipboard.SetText(text);
 
-                        _notificationService.ShowNotification("Cleared clipboard text's formatting.");
+                        _notificationService.ShowMessage("Cleared clipboard text's formatting.");
                     }
                 };
 
@@ -63,13 +63,6 @@ namespace ClipboardCompanion.ViewModels
                     Trim = Trim
                 });
             }
-        }
-
-        private void InitializeCompanionConfiguration()
-        {
-            var model = _persistance.TextCleanerCompanionModel;
-
-            Trim = model.Trim;
         }
     }
 }
