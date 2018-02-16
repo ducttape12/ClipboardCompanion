@@ -40,6 +40,12 @@ namespace ClipboardCompanion.Persistence
             Save();
         }
 
+        public void Save(JsonFormatterCompanionModel companionModel)
+        {
+            _companionModelCollection.JsonFormatterCompanionModel = companionModel;
+            Save();
+        }
+
         private static string FullSavePath => Path.Combine(FullSaveDirectory, SaveFileName);
 
         private static string FullSaveDirectory =>
@@ -78,6 +84,15 @@ namespace ClipboardCompanion.Persistence
             {
                 LoadCompanionModelCollection();
                 return _companionModelCollection.XmlFormatterCompanionModel;
+            }
+        }
+
+        public JsonFormatterCompanionModel JsonFormatterCompanionModel
+        {
+            get
+            {
+                LoadCompanionModelCollection();
+                return _companionModelCollection.JsonFormatterCompanionModel;
             }
         }
 

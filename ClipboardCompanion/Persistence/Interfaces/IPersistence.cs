@@ -8,9 +8,11 @@ namespace ClipboardCompanion.Persistence.Interfaces
         void Save(GuidCreatorCompanionModel companionModel);
         void Save(OptionsCompanionModel companionModel);
         void Save(XmlFormatterCompanionModel companionModel);
+        void Save(JsonFormatterCompanionModel companionModel);
         TextCleanerCompanionModel TextCleanerCompanionModel { get; }
         GuidCreatorCompanionModel GuidCreatorCompanionModel { get; }
         OptionsCompanionModel OptionsCompanionModel { get; }
         XmlFormatterCompanionModel XmlFormatterCompanionModel { get; }
+        JsonFormatterCompanionModel JsonFormatterCompanionModel { get; }
     }
 }

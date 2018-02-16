@@ -6,5 +6,6 @@
         public GuidCreatorCompanionModel GuidCreatorCompanionModel { get; set; } = new GuidCreatorCompanionModel();
         public OptionsCompanionModel OptionsCompanionModel { get; set; } = new OptionsCompanionModel();
         public XmlFormatterCompanionModel XmlFormatterCompanionModel { get; set; } = new XmlFormatterCompanionModel();
+        public JsonFormatterCompanionModel JsonFormatterCompanionModel { get; set; } = new JsonFormatterCompanionModel();
     }
 }

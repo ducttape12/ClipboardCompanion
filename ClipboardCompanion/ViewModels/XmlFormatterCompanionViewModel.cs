@@ -109,6 +109,7 @@ namespace ClipboardCompanion.ViewModels
                     IsEnabled = IsEnabled,
                     ShiftModifier = ShiftModifier,
                     ControlModifier = ControlModifier,
+                    Key = Key,
                     XmlDeclaration = XmlDeclaration,
                     AttributesOnSeparateLines = AttributesOnSeparateLines
                 });
