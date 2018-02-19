@@ -10,16 +10,16 @@ namespace ClipboardCompanion
 {
     public partial class MainWindow : Window
     {
-        private readonly IWindowHandleService _windowHandleService;
+        private readonly IHotKeyService _hotKeyService;
         private readonly ITrayIconService _trayIconService;
         private readonly CompanionSelector _companionSelector;
         private readonly MainWindowViewModel _mainWindowViewModel;
 
-        public MainWindow(IWindowHandleService windowHandleService, ITrayIconService trayIconService,
+        public MainWindow(IHotKeyService hotKeyService, ITrayIconService trayIconService,
             CompanionSelector companionSelector, MainWindowViewModel mainWindowViewModel)
         {
             InitializeComponent();
-            _windowHandleService = windowHandleService;
+            _hotKeyService = hotKeyService;
             _trayIconService = trayIconService;
             _companionSelector = companionSelector;
             _mainWindowViewModel = mainWindowViewModel;
@@ -28,7 +28,7 @@ namespace ClipboardCompanion
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
-            _windowHandleService.RegisterWindowHandle(hwndSource);
+            _hotKeyService.RegisterWindowHandle(hwndSource);
             _trayIconService.RegisterWindow(this);
 
             DockPanel.SetDock(_companionSelector, Dock.Bottom);

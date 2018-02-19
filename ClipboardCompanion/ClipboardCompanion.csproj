@@ -94,11 +94,9 @@
     <Compile Include="Services\Interfaces\IHotKeyService.cs" />
     <Compile Include="Services\Interfaces\INotificationService.cs" />
     <Compile Include="Services\Interfaces\ITrayIconService.cs" />
-    <Compile Include="Services\Interfaces\IWindowHandleService.cs" />
     <Compile Include="Services\Interfaces\IWindowsHotKeyApiService.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\TrayIconService.cs" />
-    <Compile Include="Services\WindowHandleService.cs" />
     <Compile Include="Services\WindowsHotKeyApiService.cs" />
     <Compile Include="ViewModels\CompanionSelectorViewModel.cs" />
     <Compile Include="ViewModels\CompanionViewModelBase.cs" />

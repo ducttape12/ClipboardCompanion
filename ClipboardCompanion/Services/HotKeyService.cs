@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Interop;
 using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.Services
@@ -9,8 +10,8 @@ namespace ClipboardCompanion.Services
     public class HotKeyService : IHotKeyService
     {
         private readonly IWindowsHotKeyApiService _windowsHotKeyApiService;
-        private readonly IWindowHandleService _windowHandleService;
         private readonly IDictionary<int, HotKeyBinding> _hotKeyBindingsById = new Dictionary<int, HotKeyBinding>();
+        private HwndSource _hwndSource;
 
         private int _nextUpHotKeyId;
 
@@ -21,19 +22,18 @@ namespace ClipboardCompanion.Services
             {
                 if (!_hookAdded)
                 {
-                    _windowHandleService.AddHookToRegisteredHandle(OnWindowMessageReceived);
+                    _hwndSource?.AddHook(OnWindowMessageReceived);
                     _hookAdded = true;
                 }
 
-                return _windowHandleService.Handle;
+                return _hwndSource?.Handle ?? IntPtr.Zero;
             }
         }
         private int NextUpHotKeyId => _nextUpHotKeyId++;
 
-        public HotKeyService(IWindowsHotKeyApiService windowsHotKeyApiService, IWindowHandleService windowHandleService)
+        public HotKeyService(IWindowsHotKeyApiService windowsHotKeyApiService)
         {
             _windowsHotKeyApiService = windowsHotKeyApiService;
-            _windowHandleService = windowHandleService;
         }
 
         private const int HotKeyMessageTypeId = 0x0312;
@@ -48,6 +48,11 @@ namespace ClipboardCompanion.Services
             }
             
             return IntPtr.Zero;
+        }
+
+        public void RegisterWindowHandle(HwndSource source)
+        {
+            _hwndSource = source;
         }
 
         public HotKeyBinding RegisterHotKey(IList<ModifierKeys> modifierKeys, Key key)

@@ -43,7 +43,6 @@ namespace ClipboardCompanion
 
             container.RegisterSingleton<IHotKeyService, HotKeyService>();
             container.RegisterSingleton<IWindowsHotKeyApiService, WindowsHotKeyApiService>();
-            container.RegisterSingleton<IWindowHandleService, WindowHandleService>();
             container.Register<INotificationService>(() => new NotificationService(Resources.ApplicationName));
             container.RegisterSingleton<IPersistence, Persistence.Persistence>();
             container.RegisterSingleton<ITrayIconService, TrayIconService>();
