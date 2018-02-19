@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using ClipboardCompanion.Services;
 using ClipboardCompanion.ViewModels.Interfaces;
 using ClipboardCompanion.Views;
 
@@ -25,8 +24,6 @@ namespace ClipboardCompanion.ViewModels
                 OnPropertyChanged(nameof(SelectedUserControl));
             }
         }
-
-        //public CompanionSelectorViewModel() { }
 
         public CompanionSelectorViewModel(GuidCreatorControl guidCreatorControl,
             TextCleanerControl textCleanerControl,
