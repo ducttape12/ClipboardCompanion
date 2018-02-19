@@ -295,16 +295,5 @@ namespace ClipboardCompanion.ViewModels
                 _hotKeyService.Initialized -= HotKeyServiceOnInitialized;
             }
         }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            //GC.SuppressFinalize(this);
-        }
-
-        ~CompanionViewModelBase()
-        {
-            Dispose(false);
-        }
     }
 }
