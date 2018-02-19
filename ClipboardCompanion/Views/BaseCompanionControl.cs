@@ -1,7 +1,5 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Controls;
 using ClipboardCompanion.ViewModels.Interfaces;
 
@@ -10,7 +8,6 @@ namespace ClipboardCompanion.Views
     public abstract class BaseCompanionControl : UserControl, INotifyPropertyChanged
     {
         private readonly ICompanionViewModel _viewModel;
-        private bool _isInitialized;
 
         public abstract string Description { get; }
         public bool CompanionIsEnabled => _viewModel.IsEnabled;
@@ -20,18 +17,8 @@ namespace ClipboardCompanion.Views
         protected BaseCompanionControl(ICompanionViewModel viewModel)
         {
             _viewModel = viewModel;
-            Loaded += OnLoaded;
-        }
-
-        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
-        {
-            if (!_isInitialized)
-            {
-                _viewModel.Initialize();
-                DataContext = _viewModel;
-                _viewModel.PropertyChanged += _viewModel_PropertyChanged;
-                _isInitialized = true;
-            }
+            DataContext = _viewModel;
+            _viewModel.PropertyChanged += _viewModel_PropertyChanged;
         }
 
         private void _viewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)

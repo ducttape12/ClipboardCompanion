@@ -10,14 +10,9 @@ namespace ClipboardCompanion.ViewModels
 {
     public class JsonFormatterCompanionViewModel : CompanionViewModelBase
     {
-        private readonly IPersistence _persistance;
-        private readonly INotificationService _notificationService;
-
-        public JsonFormatterCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistance, INotificationService notificationService) :
-            base(hotKeyService, persistance.JsonFormatterCompanionModel)
+        public JsonFormatterCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService) :
+            base(hotKeyService, persistence, notificationService, persistence.JsonFormatterCompanionModel)
         {
-            _persistance = persistance;
-            _notificationService = notificationService;
         }
 
         public override Action HotKeyPressedAction => FormatClipboardToJson;
@@ -26,7 +21,7 @@ namespace ClipboardCompanion.ViewModels
         {
             if (!Clipboard.ContainsText())
             {
-                _notificationService.ShowWarning("No text on clipboard to format.");
+                NotificationService.ShowWarning("No text on clipboard to format.");
                 return;
             }
 
@@ -36,26 +31,23 @@ namespace ClipboardCompanion.ViewModels
                 var formatted = JToken.Parse(clipboardContents).ToString(Formatting.Indented);
                 Clipboard.SetText(formatted);
 
-                _notificationService.ShowMessage("JSON on clipboard has been formatted.");
+                NotificationService.ShowMessage("JSON on clipboard has been formatted.");
             }
             catch
             {
-                _notificationService.ShowError("Clipboard contains invalid JSON. Unable to format.");
+                NotificationService.ShowError("Clipboard contains invalid JSON. Unable to format.");
             }
         }
 
         protected override void SaveConfiguration()
         {
-            if (IsInitialized)
+            Persistence.Save(new JsonFormatterCompanionModel
             {
-                _persistance.Save(new JsonFormatterCompanionModel
-                {
-                    IsEnabled = IsEnabled,
-                    ShiftModifier = ShiftModifier,
-                    ControlModifier = ControlModifier,
-                    Key = Key
-                });
-            }
+                IsEnabled = IsEnabled,
+                ShiftModifier = ShiftModifier,
+                ControlModifier = ControlModifier,
+                Key = Key
+            });
         }
     }
 }

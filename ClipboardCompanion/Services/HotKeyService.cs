@@ -29,7 +29,13 @@ namespace ClipboardCompanion.Services
                 return _hwndSource?.Handle ?? IntPtr.Zero;
             }
         }
+
+        /// <summary>
+        ///  TODO: Potential race condition?
+        /// </summary>
         private int NextUpHotKeyId => _nextUpHotKeyId++;
+
+        public bool IsInitialized { get; private set; }
 
         public HotKeyService(IWindowsHotKeyApiService windowsHotKeyApiService)
         {
@@ -53,14 +59,27 @@ namespace ClipboardCompanion.Services
         public void RegisterWindowHandle(HwndSource source)
         {
             _hwndSource = source;
+            IsInitialized = true;
+            Initialized?.Invoke(this, new EventArgs());
         }
+
+        public event EventHandler<EventArgs> Initialized;
 
         public HotKeyBinding RegisterHotKey(IList<ModifierKeys> modifierKeys, Key key)
         {
+            if (!IsInitialized)
+            {
+                throw new ApplicationException(
+                    "A window handle must be registered to the HotKeyService before hot keys can be registered.");
+            }
             if (modifierKeys.Distinct().Count() != modifierKeys.Count)
+            {
                 throw new ArgumentException($"{nameof(modifierKeys)} must contain unique entries");
+            }
             if (modifierKeys.Contains(ModifierKeys.Windows))
+            {
                 throw new ArgumentException("Windows modifier key is not supported for hot keys");
+            }
 
             var id = NextUpHotKeyId;
             var binding = new HotKeyBinding
@@ -81,8 +100,15 @@ namespace ClipboardCompanion.Services
 
         public void UnregisterHotKey(HotKeyBinding hotKeyBinding)
         {
+            if (!IsInitialized)
+            {
+                throw new ApplicationException(
+                    "A window handle must be registered to the HotKeyService before hot keys can be registered.");
+            }
             if (!_hotKeyBindingsById.ContainsKey(hotKeyBinding.Id))
+            {
                 throw new InvalidOperationException();
+            }
 
             if (_windowsHotKeyApiService.UnregisterHotKey(Handle, hotKeyBinding.Id))
             {

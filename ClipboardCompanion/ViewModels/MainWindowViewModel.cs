@@ -6,7 +6,7 @@ using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class MainWindowViewModel : INotifyPropertyChanged, IInitializeViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
         private readonly IPersistence _persistence;
         private readonly ITrayIconService _trayIconService;

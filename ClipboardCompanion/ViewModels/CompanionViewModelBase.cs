@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using ClipboardCompanion.Persistence.Interfaces;
 using ClipboardCompanion.Persistence.Models;
 using ClipboardCompanion.Services;
 using ClipboardCompanion.Services.Interfaces;
@@ -10,8 +11,10 @@ using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public abstract class CompanionViewModelBase : INotifyPropertyChanged, ICompanionViewModel
+    public abstract class CompanionViewModelBase : ICompanionViewModel
     {
+        protected IPersistence Persistence { get; }
+        protected INotificationService NotificationService { get; }
         private readonly IHotKeyService _hotKeyService;
         private bool _isEnabled;
         private bool _controlModifier;
@@ -20,21 +23,23 @@ namespace ClipboardCompanion.ViewModels
         private Key _key;
         private HotKeyBinding _hotKey;
 
-        public bool IsInitialized { get; private set; }
-
-        protected CompanionViewModelBase(IHotKeyService hotKeyService, BaseCompanionModel companionModel)
+        protected CompanionViewModelBase(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService,
+            BaseCompanionModel companionModel)
         {
+            Persistence = persistence;
+            NotificationService = notificationService;
             _hotKeyService = hotKeyService;
-
-            InitializeCompanionConfiguration(companionModel);
-        }
-
-        private void InitializeCompanionConfiguration(BaseCompanionModel companionModel)
-        {
+            _hotKeyService.Initialized += HotKeyServiceOnInitialized;
+            
             IsEnabled = companionModel.IsEnabled;
             ShiftModifier = companionModel.ShiftModifier;
             ControlModifier = companionModel.ControlModifier;
             Key = companionModel.Key;
+        }
+
+        private void HotKeyServiceOnInitialized(object sender, EventArgs eventArgs)
+        {
+            UpdateHotKeyHandling();
         }
 
         public ObservableCollection<Key> ValidKeys { get; } = new ObservableCollection<Key>
@@ -240,20 +245,12 @@ namespace ClipboardCompanion.ViewModels
             SaveConfiguration();
         }
 
-        private void UnregisterHotKey()
-        {
-            if (!IsInitialized) return;
-
-            if (_hotKey != null)
-            {
-                _hotKeyService.UnregisterHotKey(_hotKey);
-                _hotKey = null;
-            }
-        }
-
         private void RegisterHotKey()
         {
-            if (!IsInitialized) return;
+            if (!_hotKeyService.IsInitialized)
+            {
+                return;
+            }
 
             UnregisterHotKey();
 
@@ -266,23 +263,48 @@ namespace ClipboardCompanion.ViewModels
             _hotKey.OnHotKeyPressed = HotKeyPressedAction;
         }
 
+        private void UnregisterHotKey()
+        {
+            if (!_hotKeyService.IsInitialized)
+            {
+                return;
+            }
+
+            if (_hotKey != null)
+            {
+                _hotKeyService.UnregisterHotKey(_hotKey);
+                _hotKey = null;
+            }
+        }
+
         public abstract Action HotKeyPressedAction { get; }
 
         protected abstract void SaveConfiguration();
-
-
-        public virtual void Initialize()
-        {
-            IsInitialized = true;
-
-            UpdateHotKeyHandling();
-        }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _hotKeyService.Initialized -= HotKeyServiceOnInitialized;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            //GC.SuppressFinalize(this);
+        }
+
+        ~CompanionViewModelBase()
+        {
+            Dispose(false);
         }
     }
 }

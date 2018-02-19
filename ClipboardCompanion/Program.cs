@@ -47,7 +47,8 @@ namespace ClipboardCompanion
             container.RegisterSingleton<IPersistence, Persistence.Persistence>();
             container.RegisterSingleton<ITrayIconService, TrayIconService>();
 
-            container.Verify();
+            // TODO: Since Verify() creates instances of everything and later we create instances again, this creates duplicate companions that try to register the same shortcut.  Move this to an automated test class.
+            //container.Verify();
 
             return container;
         }

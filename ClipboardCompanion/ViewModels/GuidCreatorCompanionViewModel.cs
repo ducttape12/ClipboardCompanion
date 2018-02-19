@@ -11,17 +11,11 @@ namespace ClipboardCompanion.ViewModels
 {
     public class GuidCreatorCompanionViewModel : CompanionViewModelBase
     {
-        private readonly INotificationService _notificationService;
-        private readonly IPersistence _persistance;
-
         public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService, INotificationService notificationService,
-            IPersistence persistance) : base(hotKeyService, persistance.GuidCreatorCompanionModel)
-        {
-            _notificationService = notificationService;
-            _persistance = persistance;
-            
-            Style = _persistance.GuidCreatorCompanionModel.Style;
-            Casing = _persistance.GuidCreatorCompanionModel.Casing;
+            IPersistence persistence) : base(hotKeyService, persistence, notificationService, persistence.GuidCreatorCompanionModel)
+        {   
+            Style = Persistence.GuidCreatorCompanionModel.Style;
+            Casing = Persistence.GuidCreatorCompanionModel.Casing;
         }
 
         private GuidCasing _casing;
@@ -66,7 +60,7 @@ namespace ClipboardCompanion.ViewModels
 
                     Clipboard.SetText(casedGuid);
 
-                    _notificationService.ShowMessage($"GUID {casedGuid} has been placed on the clipboard.");
+                    NotificationService.ShowMessage($"GUID {casedGuid} has been placed on the clipboard.");
                 };
 
         private static string CaseGuid(string guid, GuidCasing casing)
@@ -101,18 +95,15 @@ namespace ClipboardCompanion.ViewModels
 
         protected override void SaveConfiguration()
         {
-            if (IsInitialized)
+            Persistence.Save(new GuidCreatorCompanionModel
             {
-                _persistance.Save(new GuidCreatorCompanionModel
-                {
-                    IsEnabled = IsEnabled,
-                    ShiftModifier = ShiftModifier,
-                    ControlModifier = ControlModifier,
-                    Key = Key,
-                    Style = Style,
-                    Casing = Casing
-                });
-            }
+                IsEnabled = IsEnabled,
+                ShiftModifier = ShiftModifier,
+                ControlModifier = ControlModifier,
+                Key = Key,
+                Style = Style,
+                Casing = Casing
+            });
         }
     }
 }

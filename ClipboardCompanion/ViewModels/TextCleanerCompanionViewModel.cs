@@ -8,8 +8,6 @@ namespace ClipboardCompanion.ViewModels
 {
     public class TextCleanerCompanionViewModel : CompanionViewModelBase
     {
-        private readonly IPersistence _persistance;
-        private readonly INotificationService _notificationService;
         private bool _trim;
 
         public bool Trim
@@ -23,13 +21,10 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
-        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistance, INotificationService notificationService) :
-            base(hotKeyService, persistance.TextCleanerCompanionModel)
+        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService) :
+            base(hotKeyService, persistence, notificationService, persistence.TextCleanerCompanionModel)
         {
-            _persistance = persistance;
-            _notificationService = notificationService;
-            
-            Trim = _persistance.TextCleanerCompanionModel.Trim;
+            Trim = Persistence.TextCleanerCompanionModel.Trim;
         }
 
         public override Action HotKeyPressedAction =>
@@ -46,23 +41,20 @@ namespace ClipboardCompanion.ViewModels
 
                         Clipboard.SetText(text);
 
-                        _notificationService.ShowMessage("Cleared clipboard text's formatting.");
+                        NotificationService.ShowMessage("Cleared clipboard text's formatting.");
                     }
                 };
 
         protected override void SaveConfiguration()
         {
-            if (IsInitialized)
+            Persistence.Save(new TextCleanerCompanionModel
             {
-                _persistance.Save(new TextCleanerCompanionModel
-                {
-                    IsEnabled = IsEnabled,
-                    ShiftModifier = ShiftModifier,
-                    ControlModifier = ControlModifier,
-                    Key = Key,
-                    Trim = Trim
-                });
-            }
+                IsEnabled = IsEnabled,
+                ShiftModifier = ShiftModifier,
+                ControlModifier = ControlModifier,
+                Key = Key,
+                Trim = Trim
+            });
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace ClipboardCompanion.ViewModels.Interfaces
 {
-    public interface ICompanionViewModel : IInitializeViewModel, INotifyPropertyChanged
+    public interface ICompanionViewModel : INotifyPropertyChanged
     {
         bool IsEnabled { get; }
         string HotKeyDescription { get; }

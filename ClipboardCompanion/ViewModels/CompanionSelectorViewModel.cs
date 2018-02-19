@@ -7,7 +7,7 @@ using ClipboardCompanion.Views;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class CompanionSelectorViewModel : INotifyPropertyChanged, IInitializeViewModel
+    public class CompanionSelectorViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -25,15 +25,15 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
-        public CompanionSelectorViewModel(GuidCreatorControl guidCreatorControl,
-            TextCleanerControl textCleanerControl,
-            XmlFormatterCompanionControl xmlFormatterCompanionControl,
-            JsonFormatterCompanionControl jsonFormatterCompanionControl)
+        public CompanionSelectorViewModel(GuidCreatorControl guidCreatorControl)
+            //TextCleanerControl textCleanerControl,
+            //XmlFormatterCompanionControl xmlFormatterCompanionControl,
+            //JsonFormatterCompanionControl jsonFormatterCompanionControl)
         {
             Companions.Add(guidCreatorControl);
-            Companions.Add(textCleanerControl);
-            Companions.Add(xmlFormatterCompanionControl);
-            Companions.Add(jsonFormatterCompanionControl);
+            //Companions.Add(textCleanerControl);
+            //Companions.Add(xmlFormatterCompanionControl);
+            //Companions.Add(jsonFormatterCompanionControl);
 
             SelectedUserControl = Companions.First();
         }

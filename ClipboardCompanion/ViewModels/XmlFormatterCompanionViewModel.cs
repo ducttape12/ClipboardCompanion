@@ -11,9 +11,6 @@ namespace ClipboardCompanion.ViewModels
 {
     public class XmlFormatterCompanionViewModel : CompanionViewModelBase
     {
-        private readonly IPersistence _persistance;
-        private readonly INotificationService _notificationService;
-
         private bool _xmlDeclaration;
         public bool XmlDeclaration
         {
@@ -36,11 +33,9 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
-        public XmlFormatterCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistance, INotificationService notificationService) :
-            base(hotKeyService, persistance.XmlFormatterCompanionModel)
+        public XmlFormatterCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService) :
+            base(hotKeyService, persistence, notificationService, persistence.XmlFormatterCompanionModel)
         {
-            _persistance = persistance;
-            _notificationService = notificationService;
         }
 
         public override Action HotKeyPressedAction =>
@@ -52,7 +47,7 @@ namespace ClipboardCompanion.ViewModels
                     }
                     else
                     {
-                        _notificationService.ShowWarning("No text on clipboard to format.");
+                        NotificationService.ShowWarning("No text on clipboard to format.");
                     }
                 };
 
@@ -78,11 +73,11 @@ namespace ClipboardCompanion.ViewModels
 
                 Clipboard.SetText(formattedXml.ToString());
 
-                _notificationService.ShowMessage("XML on clipboard has been formatted.");
+                NotificationService.ShowMessage("XML on clipboard has been formatted.");
             }
             else
             {
-                _notificationService.ShowError("Clipboard contains invalid XML. Unable to format.");
+                NotificationService.ShowError("Clipboard contains invalid XML. Unable to format.");
             }
         }
 
@@ -102,18 +97,15 @@ namespace ClipboardCompanion.ViewModels
 
         protected override void SaveConfiguration()
         {
-            if (IsInitialized)
+            Persistence.Save(new XmlFormatterCompanionModel
             {
-                _persistance.Save(new XmlFormatterCompanionModel
-                {
-                    IsEnabled = IsEnabled,
-                    ShiftModifier = ShiftModifier,
-                    ControlModifier = ControlModifier,
-                    Key = Key,
-                    XmlDeclaration = XmlDeclaration,
-                    AttributesOnSeparateLines = AttributesOnSeparateLines
-                });
-            }
+                IsEnabled = IsEnabled,
+                ShiftModifier = ShiftModifier,
+                ControlModifier = ControlModifier,
+                Key = Key,
+                XmlDeclaration = XmlDeclaration,
+                AttributesOnSeparateLines = AttributesOnSeparateLines
+            });
         }
     }
 }
