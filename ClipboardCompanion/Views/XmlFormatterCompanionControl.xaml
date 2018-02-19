@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:ClipboardCompanion.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

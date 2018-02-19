@@ -30,11 +30,13 @@ namespace ClipboardCompanion.ViewModels
 
         public CompanionSelectorViewModel(GuidCreatorControl guidCreatorControl,
             TextCleanerControl textCleanerControl,
-            XmlFormatterCompanionControl xmlFormatterCompanionControl)
+            XmlFormatterCompanionControl xmlFormatterCompanionControl,
+            JsonFormatterCompanionControl jsonFormatterCompanionControl)
         {
             Companions.Add(guidCreatorControl);
             Companions.Add(textCleanerControl);
             Companions.Add(xmlFormatterCompanionControl);
+            Companions.Add(jsonFormatterCompanionControl);
 
             SelectedUserControl = Companions.First();
         }

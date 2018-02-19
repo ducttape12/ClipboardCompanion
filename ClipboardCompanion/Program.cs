@@ -25,15 +25,21 @@ namespace ClipboardCompanion
             var container = new Container();
 
             container.Register<MainWindow>();
-            container.Register<GuidCreatorCompanionViewModel>();
-            container.Register<GuidCreatorControl>();
-            container.Register<TextCleanerCompanionViewModel>();
-            container.Register<TextCleanerControl>();
             container.Register<MainWindowViewModel>();
             container.Register<CompanionSelector>();
             container.Register<CompanionSelectorViewModel>();
+
+            container.Register<GuidCreatorControl>();
+            container.Register<GuidCreatorCompanionViewModel>();
+
+            container.Register<TextCleanerControl>();
+            container.Register<TextCleanerCompanionViewModel>();
+
             container.Register<XmlFormatterCompanionViewModel>();
             container.Register<XmlFormatterCompanionControl>();
+
+            container.Register<JsonFormatterCompanionViewModel>();
+            container.Register<JsonFormatterCompanionControl>();
 
             container.RegisterSingleton<IHotKeyService, HotKeyService>();
             container.RegisterSingleton<IWindowsHotKeyApiService, WindowsHotKeyApiService>();

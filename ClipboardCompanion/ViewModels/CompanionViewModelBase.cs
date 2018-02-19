@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Security.Policy;
 using System.Windows.Input;
 using ClipboardCompanion.Persistence.Models;
 using ClipboardCompanion.Services;
@@ -22,8 +21,6 @@ namespace ClipboardCompanion.ViewModels
         private HotKeyBinding _hotKey;
 
         public bool IsInitialized { get; private set; }
-
-        //protected CompanionViewModelBase() { }
 
         protected CompanionViewModelBase(IHotKeyService hotKeyService, BaseCompanionModel companionModel)
         {
