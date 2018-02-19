@@ -13,9 +13,9 @@ namespace ClipboardCompanion.ViewModels
 
         public ObservableCollection<BaseCompanionControl> Companions { get; } = new ObservableCollection<BaseCompanionControl>();
 
-        private BaseUserControl _selectedUserControl;
+        private BaseCompanionControl _selectedUserControl;
 
-        public BaseUserControl SelectedUserControl
+        public BaseCompanionControl SelectedUserControl
         {
             get => _selectedUserControl;
             set

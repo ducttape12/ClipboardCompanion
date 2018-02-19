@@ -3,9 +3,9 @@ using ClipboardCompanion.ViewModels;
 
 namespace ClipboardCompanion.Views
 {
-    public partial class CompanionSelector : BaseUserControl
+    public partial class CompanionSelector : UserControl
     {
-        public CompanionSelector(CompanionSelectorViewModel companionSelectorViewModel) : base(companionSelectorViewModel)
+        public CompanionSelector(CompanionSelectorViewModel companionSelectorViewModel)
         {
             InitializeComponent();
             DataContext = companionSelectorViewModel;

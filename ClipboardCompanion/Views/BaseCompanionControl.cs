@@ -2,11 +2,12 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Controls;
 using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.Views
 {
-    public abstract class BaseCompanionControl : BaseUserControl, INotifyPropertyChanged
+    public abstract class BaseCompanionControl : UserControl, INotifyPropertyChanged
     {
         private readonly ICompanionViewModel _viewModel;
         private bool _isInitialized;
@@ -16,7 +17,7 @@ namespace ClipboardCompanion.Views
         public event PropertyChangedEventHandler PropertyChanged;
         public string HotKeyDescription => _viewModel.HotKeyDescription;
 
-        protected BaseCompanionControl(ICompanionViewModel viewModel) : base(viewModel)
+        protected BaseCompanionControl(ICompanionViewModel viewModel)
         {
             _viewModel = viewModel;
             Loaded += OnLoaded;
@@ -26,6 +27,8 @@ namespace ClipboardCompanion.Views
         {
             if (!_isInitialized)
             {
+                _viewModel.Initialize();
+                DataContext = _viewModel;
                 _viewModel.PropertyChanged += _viewModel_PropertyChanged;
                 _isInitialized = true;
             }

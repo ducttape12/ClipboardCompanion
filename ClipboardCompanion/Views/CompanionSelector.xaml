@@ -1,4 +1,4 @@
-﻿<local:BaseUserControl
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -18,9 +18,6 @@
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
-    <!--<UserControl.DataContext>
-        <ViewModels:CompanionSelectorViewModel/>
-    </UserControl.DataContext>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -33,4 +30,4 @@
             <ContentControl Content="{Binding SelectedUserControl}" />
         </GroupBox>
     </Grid>
-</local:BaseUserControl>
+</UserControl>

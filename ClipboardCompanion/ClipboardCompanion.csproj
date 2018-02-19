@@ -110,7 +110,6 @@
     <Compile Include="ViewModels\TextCleanerCompanionViewModel.cs" />
     <Compile Include="ViewModels\XmlFormatterCompanionViewModel.cs" />
     <Compile Include="Views\BaseCompanionControl.cs" />
-    <Compile Include="Views\BaseUserControl.cs" />
     <Compile Include="Views\CompanionSelector.xaml.cs">
       <DependentUpon>CompanionSelector.xaml</DependentUpon>
     </Compile>
