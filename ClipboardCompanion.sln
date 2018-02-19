@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardCompanion", "ClipboardCompanion\ClipboardCompanion.csproj", "{7D5BDC34-647A-4285-ADF9-CC054ACE1BE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClipboardCompanionTest", "ClipboardCompanionTest\ClipboardCompanionTest.csproj", "{C9511999-9C2F-4837-9FC7-D6D9FD758474}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7D5BDC34-647A-4285-ADF9-CC054ACE1BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D5BDC34-647A-4285-ADF9-CC054ACE1BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D5BDC34-647A-4285-ADF9-CC054ACE1BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9511999-9C2F-4837-9FC7-D6D9FD758474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9511999-9C2F-4837-9FC7-D6D9FD758474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9511999-9C2F-4837-9FC7-D6D9FD758474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9511999-9C2F-4837-9FC7-D6D9FD758474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

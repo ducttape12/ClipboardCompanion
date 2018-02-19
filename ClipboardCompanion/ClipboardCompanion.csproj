@@ -77,6 +77,7 @@
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\FalseToVisibleConverter.cs" />
     <Compile Include="Converters\TrueToVisibleConverter.cs" />
+    <Compile Include="DependencyRegistration.cs" />
     <Compile Include="Enums\GuidCasing.cs" />
     <Compile Include="Enums\GuidStyle.cs" />
     <Compile Include="Persistence\Models\JsonFormatterCompanionModel.cs" />
