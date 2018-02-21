@@ -51,7 +51,9 @@ namespace ClipboardCompanion
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
+            _trayIconService.Enabled = false;
             new About().ShowDialog();
+            _trayIconService.Enabled = true;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

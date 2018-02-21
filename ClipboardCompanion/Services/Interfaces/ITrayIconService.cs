@@ -8,5 +8,6 @@ namespace ClipboardCompanion.Services.Interfaces
         bool AlwaysShowTrayIcon { get; set; }
         bool MinimizeToTray { get; set; }
         bool StartMinimized { get; set; }
+        bool Enabled { get; set; }
     }
 }

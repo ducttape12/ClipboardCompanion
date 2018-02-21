@@ -54,6 +54,11 @@ namespace ClipboardCompanion.Services
 
         private void OnLeftMouseClick()
         {
+            if (!Enabled)
+            {
+                return;
+            }
+
             if (_window.WindowState == WindowState.Minimized)
             {
                 _window.Show();
@@ -102,8 +107,22 @@ namespace ClipboardCompanion.Services
             }
         }
         public bool MinimizeToTray { get; set; }
-
         public bool StartMinimized { get; set; }
+
+        private bool _enabled;
+        public bool Enabled 
+        {
+            get => _enabled;
+            set
+            {
+                _enabled = value;
+
+                foreach (MenuItem menuItem in _trayIcon.ContextMenu.MenuItems)
+                {
+                    menuItem.Enabled = _enabled;
+                }
+            }
+        }
 
         public void Dispose()
         {
