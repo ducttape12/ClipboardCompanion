@@ -28,15 +28,26 @@ namespace ClipboardCompanion.Services
         private void InitializeContextMenu()
         {
             var contextMenu = new ContextMenu();
-            var exitMenuItem = new MenuItem
+            var trayUntrayMenuItem = new MenuItem
             {
                 Index = 0,
+                Text = "&Tray/Untray"
+            };
+            trayUntrayMenuItem.Click += TrayUntrayMenuItemOnClick;
+            var exitMenuItem = new MenuItem
+            {
+                Index = 1,
                 Text = "E&xit"
             };
             exitMenuItem.Click += ExitMenuItem_Click;
-            contextMenu.MenuItems.AddRange(new[] { exitMenuItem });
+            contextMenu.MenuItems.AddRange(new[] { trayUntrayMenuItem, exitMenuItem });
 
             _trayIcon.ContextMenu = contextMenu;
+        }
+
+        private void TrayUntrayMenuItemOnClick(object sender, EventArgs eventArgs)
+        {
+            TrayUntray();
         }
 
         private void ExitMenuItem_Click(object sender, EventArgs e)
@@ -76,6 +87,7 @@ namespace ClipboardCompanion.Services
             _window = window;
             _previousWindowState = _window.WindowState;
             _window.StateChanged += WindowOnStateChanged;
+            Enabled = true;
 
             if (StartMinimized)
             {
