@@ -48,11 +48,11 @@ namespace ClipboardCompanion.Services
         {
             if (mouseEventArgs.Button == MouseButtons.Left)
             {
-                OnLeftMouseClick();
+                TrayUntray();
             }
         }
 
-        private void OnLeftMouseClick()
+        private void TrayUntray()
         {
             if (!Enabled)
             {

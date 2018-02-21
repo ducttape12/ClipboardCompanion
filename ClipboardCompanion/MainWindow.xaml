@@ -7,7 +7,7 @@
         xmlns:props="clr-namespace:ClipboardCompanion.Properties"
         x:Class="ClipboardCompanion.MainWindow"
         mc:Ignorable="d"
-        Title="{x:Static props:Resources.ApplicationName}" Height="550" Width="525" Loaded="Window_Loaded" Closed="Window_Closed"
+        Title="{x:Static props:Resources.ApplicationName}" Height="475" Width="500" Loaded="Window_Loaded" Closed="Window_Closed"
         ResizeMode="CanMinimize" Closing="Window_Closing">
     <DockPanel x:Name="MenuAndContent">
         <Menu DockPanel.Dock="Top">
