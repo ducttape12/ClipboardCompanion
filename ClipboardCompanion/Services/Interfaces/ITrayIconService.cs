@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClipboardCompanion.Services.Interfaces
 {
@@ -12,6 +8,5 @@ namespace ClipboardCompanion.Services.Interfaces
         bool AlwaysShowTrayIcon { get; set; }
         bool MinimizeToTray { get; set; }
         bool StartMinimized { get; set; }
-        void Initialize();
     }
 }

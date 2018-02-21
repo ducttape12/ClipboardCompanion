@@ -42,6 +42,11 @@ namespace ClipboardCompanion.Services
             _window = window;
             _previousWindowState = _window.WindowState;
             _window.StateChanged += WindowOnStateChanged;
+
+            if (StartMinimized)
+            {
+                _window.WindowState = WindowState.Minimized;
+            }
         }
 
         private void WindowOnStateChanged(object sender, EventArgs eventArgs)
@@ -70,14 +75,6 @@ namespace ClipboardCompanion.Services
         public bool MinimizeToTray { get; set; }
 
         public bool StartMinimized { get; set; }
-
-        public void Initialize()
-        {
-            if (StartMinimized)
-            {
-                _window.WindowState = WindowState.Minimized;
-            }
-        }
 
         public void Dispose()
         {

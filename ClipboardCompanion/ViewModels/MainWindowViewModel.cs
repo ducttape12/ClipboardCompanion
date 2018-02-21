@@ -2,7 +2,6 @@
 using ClipboardCompanion.Persistence.Interfaces;
 using ClipboardCompanion.Persistence.Models;
 using ClipboardCompanion.Services.Interfaces;
-using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
@@ -58,42 +57,26 @@ namespace ClipboardCompanion.ViewModels
             _persistence = persistence;
             _trayIconService = trayIconService;
 
-            InitializeCompanionConfiguration();
-        }
+            var options = _persistence.OptionsCompanionModel;
 
-        private void InitializeCompanionConfiguration()
-        {
-            var model = _persistence.OptionsCompanionModel;
-
-            AlwaysShowTrayIcon = model.AlwaysShowTrayIcon;
-            MinimizeToTray = model.MinimizeToTray;
-            StartMinimized = model.StartMinimized;
+            AlwaysShowTrayIcon = options.AlwaysShowTrayIcon;
+            MinimizeToTray = options.MinimizeToTray;
+            StartMinimized = options.StartMinimized;
         }
 
         private void SaveConfiguration()
         {
-            if (IsInitialized)
+            _persistence.Save(new OptionsCompanionModel
             {
-                _persistence.Save(new OptionsCompanionModel
-                {
-                    AlwaysShowTrayIcon = AlwaysShowTrayIcon,
-                    MinimizeToTray = MinimizeToTray,
-                    StartMinimized = StartMinimized
-                });
-            }
+                AlwaysShowTrayIcon = AlwaysShowTrayIcon,
+                MinimizeToTray = MinimizeToTray,
+                StartMinimized = StartMinimized
+            });
         }
 
         protected void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public bool IsInitialized { get; private set; }
-
-        public void Initialize()
-        {
-            _trayIconService.Initialize();
-            IsInitialized = true;
         }
     }
 }
