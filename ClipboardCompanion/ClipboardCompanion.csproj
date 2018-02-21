@@ -90,8 +90,10 @@
     <Compile Include="Persistence\Models\OptionsCompanionModel.cs" />
     <Compile Include="Persistence\Models\TextCleanerCompanionModel.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Services\ApplicationLifecycleServiceService.cs" />
     <Compile Include="Services\HotKeyBinding.cs" />
     <Compile Include="Services\HotKeyService.cs" />
+    <Compile Include="Services\Interfaces\IApplicationLifecycleService.cs" />
     <Compile Include="Services\Interfaces\IHotKeyService.cs" />
     <Compile Include="Services\Interfaces\INotificationService.cs" />
     <Compile Include="Services\Interfaces\ITrayIconService.cs" />

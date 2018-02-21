@@ -13,15 +13,18 @@ namespace ClipboardCompanion
         private readonly ITrayIconService _trayIconService;
         private readonly CompanionSelector _companionSelector;
         private readonly MainWindowViewModel _mainWindowViewModel;
+        private readonly IApplicationLifecycleService _applicationLifecycleService;
 
         public MainWindow(IHotKeyService hotKeyService, ITrayIconService trayIconService,
-            CompanionSelector companionSelector, MainWindowViewModel mainWindowViewModel)
+            CompanionSelector companionSelector, MainWindowViewModel mainWindowViewModel,
+            IApplicationLifecycleService applicationLifecycleService)
         {
             InitializeComponent();
             _hotKeyService = hotKeyService;
             _trayIconService = trayIconService;
             _companionSelector = companionSelector;
             _mainWindowViewModel = mainWindowViewModel;
+            _applicationLifecycleService = applicationLifecycleService;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -43,12 +46,17 @@ namespace ClipboardCompanion
 
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            _applicationLifecycleService.Shutdown();
         }
 
         private void About_Click(object sender, RoutedEventArgs e)
         {
             new About().ShowDialog();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _applicationLifecycleService.Shutdown();
         }
     }
 }

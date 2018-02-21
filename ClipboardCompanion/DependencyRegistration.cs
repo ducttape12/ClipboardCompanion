@@ -36,6 +36,7 @@ namespace ClipboardCompanion
             container.Register<INotificationService>(() => new NotificationService(Resources.ApplicationName));
             container.RegisterSingleton<IPersistence, Persistence.Persistence>();
             container.RegisterSingleton<ITrayIconService, TrayIconService>();
+            container.RegisterSingleton<IApplicationLifecycleService, ApplicationLifecycleServiceService>();
 
             return container;
         }

@@ -7,33 +7,62 @@ namespace ClipboardCompanion.Services
 {
     public class TrayIconService : ITrayIconService
     {
+        private readonly IApplicationLifecycleService _applicationLifecycleService;
         private Window _window;
         private readonly NotifyIcon _trayIcon;
         private WindowState _previousWindowState;
 
-        public TrayIconService()
+        public TrayIconService(IApplicationLifecycleService applicationLifecycleService)
         {
+            _applicationLifecycleService = applicationLifecycleService;
+
             _trayIcon = new NotifyIcon
             {
                 Icon = Properties.Resources.ClipboardCompanion
             };
             _trayIcon.MouseClick += TrayIconOnMouseClick;
+
+            InitializeContextMenu();
+        }
+
+        private void InitializeContextMenu()
+        {
+            var contextMenu = new ContextMenu();
+            var exitMenuItem = new MenuItem
+            {
+                Index = 0,
+                Text = "E&xit"
+            };
+            exitMenuItem.Click += ExitMenuItem_Click;
+            contextMenu.MenuItems.AddRange(new[] { exitMenuItem });
+
+            _trayIcon.ContextMenu = contextMenu;
+        }
+
+        private void ExitMenuItem_Click(object sender, EventArgs e)
+        {
+            _applicationLifecycleService.Shutdown();
         }
 
         private void TrayIconOnMouseClick(object sender, MouseEventArgs mouseEventArgs)
         {
             if (mouseEventArgs.Button == MouseButtons.Left)
             {
-                if (_window.WindowState == WindowState.Minimized)
-                {
-                    _window.Show();
-                    _window.WindowState = _previousWindowState;
-                    _trayIcon.Visible = AlwaysShowTrayIcon;
-                }
-                else
-                {
-                    _window.WindowState = WindowState.Minimized;
-                }
+                OnLeftMouseClick();
+            }
+        }
+
+        private void OnLeftMouseClick()
+        {
+            if (_window.WindowState == WindowState.Minimized)
+            {
+                _window.Show();
+                _window.WindowState = _previousWindowState;
+                _trayIcon.Visible = AlwaysShowTrayIcon;
+            }
+            else
+            {
+                _window.WindowState = WindowState.Minimized;
             }
         }
 

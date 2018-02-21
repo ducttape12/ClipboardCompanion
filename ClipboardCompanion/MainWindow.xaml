@@ -8,7 +8,7 @@
         x:Class="ClipboardCompanion.MainWindow"
         mc:Ignorable="d"
         Title="{x:Static props:Resources.ApplicationName}" Height="550" Width="525" Loaded="Window_Loaded" Closed="Window_Closed"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize" Closing="Window_Closing">
     <DockPanel x:Name="MenuAndContent">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
