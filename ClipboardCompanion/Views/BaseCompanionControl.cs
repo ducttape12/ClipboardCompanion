@@ -23,9 +23,14 @@ namespace ClipboardCompanion.Views
 
         private void _viewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(_viewModel.IsEnabled))
+            switch (e.PropertyName)
             {
-                OnPropertyChanged(nameof(CompanionIsEnabled));
+                case nameof(_viewModel.IsEnabled):
+                    OnPropertyChanged(nameof(CompanionIsEnabled));
+                    break;
+                case nameof(_viewModel.HotKeyDescription):
+                    OnPropertyChanged(nameof(HotKeyDescription));
+                    break;
             }
         }
 

@@ -195,6 +195,7 @@ namespace ClipboardCompanion.ViewModels
                 _controlModifier = value;
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(ControlModifier));
+                RaisePropertyChanged(nameof(HotKeyDescription));
             }
         }
 
@@ -206,6 +207,7 @@ namespace ClipboardCompanion.ViewModels
                 _altModifier = value;
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(AltModifier));
+                RaisePropertyChanged(nameof(HotKeyDescription));
             }
         }
 
@@ -217,6 +219,7 @@ namespace ClipboardCompanion.ViewModels
                 _shiftModifier = value;
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(ShiftModifier));
+                RaisePropertyChanged(nameof(HotKeyDescription));
             }
         }
 
@@ -228,6 +231,7 @@ namespace ClipboardCompanion.ViewModels
                 _key = value;
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(Key));
+                RaisePropertyChanged(nameof(HotKeyDescription));
             }
         }
 
