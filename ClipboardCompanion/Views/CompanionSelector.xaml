@@ -20,14 +20,17 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition MinHeight="100" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition MinHeight="100" Height="1.5*"/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="0" Header="_Available Companions" Margin="5 5 5 0" Padding="5">
+        <GroupBox Grid.Row="0" Header="_Available Companions" Margin="5" Padding="5">
             <ListBox ItemsSource="{Binding Companions}" SelectedItem="{Binding SelectedUserControl}" ItemTemplate="{DynamicResource CompanionElement}" HorizontalContentAlignment="Stretch"/>
         </GroupBox>
-        <GroupBox Grid.Row="1" Header="_Selected Companion" Margin="5" Padding="5">
-            <ContentControl Content="{Binding SelectedUserControl}" />
+        <GridSplitter Grid.Row="1" Height="5" VerticalAlignment="Center" HorizontalAlignment="Stretch"  />
+        <GroupBox Grid.Row="2" Header="_Selected Companion" Margin="5" Padding="5">
+            <ScrollViewer Content="{Binding SelectedUserControl}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"></ScrollViewer>
+            <!--<ContentControl Content="{Binding SelectedUserControl}" />-->
         </GroupBox>
     </Grid>
 </UserControl>
