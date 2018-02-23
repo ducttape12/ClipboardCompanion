@@ -22,6 +22,15 @@ namespace ClipboardCompanion.ViewModels
         private bool _shiftModifier;
         private Key _key;
         private HotKeyBinding _hotKey;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public abstract Action HotKeyPressedAction { get; }
+        protected abstract void SaveConfiguration();
+        
+        protected void RaisePropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         protected CompanionViewModelBase(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService,
             BaseCompanionModel companionModel)
@@ -29,17 +38,12 @@ namespace ClipboardCompanion.ViewModels
             Persistence = persistence;
             NotificationService = notificationService;
             _hotKeyService = hotKeyService;
-            _hotKeyService.Initialized += HotKeyServiceOnInitialized;
+            _hotKeyService.Initialized += (sender, eventArgs) => UpdateHotKeyHandling();
             
             IsEnabled = companionModel.IsEnabled;
             ShiftModifier = companionModel.ShiftModifier;
             ControlModifier = companionModel.ControlModifier;
             Key = companionModel.Key;
-        }
-
-        private void HotKeyServiceOnInitialized(object sender, EventArgs eventArgs)
-        {
-            UpdateHotKeyHandling();
         }
 
         public ObservableCollection<Key> ValidKeys { get; } = new ObservableCollection<Key>
@@ -278,25 +282,6 @@ namespace ClipboardCompanion.ViewModels
             {
                 _hotKeyService.UnregisterHotKey(_hotKey);
                 _hotKey = null;
-            }
-        }
-
-        public abstract Action HotKeyPressedAction { get; }
-
-        protected abstract void SaveConfiguration();
-        
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void RaisePropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _hotKeyService.Initialized -= HotKeyServiceOnInitialized;
             }
         }
     }

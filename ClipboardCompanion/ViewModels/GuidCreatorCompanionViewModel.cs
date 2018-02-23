@@ -99,6 +99,7 @@ namespace ClipboardCompanion.ViewModels
             {
                 IsEnabled = IsEnabled,
                 ShiftModifier = ShiftModifier,
+                AltModifier = AltModifier,
                 ControlModifier = ControlModifier,
                 Key = Key,
                 Style = Style,
