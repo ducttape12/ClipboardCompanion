@@ -13,6 +13,7 @@ namespace ClipboardCompanion.Views
         public bool CompanionIsEnabled => _viewModel.IsEnabled;
         public event PropertyChangedEventHandler PropertyChanged;
         public string HotKeyDescription => _viewModel.HotKeyDescription;
+        public bool ValidHotKey => _viewModel.ValidHotKey;
 
         protected BaseCompanionControl(ICompanionViewModel viewModel)
         {
@@ -26,15 +27,18 @@ namespace ClipboardCompanion.Views
             switch (e.PropertyName)
             {
                 case nameof(_viewModel.IsEnabled):
-                    OnPropertyChanged(nameof(CompanionIsEnabled));
+                    RaisePropertyChanged(nameof(CompanionIsEnabled));
                     break;
                 case nameof(_viewModel.HotKeyDescription):
-                    OnPropertyChanged(nameof(HotKeyDescription));
+                    RaisePropertyChanged(nameof(HotKeyDescription));
+                    break;
+                case nameof(_viewModel.ValidHotKey):
+                    RaisePropertyChanged(nameof(ValidHotKey));
                     break;
             }
         }
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

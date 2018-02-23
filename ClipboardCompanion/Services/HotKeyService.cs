@@ -29,10 +29,7 @@ namespace ClipboardCompanion.Services
                 return _hwndSource?.Handle ?? IntPtr.Zero;
             }
         }
-
-        /// <summary>
-        ///  TODO: Potential race condition?
-        /// </summary>
+        
         private int NextUpHotKeyId => _nextUpHotKeyId++;
 
         public bool IsInitialized { get; private set; }
@@ -65,6 +62,14 @@ namespace ClipboardCompanion.Services
 
         public event EventHandler<EventArgs> Initialized;
 
+        public bool HotKeyInUse(IList<ModifierKeys> modifierKeys, Key key)
+        {
+            return _hotKeyBindingsById.Values
+                .Any(binding => binding.Key == key &&
+                                !binding.ModifierKeys.Except(modifierKeys).Any() &&
+                                !modifierKeys.Except(binding.ModifierKeys).Any());
+        }
+
         public HotKeyBinding RegisterHotKey(IList<ModifierKeys> modifierKeys, Key key)
         {
             if (!IsInitialized)
@@ -81,11 +86,18 @@ namespace ClipboardCompanion.Services
                 throw new ArgumentException("Windows modifier key is not supported for hot keys");
             }
 
+            if (HotKeyInUse(modifierKeys, key))
+            {
+                throw new ApplicationException("Cannot register a hot key multiple times.");
+            }
+
             var id = NextUpHotKeyId;
             var binding = new HotKeyBinding
             {
                 Id = id,
-                OnHotKeyPressed = () => { }
+                OnHotKeyPressed = () => { },
+                ModifierKeys = modifierKeys,
+                Key = key
             };
             _hotKeyBindingsById[id] = binding;
 
@@ -103,7 +115,7 @@ namespace ClipboardCompanion.Services
             if (!IsInitialized)
             {
                 throw new ApplicationException(
-                    "A window handle must be registered to the HotKeyService before hot keys can be registered.");
+                    "A window handle must be registered to the HotKeyService before hot keys can be unregistered.");
             }
             if (!_hotKeyBindingsById.ContainsKey(hotKeyBinding.Id))
             {

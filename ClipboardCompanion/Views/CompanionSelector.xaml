@@ -9,13 +9,18 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <DataTemplate x:Key="CompanionElement">
-            <DockPanel>
+            <DockPanel x:Name="CompanionTemplate" Background="{x:Null}">
                 <TextBlock DockPanel.Dock="Right" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0" Text="{Binding HotKeyDescription, Mode=OneWay}" />
                 <TextBlock DockPanel.Dock="Right" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}" Margin="5 0 0 0">unbound</TextBlock>
                 <TextBlock DockPanel.Dock="Left" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource TrueToVisibleConverter}, Mode=OneWay}" >✔️</TextBlock>
                 <TextBlock DockPanel.Dock="Left" Visibility="{Binding CompanionIsEnabled, Converter={StaticResource FalseToVisibleConverter}, Mode=OneWay}">🚫</TextBlock>
                 <TextBlock DockPanel.Dock="Left" Text="{Binding Description}" />
             </DockPanel>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding ValidHotKey}" Value="False">
+                    <Setter Property="Background" TargetName="CompanionTemplate" Value="Red"></Setter>
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>

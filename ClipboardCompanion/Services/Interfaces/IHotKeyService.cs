@@ -12,5 +12,6 @@ namespace ClipboardCompanion.Services.Interfaces
         void RegisterWindowHandle(HwndSource source);
         bool IsInitialized { get; }
         event EventHandler<EventArgs> Initialized;
+        bool HotKeyInUse(IList<ModifierKeys> modifierKeys, Key key);
     }
 }

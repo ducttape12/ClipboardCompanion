@@ -7,5 +7,6 @@ namespace ClipboardCompanion.ViewModels.Interfaces
     {
         bool IsEnabled { get; }
         string HotKeyDescription { get; }
+        bool ValidHotKey { get; }
     }
 }

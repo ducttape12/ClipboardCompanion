@@ -144,29 +144,22 @@ namespace ClipboardCompanion.ViewModels
 
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(IsEnabled));
+                RaisePropertyChanged(nameof(Bound));
+                RaisePropertyChanged(nameof(Unbound));
+                RaisePropertyChanged(nameof(HotKeyDescription));
             }
         }
 
         public bool Bound
         {
             get => IsEnabled;
-            set
-            {
-                IsEnabled = value;
-                RaisePropertyChanged(nameof(Bound));
-                RaisePropertyChanged(nameof(Unbound));
-            }
+            set => IsEnabled = value;
         }
 
         public bool Unbound
         {
             get => !IsEnabled;
-            set
-            {
-                IsEnabled = !value;
-                RaisePropertyChanged(nameof(Bound));
-                RaisePropertyChanged(nameof(Unbound));
-            }
+            set => IsEnabled = !value;
         }
 
         public string HotKeyDescription
@@ -242,6 +235,17 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
+        private bool _validHotKey = true;
+        public bool ValidHotKey
+        {
+            get => _validHotKey;
+            private set
+            {
+                _validHotKey = value;
+                RaisePropertyChanged(nameof(ValidHotKey));
+            }
+        }
+
         private void UpdateHotKeyHandling()
         {
             if (IsEnabled)
@@ -263,13 +267,27 @@ namespace ClipboardCompanion.ViewModels
 
             UnregisterHotKey();
 
-            var modifiers = new List<ModifierKeys>();
-            if (ControlModifier) modifiers.Add(ModifierKeys.Control);
-            if (AltModifier) modifiers.Add(ModifierKeys.Alt);
-            if (ShiftModifier) modifiers.Add(ModifierKeys.Shift);
+            var modifiers = ModifierKeys();
 
-            _hotKey = _hotKeyService.RegisterHotKey(modifiers, Key);
-            _hotKey.OnHotKeyPressed = HotKeyPressedAction;
+            if (_hotKeyService.HotKeyInUse(modifiers, Key))
+            {
+                ValidHotKey = false;
+            }
+            else
+            {
+                _hotKey = _hotKeyService.RegisterHotKey(modifiers, Key);
+                _hotKey.OnHotKeyPressed = HotKeyPressedAction;
+                ValidHotKey = true;
+            }
+        }
+
+        private IList<ModifierKeys> ModifierKeys()
+        {
+            var modifiers = new List<ModifierKeys>();
+            if (ControlModifier) modifiers.Add(System.Windows.Input.ModifierKeys.Control);
+            if (AltModifier) modifiers.Add(System.Windows.Input.ModifierKeys.Alt);
+            if (ShiftModifier) modifiers.Add(System.Windows.Input.ModifierKeys.Shift);
+            return modifiers;
         }
 
         private void UnregisterHotKey()
@@ -284,6 +302,8 @@ namespace ClipboardCompanion.ViewModels
                 _hotKeyService.UnregisterHotKey(_hotKey);
                 _hotKey = null;
             }
+
+            ValidHotKey = true;
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace ClipboardCompanion.Services
 {
@@ -6,5 +8,7 @@ namespace ClipboardCompanion.Services
     {
         public int Id { get; set; }
         public Action OnHotKeyPressed { get; set; }
+        public IList<ModifierKeys> ModifierKeys { get; set; }
+        public Key Key { get; set; }
     }
 }
