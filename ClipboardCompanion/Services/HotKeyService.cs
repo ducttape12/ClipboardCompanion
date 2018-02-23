@@ -92,13 +92,7 @@ namespace ClipboardCompanion.Services
             }
 
             var id = NextUpHotKeyId;
-            var binding = new HotKeyBinding
-            {
-                Id = id,
-                OnHotKeyPressed = () => { },
-                ModifierKeys = modifierKeys,
-                Key = key
-            };
+            var binding = new HotKeyBinding(id, () => { }, modifierKeys, key);
             _hotKeyBindingsById[id] = binding;
 
             var modifierKeyFlags = (uint)modifierKeys.Sum(modifier => (int)modifier);
