@@ -9,43 +9,39 @@ using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class GuidCreatorCompanionViewModel : CompanionViewModelBase
+    public class GuidCreatorCompanionViewModel : CompanionViewModelBase<GuidCreatorCompanionModel>
     {
         public GuidCreatorCompanionViewModel(IHotKeyService hotKeyService, INotificationService notificationService,
-            IPersistence persistence) : base(hotKeyService, persistence, notificationService, persistence.GuidCreatorCompanionModel)
-        {   
-            Style = Persistence.GuidCreatorCompanionModel.Style;
-            Casing = Persistence.GuidCreatorCompanionModel.Casing;
+            IPersistence<GuidCreatorCompanionModel> persistence) : base(hotKeyService, persistence, notificationService)
+        {
         }
-
-        private GuidCasing _casing;
-
+        
         public GuidCasing Casing
         {
-            get => _casing;
+            get => Persistence.Load().Casing;
             set
             {
-                _casing = value;
-                UpdateHotKeyHandling();
+                var model = Persistence.Load();
+                model.Casing = value;
+                Persistence.Save(model);
+                
                 RaisePropertyChanged(nameof(Casing));
-                SaveConfiguration();
             }
         }
 
         public ObservableCollection<GuidCasing> GuidCasingOptions { get; } =
             new ObservableCollection<GuidCasing>(Enum.GetValues(typeof(GuidCasing)).Cast<GuidCasing>());
-
-        private GuidStyle _style;
-
+        
         public GuidStyle Style
         {
-            get => _style;
+            get => Persistence.Load().Style;
             set
             {
-                _style = value;
-                UpdateHotKeyHandling();
+                var model = Persistence.Load();
+                model.Style = value;
+                Persistence.Save(model);
+                
                 RaisePropertyChanged(nameof(Style));
-                SaveConfiguration();
             }
         }
         public ObservableCollection<GuidStyle> GuidStyleOptions { get; } =
@@ -91,20 +87,6 @@ namespace ClipboardCompanion.ViewModels
                 default:
                     throw new NotImplementedException($"Unknown GuidStyle {style}");
             }
-        }
-
-        protected override void SaveConfiguration()
-        {
-            Persistence.Save(new GuidCreatorCompanionModel
-            {
-                IsEnabled = IsEnabled,
-                ShiftModifier = ShiftModifier,
-                AltModifier = AltModifier,
-                ControlModifier = ControlModifier,
-                Key = Key,
-                Style = Style,
-                Casing = Casing
-            });
         }
     }
 }

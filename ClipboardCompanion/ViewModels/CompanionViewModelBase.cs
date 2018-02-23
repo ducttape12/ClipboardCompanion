@@ -11,39 +11,27 @@ using ClipboardCompanion.ViewModels.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public abstract class CompanionViewModelBase : ICompanionViewModel
+    public abstract class CompanionViewModelBase<T> : ICompanionViewModel where T:BaseCompanionModel, new()
     {
-        protected IPersistence Persistence { get; }
+        protected IPersistence<T> Persistence { get; }
         protected INotificationService NotificationService { get; }
         private readonly IHotKeyService _hotKeyService;
-        private bool _isEnabled;
-        private bool _controlModifier;
-        private bool _altModifier;
-        private bool _shiftModifier;
-        private Key _key;
         private HotKeyBinding _hotKey;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public abstract Action HotKeyPressedAction { get; }
-        protected abstract void SaveConfiguration();
         
         protected void RaisePropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected CompanionViewModelBase(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService,
-            BaseCompanionModel companionModel)
+        protected CompanionViewModelBase(IHotKeyService hotKeyService, IPersistence<T> persistence, INotificationService notificationService)
         {
             Persistence = persistence;
             NotificationService = notificationService;
             _hotKeyService = hotKeyService;
             _hotKeyService.Initialized += (sender, eventArgs) => UpdateHotKeyHandling();
-            
-            IsEnabled = companionModel.IsEnabled;
-            ShiftModifier = companionModel.ShiftModifier;
-            ControlModifier = companionModel.ControlModifier;
-            Key = companionModel.Key;
         }
 
         public ObservableCollection<Key> ValidKeys { get; } = new ObservableCollection<Key>
@@ -147,10 +135,13 @@ namespace ClipboardCompanion.ViewModels
 
         public bool IsEnabled
         {
-            get => _isEnabled;
+            get => Persistence.Load().IsEnabled;
             set
             {
-                _isEnabled = value;
+                var model = Persistence.Load();
+                model.IsEnabled = value;
+                Persistence.Save(model);
+
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(IsEnabled));
             }
@@ -158,7 +149,7 @@ namespace ClipboardCompanion.ViewModels
 
         public bool Bound
         {
-            get => _isEnabled;
+            get => IsEnabled;
             set
             {
                 IsEnabled = value;
@@ -169,7 +160,7 @@ namespace ClipboardCompanion.ViewModels
 
         public bool Unbound
         {
-            get => !_isEnabled;
+            get => !IsEnabled;
             set
             {
                 IsEnabled = !value;
@@ -193,10 +184,13 @@ namespace ClipboardCompanion.ViewModels
 
         public bool ControlModifier
         {
-            get => _controlModifier;
+            get => Persistence.Load().ControlModifier;
             set
             {
-                _controlModifier = value;
+                var model = Persistence.Load();
+                model.ControlModifier = value;
+                Persistence.Save(model);
+
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(ControlModifier));
                 RaisePropertyChanged(nameof(HotKeyDescription));
@@ -205,10 +199,13 @@ namespace ClipboardCompanion.ViewModels
 
         public bool AltModifier
         {
-            get => _altModifier;
+            get => Persistence.Load().AltModifier;
             set
             {
-                _altModifier = value;
+                var model = Persistence.Load();
+                model.AltModifier = value;
+                Persistence.Save(model);
+
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(AltModifier));
                 RaisePropertyChanged(nameof(HotKeyDescription));
@@ -217,10 +214,13 @@ namespace ClipboardCompanion.ViewModels
 
         public bool ShiftModifier
         {
-            get => _shiftModifier;
+            get => Persistence.Load().ShiftModifier;
             set
             {
-                _shiftModifier = value;
+                var model = Persistence.Load();
+                model.ShiftModifier = value;
+                Persistence.Save(model);
+
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(ShiftModifier));
                 RaisePropertyChanged(nameof(HotKeyDescription));
@@ -229,17 +229,20 @@ namespace ClipboardCompanion.ViewModels
 
         public Key Key
         {
-            get => _key;
+            get => Persistence.Load().Key;
             set
             {
-                _key = value;
+                var model = Persistence.Load();
+                model.Key = value;
+                Persistence.Save(model);
+
                 UpdateHotKeyHandling();
                 RaisePropertyChanged(nameof(Key));
                 RaisePropertyChanged(nameof(HotKeyDescription));
             }
         }
 
-        protected void UpdateHotKeyHandling()
+        private void UpdateHotKeyHandling()
         {
             if (IsEnabled)
             {
@@ -249,8 +252,6 @@ namespace ClipboardCompanion.ViewModels
             {
                 UnregisterHotKey();
             }
-
-            SaveConfiguration();
         }
 
         private void RegisterHotKey()

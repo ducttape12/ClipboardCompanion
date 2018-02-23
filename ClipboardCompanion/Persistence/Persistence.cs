@@ -2,130 +2,53 @@
 using System.IO;
 using System.Xml.Serialization;
 using ClipboardCompanion.Persistence.Interfaces;
-using ClipboardCompanion.Persistence.Models;
 
 namespace ClipboardCompanion.Persistence
 {
-    public class Persistence : IPersistence
+    public class Persistence<T> : IPersistence<T> where T:new()
     {
-        private bool _loaded;
-
         private const string ParentDirectory = "KeithOtt.com";
         private const string SaveDirectory = "ClipboardCompanion";
-        private const string SaveFileName = "configuration.xml";
-
-        private CompanionModelCollection _companionModelCollection = new CompanionModelCollection();
-
-        public void Save(TextCleanerCompanionModel companionModel)
-        {
-            _companionModelCollection.TextCleanerCompanionModel = companionModel;
-            Save();
-        }
-
-        public void Save(GuidCreatorCompanionModel companionModel)
-        {
-            _companionModelCollection.GuidCreatorCompanionModel = companionModel;
-            Save();
-        }
-
-        public void Save(OptionsCompanionModel companionModel)
-        {
-            _companionModelCollection.OptionsCompanionModel = companionModel;
-            Save();
-        }
-
-        public void Save(XmlFormatterCompanionModel companionModel)
-        {
-            _companionModelCollection.XmlFormatterCompanionModel = companionModel;
-            Save();
-        }
-
-        public void Save(JsonFormatterCompanionModel companionModel)
-        {
-            _companionModelCollection.JsonFormatterCompanionModel = companionModel;
-            Save();
-        }
+        private static string SaveFileName => $"{typeof(T)}Configuration.xml";
 
         private static string FullSavePath => Path.Combine(FullSaveDirectory, SaveFileName);
 
         private static string FullSaveDirectory =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ParentDirectory, SaveDirectory);
-
-        public TextCleanerCompanionModel TextCleanerCompanionModel
-        {
-            get
-            {
-                LoadCompanionModelCollection();
-                return _companionModelCollection.TextCleanerCompanionModel;
-            }
-        }
-
-        public GuidCreatorCompanionModel GuidCreatorCompanionModel
-        {
-            get
-            {
-                LoadCompanionModelCollection();
-                return _companionModelCollection.GuidCreatorCompanionModel;
-            }
-        }
-
-        public OptionsCompanionModel OptionsCompanionModel
-        {
-            get
-            {
-                LoadCompanionModelCollection();
-                return _companionModelCollection.OptionsCompanionModel;
-            }
-        }
-
-        public XmlFormatterCompanionModel XmlFormatterCompanionModel
-        {
-            get
-            {
-                LoadCompanionModelCollection();
-                return _companionModelCollection.XmlFormatterCompanionModel;
-            }
-        }
-
-        public JsonFormatterCompanionModel JsonFormatterCompanionModel
-        {
-            get
-            {
-                LoadCompanionModelCollection();
-                return _companionModelCollection.JsonFormatterCompanionModel;
-            }
-        }
-
-        private void Save()
+        
+        public void Save(T model)
         {
             Directory.CreateDirectory(FullSaveDirectory);
 
-            var serializer = new XmlSerializer(typeof(CompanionModelCollection));
+            var serializer = new XmlSerializer(typeof(T));
             using (var writer = new StreamWriter(FullSavePath))
             {
-                serializer.Serialize(writer, _companionModelCollection);
+                serializer.Serialize(writer, model);
             }
         }
 
-        private void LoadCompanionModelCollection()
+        public T Load()
         {
-            if (!_loaded && File.Exists(FullSavePath))
+            var model = new T();
+
+            if (File.Exists(FullSavePath))
             {
-                var serializer = new XmlSerializer(typeof(CompanionModelCollection));
+                var serializer = new XmlSerializer(typeof(T));
 
                 try
                 {
                     using (var reader = new FileStream(FullSavePath, FileMode.Open))
                     {
-                        _companionModelCollection = (CompanionModelCollection) serializer.Deserialize(reader);
+                        model = (T)serializer.Deserialize(reader);
                     }
                 }
                 catch
                 {
-                   _companionModelCollection = new CompanionModelCollection(); 
+                    model = new T();
                 }
             }
-            _loaded = true;
+
+            return model;
         }
     }
 }

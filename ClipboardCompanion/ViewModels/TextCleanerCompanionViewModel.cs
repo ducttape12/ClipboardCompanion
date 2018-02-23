@@ -6,25 +6,24 @@ using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class TextCleanerCompanionViewModel : CompanionViewModelBase
+    public class TextCleanerCompanionViewModel : CompanionViewModelBase<TextCleanerCompanionModel>
     {
-        private bool _trim;
-
         public bool Trim
         {
-            get => _trim;
+            get => Persistence.Load().Trim;
             set
             {
-                _trim = value;
-                UpdateHotKeyHandling();
+                var model = Persistence.Load();
+                model.Trim = value;
+                Persistence.Save(model);
+                
                 RaisePropertyChanged(nameof(Trim));
             }
         }
 
-        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService) :
-            base(hotKeyService, persistence, notificationService, persistence.TextCleanerCompanionModel)
+        public TextCleanerCompanionViewModel(IHotKeyService hotKeyService, IPersistence<TextCleanerCompanionModel> persistence,
+            INotificationService notificationService) : base(hotKeyService, persistence, notificationService)
         {
-            Trim = Persistence.TextCleanerCompanionModel.Trim;
         }
 
         public override Action HotKeyPressedAction =>
@@ -44,17 +43,5 @@ namespace ClipboardCompanion.ViewModels
                         NotificationService.ShowMessage("Cleared clipboard text's formatting.");
                     }
                 };
-
-        protected override void SaveConfiguration()
-        {
-            Persistence.Save(new TextCleanerCompanionModel
-            {
-                IsEnabled = IsEnabled,
-                ShiftModifier = ShiftModifier,
-                ControlModifier = ControlModifier,
-                Key = Key,
-                Trim = Trim
-            });
-        }
     }
 }

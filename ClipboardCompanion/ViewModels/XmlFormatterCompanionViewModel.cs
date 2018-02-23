@@ -9,32 +9,36 @@ using ClipboardCompanion.Services.Interfaces;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class XmlFormatterCompanionViewModel : CompanionViewModelBase
+    public class XmlFormatterCompanionViewModel : CompanionViewModelBase<XmlFormatterCompanionModel>
     {
-        private bool _xmlDeclaration;
         public bool XmlDeclaration
         {
-            get => _xmlDeclaration;
+            get => Persistence.Load().XmlDeclaration;
             set
             {
-                _xmlDeclaration = value;
+                var model = Persistence.Load();
+                model.XmlDeclaration = value;
+                Persistence.Save(model);
+
                 RaisePropertyChanged(nameof(XmlDeclaration));
             }
         }
-
-        private bool _attributesOnSeparateLines;
+        
         public bool AttributesOnSeparateLines
         {
-            get => _attributesOnSeparateLines;
+            get => Persistence.Load().AttributesOnSeparateLines;
             set
             {
-                _attributesOnSeparateLines = value;
+                var model = Persistence.Load();
+                model.AttributesOnSeparateLines = value;
+                Persistence.Save(model);
+
                 RaisePropertyChanged(nameof(AttributesOnSeparateLines));
             }
         }
 
-        public XmlFormatterCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService) :
-            base(hotKeyService, persistence, notificationService, persistence.XmlFormatterCompanionModel)
+        public XmlFormatterCompanionViewModel(IHotKeyService hotKeyService, IPersistence<XmlFormatterCompanionModel> persistence,
+            INotificationService notificationService) : base(hotKeyService, persistence, notificationService)
         {
         }
 
@@ -93,19 +97,6 @@ namespace ClipboardCompanion.ViewModels
                 xElement = null;
                 return false;
             }
-        }
-
-        protected override void SaveConfiguration()
-        {
-            Persistence.Save(new XmlFormatterCompanionModel
-            {
-                IsEnabled = IsEnabled,
-                ShiftModifier = ShiftModifier,
-                ControlModifier = ControlModifier,
-                Key = Key,
-                XmlDeclaration = XmlDeclaration,
-                AttributesOnSeparateLines = AttributesOnSeparateLines
-            });
         }
     }
 }

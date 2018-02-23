@@ -8,10 +8,10 @@ using Newtonsoft.Json.Linq;
 
 namespace ClipboardCompanion.ViewModels
 {
-    public class JsonFormatterCompanionViewModel : CompanionViewModelBase
+    public class JsonFormatterCompanionViewModel : CompanionViewModelBase<JsonFormatterCompanionModel>
     {
-        public JsonFormatterCompanionViewModel(IHotKeyService hotKeyService, IPersistence persistence, INotificationService notificationService) :
-            base(hotKeyService, persistence, notificationService, persistence.JsonFormatterCompanionModel)
+        public JsonFormatterCompanionViewModel(IHotKeyService hotKeyService, IPersistence<JsonFormatterCompanionModel> persistence,
+            INotificationService notificationService) : base(hotKeyService, persistence, notificationService)
         {
         }
 
@@ -37,17 +37,6 @@ namespace ClipboardCompanion.ViewModels
             {
                 NotificationService.ShowError("Clipboard contains invalid JSON. Unable to format.");
             }
-        }
-
-        protected override void SaveConfiguration()
-        {
-            Persistence.Save(new JsonFormatterCompanionModel
-            {
-                IsEnabled = IsEnabled,
-                ShiftModifier = ShiftModifier,
-                ControlModifier = ControlModifier,
-                Key = Key
-            });
         }
     }
 }

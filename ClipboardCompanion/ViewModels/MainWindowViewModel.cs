@@ -7,71 +7,65 @@ namespace ClipboardCompanion.ViewModels
 {
     public class MainWindowViewModel : INotifyPropertyChanged
     {
-        private readonly IPersistence _persistence;
+        private readonly IPersistence<OptionsCompanionModel> _persistence;
         private readonly ITrayIconService _trayIconService;
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private bool _minimizeToTray;
+        
         public bool MinimizeToTray
         {
-            get => _minimizeToTray;
+            get => _persistence.Load().MinimizeToTray;
             set
             {
-                _minimizeToTray = value;
-                _trayIconService.MinimizeToTray = value;
-                SaveConfiguration();
+                var model = _persistence.Load();
+                model.MinimizeToTray = value;
+                _persistence.Save(model);
+
+                SyncTrayIconService();
                 RaisePropertyChanged(nameof(MinimizeToTray));
             }
         }
-
-        private bool _alwaysShowTrayIcon;
-
+        
         public bool AlwaysShowTrayIcon
         {
-            get => _alwaysShowTrayIcon;
+            get => _persistence.Load().AlwaysShowTrayIcon;
             set
             {
-                _alwaysShowTrayIcon = value;
-                _trayIconService.AlwaysShowTrayIcon = value;
-                SaveConfiguration();
+                var model = _persistence.Load();
+                model.AlwaysShowTrayIcon = value;
+                _persistence.Save(model);
+
+                SyncTrayIconService();
                 RaisePropertyChanged(nameof(AlwaysShowTrayIcon));
             }
         }
-
-        private bool _startMinimized;
-
+        
         public bool StartMinimized
         {
-            get => _startMinimized;
+            get => _persistence.Load().StartMinimized;
             set
             {
-                _startMinimized = value;
-                _trayIconService.StartMinimized = value;
-                SaveConfiguration();
+                var model = _persistence.Load();
+                model.StartMinimized = value;
+                _persistence.Save(model);
+
+                SyncTrayIconService();
                 RaisePropertyChanged(nameof(StartMinimized));
             }
         }
 
-        public MainWindowViewModel(IPersistence persistence, ITrayIconService trayIconService)
+        public MainWindowViewModel(IPersistence<OptionsCompanionModel> persistence, ITrayIconService trayIconService)
         {
             _persistence = persistence;
             _trayIconService = trayIconService;
 
-            var options = _persistence.OptionsCompanionModel;
-
-            AlwaysShowTrayIcon = options.AlwaysShowTrayIcon;
-            MinimizeToTray = options.MinimizeToTray;
-            StartMinimized = options.StartMinimized;
+            SyncTrayIconService();
         }
 
-        private void SaveConfiguration()
+        private void SyncTrayIconService()
         {
-            _persistence.Save(new OptionsCompanionModel
-            {
-                AlwaysShowTrayIcon = AlwaysShowTrayIcon,
-                MinimizeToTray = MinimizeToTray,
-                StartMinimized = StartMinimized
-            });
+            _trayIconService.AlwaysShowTrayIcon = AlwaysShowTrayIcon;
+            _trayIconService.MinimizeToTray = MinimizeToTray;
+            _trayIconService.StartMinimized = StartMinimized;
         }
 
         protected void RaisePropertyChanged(string propertyName)
