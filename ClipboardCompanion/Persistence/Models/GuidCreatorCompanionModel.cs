@@ -10,7 +10,7 @@ namespace ClipboardCompanion.Persistence.Models
 
         public GuidCreatorCompanionModel()
         {
-            IsEnabled = true;
+            IsEnabled = false;
             ControlModifier = true;
             ShiftModifier = true;
             Key = Key.G;

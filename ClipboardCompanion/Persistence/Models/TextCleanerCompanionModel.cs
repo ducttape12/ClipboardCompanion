@@ -8,7 +8,7 @@ namespace ClipboardCompanion.Persistence.Models
 
         public TextCleanerCompanionModel()
         {
-            IsEnabled = true;
+            IsEnabled = false;
             ControlModifier = true;
             ShiftModifier = true;
             Key = Key.C;

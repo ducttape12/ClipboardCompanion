@@ -9,7 +9,7 @@ namespace ClipboardCompanion.Persistence.Models
 
         public XmlFormatterCompanionModel()
         {
-            IsEnabled = true;
+            IsEnabled = false;
             ControlModifier = true;
             ShiftModifier = true;
             Key = Key.X;

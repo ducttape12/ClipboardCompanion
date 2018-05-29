@@ -6,7 +6,7 @@ namespace ClipboardCompanion.Persistence.Models
     {
         public JsonFormatterCompanionModel()
         {
-            IsEnabled = true;
+            IsEnabled = false;
             ControlModifier = true;
             ShiftModifier = true;
             Key = Key.J;
