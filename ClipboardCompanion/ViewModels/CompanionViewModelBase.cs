@@ -246,7 +246,7 @@ namespace ClipboardCompanion.ViewModels
             }
         }
 
-        private void UpdateHotKeyHandling()
+        public void UpdateHotKeyHandling()
         {
             if (IsEnabled)
             {

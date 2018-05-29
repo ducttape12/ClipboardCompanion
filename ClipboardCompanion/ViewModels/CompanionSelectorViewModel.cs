@@ -30,12 +30,32 @@ namespace ClipboardCompanion.ViewModels
             XmlFormatterCompanionControl xmlFormatterCompanionControl,
             JsonFormatterCompanionControl jsonFormatterCompanionControl)
         {
-            Companions.Add(guidCreatorControl);
-            Companions.Add(textCleanerControl);
-            Companions.Add(xmlFormatterCompanionControl);
-            Companions.Add(jsonFormatterCompanionControl);
+            AddCompanionControl(guidCreatorControl);
+            AddCompanionControl(textCleanerControl);
+            AddCompanionControl(xmlFormatterCompanionControl);
+            AddCompanionControl(jsonFormatterCompanionControl);
 
             SelectedUserControl = Companions.First();
+        }
+
+        private void AddCompanionControl(BaseCompanionControl companionControl)
+        {
+            companionControl.PropertyChanged += CompanionControlPropertyChanged;
+
+            Companions.Add(companionControl);
+        }
+
+        private void CompanionControlPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(BaseCompanionControl.HotKeyDescription))
+            {
+                var invalidCompanions = Companions.Where(companion => !companion.ValidHotKey);
+
+                foreach (var companion in invalidCompanions)
+                {
+                    companion.ReRegisterHotKey();
+                }
+            }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

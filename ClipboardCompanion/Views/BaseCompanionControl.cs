@@ -42,5 +42,10 @@ namespace ClipboardCompanion.Views
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public void ReRegisterHotKey()
+        {
+            _viewModel.UpdateHotKeyHandling();
+        }
     }
 }

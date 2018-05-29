@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace ClipboardCompanion.ViewModels.Interfaces
 {
@@ -8,5 +7,6 @@ namespace ClipboardCompanion.ViewModels.Interfaces
         bool IsEnabled { get; }
         string HotKeyDescription { get; }
         bool ValidHotKey { get; }
+        void UpdateHotKeyHandling();
     }
 }
